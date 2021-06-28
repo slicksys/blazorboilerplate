@@ -64,11 +64,11 @@ Breeze.Sharp (Breeze C# client)
 -------------------------------
 
 To access Breeze Controller you have to use `Breeze.Sharp`_.
-In Blazor BlazorBoilerplate `ApiClient`_ is what you need to query `ApplicationController`_.
+In Blazor SSDCPortal `ApiClient`_ is what you need to query `ApplicationController`_.
 You can inject `IApiClient`_ in every Razor page where entities are requested.
 
 The `Breeze.Sharp entities`_ are the so called DTO and you have create one for every entities of your Entity Framework context.
-In this project they are in `BlazorBoilerplate.Shared.Dto.Db`_.
+In this project they are in `SSDCPortal.Shared.Dto.Db`_.
 
 Notes
 ^^^^^
@@ -83,20 +83,20 @@ The used of C# as a replacement of javascript is something very new: it is the B
 So till now Breeze.Sharp has been used a little only on desktop application.
 In fact the most used Breeze client is the javascript client BreezeJS and Breeze itself is not .NET centric.
 
-For this reason `breeze.sharp library`_ is rarely updated, so to make BlazorBoilerplate working with Breeze I used my fork `GioviQ/breeze.sharp`_ where I fixed some issues.
+For this reason `breeze.sharp library`_ is rarely updated, so to make SSDCPortal working with Breeze I used my fork `GioviQ/breeze.sharp`_ where I fixed some issues.
 You can find the package in folder **nupkg** and **nuget.config** tells Visual Studio to use this folder as a package source.
 
 .. _Breeze Controller: http://breeze.github.io/doc-net/webapi-controller-core.html
-.. _ApplicationController: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Server/BlazorBoilerplate.Server/Controllers/ApplicationController.cs
+.. _ApplicationController: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Server/SSDCPortal.Server/Controllers/ApplicationController.cs
 .. _EFPersistenceManager: http://breeze.github.io/doc-net/ef-efpersistencemanager-core.html
-.. _ApplicationPersistenceManager: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Server/BlazorBoilerplate.Storage/ApplicationPersistenceManager.cs
-.. _EF entities: https://github.com/enkodellc/blazorboilerplate/tree/development/src/Shared/BlazorBoilerplate.Infrastructure/Storage/DataModels
-.. _Permissions attribute: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/BlazorBoilerplate.Infrastructure/AuthorizationDefinitions/PermissionsAttribute.cs
-.. _CRUD Actions flag enum: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/BlazorBoilerplate.Infrastructure/AuthorizationDefinitions/Actions.cs
+.. _ApplicationPersistenceManager: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Server/SSDCPortal.Storage/ApplicationPersistenceManager.cs
+.. _EF entities: https://github.com/enkodellc/blazorboilerplate/tree/development/src/Shared/SSDCPortal.Infrastructure/Storage/DataModels
+.. _Permissions attribute: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/SSDCPortal.Infrastructure/AuthorizationDefinitions/PermissionsAttribute.cs
+.. _CRUD Actions flag enum: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/SSDCPortal.Infrastructure/AuthorizationDefinitions/Actions.cs
 .. _Breeze.Sharp: http://breeze.github.io/doc-cs/
 .. _Breeze.Sharp entities: http://breeze.github.io/doc-cs/entities-and-complexobjects.html
-.. _IApiClient: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/BlazorBoilerplate.Shared/Interfaces/IApiClient.cs
-.. _ApiClient: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/BlazorBoilerplate.Shared/Services/ApiClient.cs
-.. _BlazorBoilerplate.Shared.Dto.Db: https://github.com/enkodellc/blazorboilerplate/tree/development/src/Shared/BlazorBoilerplate.Shared/Dto/Db
+.. _IApiClient: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/SSDCPortal.Shared/Interfaces/IApiClient.cs
+.. _ApiClient: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Shared/SSDCPortal.Shared/Services/ApiClient.cs
+.. _BlazorBoilerplate.Shared.Dto.Db: https://github.com/enkodellc/blazorboilerplate/tree/development/src/Shared/SSDCPortal.Shared/Dto/Db
 .. _breeze.sharp library: https://github.com/Breeze/breeze.sharp
 .. _GioviQ/breeze.sharp: https://github.com/GioviQ/breeze.sharp

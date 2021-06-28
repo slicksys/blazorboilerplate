@@ -1,0 +1,25 @@
+﻿using SSDCPortal.Infrastructure.Storage.Permissions;
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace SSDCPortal.Infrastructure.Storage.DataModels
+{
+    [Permissions(Actions.CRUD)]
+    public partial class DbLog
+    {
+        [Key]
+        public int Id { get; set; }
+
+        public string Message { get; set; }
+
+        public string MessageTemplate { get; set; }
+
+        public string Level { get; set; }
+
+        public DateTime TimeStamp { get; set; }
+
+        public string Exception { get; set; }
+
+        public string Properties { get; set; }
+    }
+}

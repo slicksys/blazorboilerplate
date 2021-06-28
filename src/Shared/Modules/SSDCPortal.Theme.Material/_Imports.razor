@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.Extensions.Localization;
+@using static Microsoft.AspNetCore.Http.StatusCodes
+@using Microsoft.JSInterop
+@using SSDCPortal.Shared
+@using SSDCPortal.Shared.Dto
+@using SSDCPortal.Shared.Models.Account
+@using SSDCPortal.Shared.Dto.ExternalAuth
+@using SSDCPortal.Infrastructure.AuthorizationDefinitions
+@using SSDCPortal.Theme.Material.Shared
+@using SSDCPortal.Theme.Material.Pages
+@using SSDCPortal.Theme.Material.Shared.Layouts
+@using SSDCPortal.Theme.Material.Shared.Components
+@using SSDCPortal.Shared.Extensions
+@using SSDCPortal.Shared.Interfaces
+@using SSDCPortal.Shared.Providers
+@using SSDCPortal.Shared.Services
+@using SSDCPortal.Shared.Localizer
+@using Blazored.FluentValidation
+@using Karambolo.Common.Localization
+@using Humanizer
+@using MatBlazor
+@using MudBlazor
+@using MudBlazor.ThemeManager
+
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Calendars;
+@using Syncfusion.Blazor.Schedule

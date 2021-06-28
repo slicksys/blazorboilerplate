@@ -2,10 +2,10 @@ Localization
 ============
 Localization has moved from Resource based localization to Database based localization,
 so translation are no more in dll satellite libraries, but in table **LocalizationRecords**.
-Look at `LocalizationDbContext <https://github.com/enkodellc/blazorboilerplate/blob/master/src/Server/BlazorBoilerplate.Storage/LocalizationDbContext.cs>`_.
+Look at `LocalizationDbContext <https://github.com/enkodellc/blazorboilerplate/blob/master/src/Server/SSDCPortal.Storage/LocalizationDbContext.cs>`_.
 
-The localization code is in `BlazorBoilerplate.Shared.Localizer project <https://github.com/enkodellc/blazorboilerplate/tree/master/src/Shared/BlazorBoilerplate.Shared.Localizer>`_.
-The supported cultures are defined in `Settings.cs <https://github.com/enkodellc/blazorboilerplate/blob/master/src/Shared/BlazorBoilerplate.Shared.Localizer/Settings.cs>`_.
+The localization code is in `SSDCPortal.Shared.Localizer project <https://github.com/enkodellc/blazorboilerplate/tree/master/src/Shared/SSDCPortal.Shared.Localizer>`_.
+The supported cultures are defined in `Settings.cs <https://github.com/enkodellc/blazorboilerplate/blob/master/src/Shared/SSDCPortal.Shared.Localizer/Settings.cs>`_.
 
 At this time **Data Annotations** do not support **IStringLocalizer<>**,
 so to localize validation error messages, we have to use `Blazored.FluentValidation <https://github.com/Blazored/FluentValidation>`_.
@@ -22,7 +22,7 @@ There are a lot of free and paid tools and online services to manage these files
 
 `Crowdin <https://www.crowdin.com/>`_ `(PO file format support) <https://support.crowdin.com/file-formats/po/>`_
 
-To manage PO files BlazorBoilerplate uses `Karambolo.PO <https://github.com/adams85/po>`_ library.
+To manage PO files SSDCPortal uses `Karambolo.PO <https://github.com/adams85/po>`_ library.
 So to handle plurals the Karambolo.PO syntax is used like in the example below.
 
 

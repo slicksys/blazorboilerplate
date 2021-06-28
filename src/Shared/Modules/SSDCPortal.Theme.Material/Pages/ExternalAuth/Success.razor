@@ -1,0 +1,24 @@
+﻿@page "/externalauth/success"
+
+@attribute [Authorize]
+@inject AppState appState
+@inject NavigationManager navigationManager
+@inject HttpClient Http
+@inject AuthenticationStateProvider authStateProvider
+@inject IStringLocalizer<Global> L
+@inject IViewNotifier viewNotifier
+<MudCard>
+    <div class="logo" style="padding: 50px;">
+        <img src="_content/SSDCPortal.Theme.Material/images/logo.svg" style="width:100px;" />
+        <br />SSDCPortal
+        <br />
+        <h4>External authentication success</h4>
+        <MudButton Link="/" Raised="true">Home</MudButton>
+    </div>
+</MudCard>
+
+@code {
+
+
+
+}

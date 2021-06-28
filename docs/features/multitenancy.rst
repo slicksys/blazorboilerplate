@@ -15,14 +15,14 @@ The host strategy is used:
 Setup Visual Studio and Windows for multiple bindinds
 -----------------------------------------------------
 
-Open \\src\\.vs\\BlazorBoilerplate\config\\\ **applicationhost.config** and
+Open \\src\\.vs\\SSDCPortal\config\\\ **applicationhost.config** and
 add these bindings:
 
 ::
 
-       <site name="BlazorBoilerplate.Server" id="...">
-         <application path="/" applicationPool="BlazorBoilerplate.Server AppPool">
-           <virtualDirectory path="/" physicalPath="...\src\Server\BlazorBoilerplate.Server" />
+       <site name="SSDCPortal.Server" id="...">
+         <application path="/" applicationPool="SSDCPortal.Server AppPool">
+           <virtualDirectory path="/" physicalPath="...\src\Server\SSDCPortal.Server" />
          </application>
          <bindings>
            <binding protocol="http" bindingInformation="*:53414:localhost" />

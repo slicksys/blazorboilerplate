@@ -3,16 +3,16 @@
   "author": "Keith Fimreite",
   "classifications": [ "Web", "Blazor", "WebAssembly", "WebApi", "IdentityServer4" ], 
   "name": "Blazor Boilerplate & Starter Kit",
-  "defaultName": "BlazorBoilerplate",
+  "defaultName": "SSDCPortal",
   "description": "Blazor Boilerplate SPA Admin Template for Blazor Server and Client",
-  "identity": "BlazorBoilerplate.CSharp",
-  "groupIdentity": "BlazorBoilerplate",
+  "identity": "SSDCPortal.CSharp",
+  "groupIdentity": "SSDCPortal",
   "shortName": "blazorboilerplate",
   "tags": {
     "language": "C#",
     "type":"project"
   },
-  "sourceName": "BlazorBoilerplate",
+  "sourceName": "SSDCPortal",
   "preferNameDirectory": true,
   "sources": [
     {

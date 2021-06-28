@@ -6,19 +6,19 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /
 COPY . .
-RUN dotnet restore "src/Server/BlazorBoilerplate.Server/BlazorBoilerplate.Server.csproj"
-WORKDIR "/src/Server/BlazorBoilerplate.Server"
-RUN dotnet build "BlazorBoilerplate.Server.csproj" -c Release -o /app/build --no-restore
+RUN dotnet restore "src/Server/SSDCPortal.Server/SSDCPortal.Server.csproj"
+WORKDIR "/src/Server/SSDCPortal.Server"
+RUN dotnet build "SSDCPortal.Server.csproj" -c Release -o /app/build --no-restore
 
 FROM build AS publish
-RUN dotnet publish "BlazorBoilerplate.Server.csproj" -c Release -o /app/publish
+RUN dotnet publish "SSDCPortal.Server.csproj" -c Release -o /app/publish
 RUN dotnet dev-certs https --clean
-RUN dotnet dev-certs https -ep /app/publish/aspnetapp.pfx -p Admin123
+RUN dotnet dev-certs https -ep /app/publish/aspnetapp.pfx -p MyCujo23
 #if .pfx was provided from certificate authority uncomment the below
-#COPY src/Server/BlazorBoilerplate.Server/AuthSample.pfx /app/publish/aspnetapp.pfx
+#COPY src/Server/SSDCPortal.Server/AuthSample.pfx /app/publish/aspnetapp.pfx
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=publish /app/publish/aspnetapp.pfx ./AuthSample.pfx
-ENTRYPOINT ["dotnet", "BlazorBoilerplate.Server.dll"]
+ENTRYPOINT ["dotnet", "SSDCPortal.Server.dll"]

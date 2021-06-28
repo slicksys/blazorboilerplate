@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SSDCPortal.EntityGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "\"$(SolutionDir)"
+    }
+  }
+}

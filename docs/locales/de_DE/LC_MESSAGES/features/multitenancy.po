@@ -38,7 +38,7 @@ msgstr ""
 
 #: ../../features/multitenancy.rst:18 9e9b4de3fd0844b789be7b0232328028
 msgid ""
-"Open \\\\src\\\\.vs\\\\BlazorBoilerplate\\config\\\\\\ "
+"Open \\\\src\\\\.vs\\\\SSDCPortal\\config\\\\\\ "
 "**applicationhost.config** and add these bindings:"
 msgstr ""
 

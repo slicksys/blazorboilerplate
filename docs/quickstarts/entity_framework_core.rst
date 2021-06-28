@@ -23,20 +23,20 @@ or to update
    The main DbContext is **ApplicationDbContext**.
    **PersistedGrantDbContext** and **ConfigurationDbContext** depend on
    `IdentityServer4 <https://identityserver4.readthedocs.io/en/latest/quickstarts/5_entityframework.html#database-schema-changes-and-using-ef-migrations>`_; if new versions have changed one or both db
-   contexts, you have to add migrations. The migrations are in **BlazorBoilerplate.Storage**, so you have
+   contexts, you have to add migrations. The migrations are in **SSDCPortal.Storage**, so you have
    to open your shell in this path. Then you have to specify the project
    where the db contexts are added to the services, because **dotnet
    ef** has to know how to find and instantiate them. In our case the so
-   called startup project is **BlazorBoilerplate.Server**. So the
+   called startup project is **SSDCPortal.Server**. So the
    commands are:
 
 ::
 
- dotnet ef --startup-project ../BlazorBoilerplate.Server/ migrations add 4Preview3 -c PersistedGrantDbContext --verbose --no-build --configuration Debug
+ dotnet ef --startup-project ../SSDCPortal.Server/ migrations add 4Preview3 -c PersistedGrantDbContext --verbose --no-build --configuration Debug
 
 ::
 
- dotnet ef --startup-project ../BlazorBoilerplate.Server/ migrations add 4Preview3 -c ConfigurationDbContext --verbose --no-build --configuration Debug
+ dotnet ef --startup-project ../SSDCPortal.Server/ migrations add 4Preview3 -c ConfigurationDbContext --verbose --no-build --configuration Debug
 
 Without the **--no-build** parameter, **dotnet** rebuilds the startup
 project, but if you have just built it with Visual Studio, it is just a
@@ -58,13 +58,13 @@ db context. To get this information use the following command; for
 example for ConfigurationDbContext:
 ::
 
- dotnet ef --startup-project ../BlazorBoilerplate.Server/ migrations list -c ConfigurationDbContext --verbose --no-build --configuration Debug
+ dotnet ef --startup-project ../SSDCPortal.Server/ migrations list -c ConfigurationDbContext --verbose --no-build --configuration Debug
 
 You can also update the database, without running the project with the
 following command:
 ::
 
- dotnet ef --startup-project ../BlazorBoilerplate.Server/ database update 4Preview3 -c ConfigurationDbContext --verbose --no-build --configuration Debug
+ dotnet ef --startup-project ../SSDCPortal.Server/ database update 4Preview3 -c ConfigurationDbContext --verbose --no-build --configuration Debug
 
 If you specify a previous migration, you can revert the db changes to
 that migration.
@@ -96,4 +96,4 @@ Remember all classes implementing **IAuditable** have to be **partial**.
 
 .. _Shadow Properties: https://docs.microsoft.com/en-us/ef/core/modeling/shadow-properties
 .. _Source Generator: https://devblogs.microsoft.com/dotnet/introducing-c-source-generators
-.. _AuditableGenerator: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Utils/BlazorBoilerplate.SourceGenerator/AuditableGenerator.cs
+.. _AuditableGenerator: https://github.com/enkodellc/blazorboilerplate/blob/development/src/Utils/SSDCPortal.SourceGenerator/AuditableGenerator.cs

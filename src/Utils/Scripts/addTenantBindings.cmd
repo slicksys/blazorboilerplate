@@ -1,4 +1,4 @@
-@echo Add bindings in src\.vs\BlazorBoilerplate\applicationhost.config too
+@echo Add bindings in src\.vs\SSDCPortal\applicationhost.config too
 @echo "<binding protocol="http" bindingInformation="*:53414:tenant1.local" />"
 @echo "<binding protocol="http" bindingInformation="*:53414:tenant2.local" />"
 @echo ************************************************************************

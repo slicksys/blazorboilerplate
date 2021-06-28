@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ComponentBase.cs" />
+    <Compile Remove="Pages\Account\ConfirmEmail.razor.cs" />
+    <Compile Remove="Pages\Account\Login.razor.cs" />
+    <Compile Remove="Pages\Account\LoginWith2fa.razor.cs" />
+    <Compile Remove="Pages\Account\Profile.razor.cs" />
+    <Compile Remove="Pages\Account\Register.razor.cs" />
+    <Compile Remove="Pages\Account\ResetPassword.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <!-- Removed by Chris / Undo if it breaks soemthing -->
+    <Content Remove="C:\Users\Christopher\.nuget\packages\matblazor\2.8.0\contentFiles\any\netstandard2.1\Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MatBlazor" Version="2.8.0" />
+    <PackageReference Include="MudBlazor" Version="5.0.14" />
+    <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.3" />
+    <PackageReference Include="Syncfusion.Blazor.Schedule" Version="19.1.0.69" />
+    <PackageReference Include="Toolbelt.Blazor.LoadingBar" Version="12.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SSDCPortal.Shared\SSDCPortal.Shared.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)Server\SSDCPortal.Server\Modules\" />
+  </Target>
+</Project>

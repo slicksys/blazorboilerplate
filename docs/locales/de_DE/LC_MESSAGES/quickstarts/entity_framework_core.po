@@ -69,11 +69,11 @@ msgid ""
 "<https://identityserver4.readthedocs.io/en/latest/quickstarts/5_entityframework.html"
 "#database-schema-changes-and-using-ef-migrations>`_; if new versions have"
 " changed one or both db contexts, you have to add migrations. The "
-"migrations are in **BlazorBoilerplate.Storage**, so you have to open your"
+"migrations are in **SSDCPortal.Storage**, so you have to open your"
 " shell in this path. Then you have to specify the project where the db "
 "contexts are added to the services, because **dotnet ef** has to know how"
 " to find and instantiate them. In our case the so called startup project "
-"is **BlazorBoilerplate.Server**. So the commands are:"
+"is **SSDCPortal.Server**. So the commands are:"
 msgstr ""
 
 #: ../../quickstarts/entity_framework_core.rst:41

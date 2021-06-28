@@ -13,13 +13,13 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development #Consider changing this in Production
       - Serilog__MinimumLevel__Default=Debug #Consider changing this in Production
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=blazor_boilerplate;Trusted_Connection=True;MultipleActiveResultSets=true;User=sa;Password=yourVeryStrong(!)Password;Integrated Security=false
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=ssdcportal;Trusted_Connection=True;MultipleActiveResultSets=true;User=sa;Password=yourVeryStrong(!)Password;Integrated Security=false
       - BlazorBoilerplate__UseSqlServer=true
-      - BlazorBoilerplate__ApplicationUrl=blazorboilerplate
-      - BlazorBoilerplate__IS4ApplicationUrl=blazorboilerplate
-      - BlazorBoilerplate__CertificatePassword=Admin123
+      - BlazorBoilerplate__ApplicationUrl=ssdcportal
+      - BlazorBoilerplate__IS4ApplicationUrl=ssdcportal
+      - BlazorBoilerplate__CertificatePassword=MyCujo23
       - ASPNETCORE_URLS=https://+:443;http://+80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=Admin123
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=MyCujo23
       - ASPNETCORE_Kestrel__Certificates__Default__Path=aspnetapp.pfx
     networks:
       - bb

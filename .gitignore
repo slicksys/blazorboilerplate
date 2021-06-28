@@ -347,10 +347,10 @@ healthchecksdb
 *.p8
 
 /docs/_build
-/src/BlazorBoilerplate.Server/*.db
+/src/SSDCPortal.Server/*.db
 
-/src/BlazorBoilerplate.Server/appsettings.Local.json
-/src/BlazorBoilerplate.Server/Keys
+/src/SSDCPortal.Server/appsettings.Local.json
+/src/SSDCPortal.Server/Keys
 
-/src/Server/BlazorBoilerplate.Server/Modules
-/src/Server/BlazorBoilerplate.Server/Keys
+/src/Server/SSDCPortal.Server/Modules
+/src/Server/SSDCPortal.Server/Keys

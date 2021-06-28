@@ -1,4 +1,4 @@
-cd ..\..\Server\BlazorBoilerplate.Server\bin\Debug\netcoreapp3.1
-start BlazorBoilerplate.Server.exe --environment "Development"
+cd ..\..\Server\SSDCPortal.Server\bin\Debug\netcoreapp3.1
+start SSDCPortal.Server.exe --environment "Development"
 pause
-taskkill /IM BlazorBoilerplate.Server.exe
+taskkill /IM SSDCPortal.Server.exe
