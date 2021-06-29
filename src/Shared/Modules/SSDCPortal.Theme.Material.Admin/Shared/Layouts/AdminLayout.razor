@@ -8,108 +8,64 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MatDrawerContainer Style="width: 100vw; height: 100vh;" Class="@bbDrawerClass">
-    <MatDrawer @bind-Opened="@_navMenuOpened">
-        <header class="drawer-header">
-            <div class="drawer-logo">
-                <img alt="@appState.AppName" class="logo-img" src="_content/SSDCPortal.Theme.Material/images/logo-dark.svg" title="@appState.AppName">
-                <a class="miniHover" href="/">@appState.AppName</a>
-            </div>
-            <UserProfile />
-        </header>
-        <AdminNavMenu />
-    </MatDrawer>
-    <MatDrawerContent>
-        <MatAppBarContainer Style="display: flex; flex-direction: column; min-height: 100vh;">
-            <MatAppBar Fixed="true">
-                <MatAppBarRow>
-                    <MatAppBarSection>
-                        <MatAppBarTitle>
-                        </MatAppBarTitle>
-                        <div class="hidden-mdc-down">
-                            <MatTooltip Tooltip="@L["AppHoverNavToggle"]">
-                                <MatIconButton Class="navToggle" Icon="menu" ToggleIcon="menu" OnClick="@((e) => NavToggle())" RefBack="@context"></MatIconButton>
-                            </MatTooltip>
-                            <MatTooltip Tooltip="@L["AppHoverNavMinimize"]">
-                                <MatIconButton Class="navToggle" Icon="format_indent_decrease" ToggleIcon="format_indent_increase" OnClick="@((e) => NavMinify())" RefBack="@context"></MatIconButton>
-                            </MatTooltip>
-                        </div>
-                    </MatAppBarSection>
-                    <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                        <SelectCulture />
-                        <Login />
-                    </MatAppBarSection>
-                </MatAppBarRow>
-            </MatAppBar>
-            <MatAppBarContent Style="flex: 1; display: flex; flex-direction: column;">
-                <Breadcrumbs RootLinkTitle="@appState.BreadCrumbHome"></Breadcrumbs>
-                <section class="container-fluid" style="flex: 1;">
-                    @Body
-                </section>
-                <footer class="page-footer">
-                    <TenantInfo />
-                </footer>
-            </MatAppBarContent>
-        </MatAppBarContainer>
-    </MatDrawerContent>
-</MatDrawerContainer>
-
-
-
-<MudDrawerContainer Style="width: 100vw; height: 100vh;" Class="@bbDrawerClass">
-    <MudDrawer @bind-Open="@_navMenuOpened" Elevation="1">
-        <MudDrawerHeader>
-            <header class="drawer-header">
-                <div class="drawer-logo">
-                    <img alt="@appState.AppName" class="logo-img" src="_content/SSDCPortal.Theme.Material/images/logo-dark.svg" title="@appState.AppName">
-                    <a class="miniHover" href="/">@appState.AppName</a>
-                </div>
-                <UserProfile />
-            </header>
-        </MudDrawerHeader>
-
-        <AdminNavMenu />
-        <MudNavMenu>
-            <MudNavLink Match="NavLinkMatch.All">Store</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All">Library</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All">Community</MudNavLink>
-        </MudNavMenu>
+<MudLayout>
+    <MudAppBar Elevation="4">
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+            <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Size="Size.Large" />
+            <LoginDisplay />
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.MdAndUp">
+            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            <h2>mudicon</h2>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.Xs">
+            <MudText Typo="Typo.h6" Class="ml-4">Admin Dashboard</MudText>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+            <MudText Typo="Typo.subtitle2">Admin Dashboard</MudText>
+        </MudHidden>
+        <MudAppBarSpacer />
+        <MudMenu Icon="@Icons.Material.Outlined.Alarm" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+            <MudMenuItem>English</MudMenuItem>
+            <MudMenuItem>Swedish</MudMenuItem>
+            <MudMenuItem>Old Norse</MudMenuItem>
+        </MudMenu>
+        <MudMenu Icon="@Icons.Material.Outlined.Widgets" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+            <MudMenuItem Link="https://slicksysdev.com/">SSDC</MudMenuItem>
+            <MudMenuItem Link="https://christopherlane.net">Engineer</MudMenuItem>
+        </MudMenu>
+        <!--  -->
+        <MudMenu Direction="Direction.Left" OffsetX="true" Dense="true" Class="mt-1 ml-4">
+            <ActivatorContent>
+                <MudAvatar Image="images/ssdc.png" />
+            </ActivatorContent>
+            <ChildContent>
+                <PersonCard Class="mt-n2" />
+                <MudDivider Class="mb-2" />
+                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" Href="/personal/account" />
+                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/pages/authentication/login" />
+            </ChildContent>
+        </MudMenu>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="25" ClipMode="_themeManager.DrawerClipMode">
+        <NavMenu />
     </MudDrawer>
-    <MatDrawerContent>
-        <MatAppBarContainer Style="display: flex; flex-direction: column; min-height: 100vh;">
-            <MatAppBar Fixed="true">
-                <MatAppBarRow>
-                    <MatAppBarSection>
-                        <MatAppBarTitle>
-                        </MatAppBarTitle>
-                        <div class="hidden-mdc-down">
-                            <MatTooltip Tooltip="@L["AppHoverNavToggle"]">
-                                <MatIconButton Class="navToggle" Icon="menu" ToggleIcon="menu" OnClick="@((e) => NavToggle())" RefBack="@context"></MatIconButton>
-                            </MatTooltip>
-                            <MatTooltip Tooltip="@L["AppHoverNavMinimize"]">
-                                <MatIconButton Class="navToggle" Icon="format_indent_decrease" 
-                                               ToggleIcon="format_indent_increase" OnClick="@((e) => NavMinify())" RefBack="@context"></MatIconButton>
-                            </MatTooltip>
-                        </div>
-                    </MatAppBarSection>
-                    <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                        <SelectCulture />
-                        <Login />
-                    </MatAppBarSection>
-                </MatAppBarRow>
-            </MatAppBar>
-            <MatAppBarContent Style="flex: 1; display: flex; flex-direction: column;">
-                <Breadcrumbs RootLinkTitle="@appState.BreadCrumbHome"></Breadcrumbs>
-                <section class="container-fluid" style="flex: 1;">
-                    @Body
-                </section>
-                <footer class="page-footer">
-                    <TenantInfo />
-                </footer>
-            </MatAppBarContent>
-        </MatAppBarContainer>
-    </MatDrawerContent>
-</MudDrawerContainer>
+    <MudMainContent>
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+            <MudToolBar DisableGutters="true">
+                <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
+                <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+                <MudToolBarSpacer />
+                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#594AE2;">SSDC</MudButton>
+                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#424242;" Class="mr-3">Line Of Business Software</MudButton>
+            </MudToolBar>
+        </MudHidden>
+        <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
+
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
 
 @code {
@@ -224,11 +180,11 @@
     }
 
     private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-    {
+{
         new BreadcrumbItem("Personal", href: "/"),
         new BreadcrumbItem("Dashboard", href: "/"),
     };
-    
+
     //--------------------------------------------------------------------------------
 
 
