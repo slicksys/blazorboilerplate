@@ -1,4 +1,5 @@
 @page "/account/login"
+@using InputType = MudBlazor.InputType
 
 @layout LoginLayout
 @inject NavigationManager navigationManager
@@ -28,7 +29,7 @@
 
                 <MudText>Don't have an account?<MudLink Href="/account/register">Sign Up</MudLink></MudText>
 
-                <MudTextField @ref="UserNameInput" @bind-Value="@loginViewModel.UserName" Label=@L["UserName"] T="string" Variant="Variant.Outlined" Class="my-6" autocomplete="username" InputType="InputType.Email" />
+                <MudTextField @ref="UserNameInput" @bind-Value="@loginViewModel.UserName" Label=@L["UserName"] T="string" Variant="Variant.Outlined" Class="my-6" autocomplete="username" InputType="InputType.Text" />
 
                 @*<AutoFocus Control=@(() => UserNameInput.InputRef) />*@
 

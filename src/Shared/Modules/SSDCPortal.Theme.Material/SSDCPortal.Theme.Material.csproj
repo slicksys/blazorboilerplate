@@ -28,12 +28,17 @@
   <ItemGroup>
 	  <!-- Removed by Chris / Undo if it breaks soemthing -->
     <Content Remove="C:\Users\Christopher\.nuget\packages\matblazor\2.8.0\contentFiles\any\netstandard2.1\Properties\launchSettings.json" />
-    <Content Remove="Pages\Account\Forgot.razor" />
+    <Content Remove="Shared\Components\_ValidationScriptsPartial.cshtml" />
     <Content Remove="Shared\Layouts\NavMenu.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Shared\Layouts\MainLayout.razor.bak" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Utility\Faq.razor" />
+    <None Include="Pages\Utility\WasmLoading.razor" />
   </ItemGroup>
 
   <ItemGroup>

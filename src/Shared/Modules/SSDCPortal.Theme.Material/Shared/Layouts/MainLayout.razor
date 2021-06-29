@@ -3,124 +3,172 @@
 @inject AppState appState
 @inject IStringLocalizer<Global> L
 
-<MudThemeProvider Theme="_currentTheme"  />
-    <MudDialogProvider />
+<MudThemeProvider Theme="_themeManager.Theme" />
+<MudDialogProvider />
 <MudSnackbarProvider />
 
-    <MatDrawerContainer Style="width: 100vw; height: 100vh;" Class="@bbDrawerClass">
-        <MatDrawer @bind-Opened="@_navMenuOpened">
-            <header class="drawer-header">
-                <div class="drawer-logo">
-                    <img alt="@appState.AppName" class="logo-img" src="_content/SSDCPortal.Theme.Material/images/logo-dark.svg" title="@appState.AppName">
-                    <a class="miniHover" href="/">@appState.AppName</a>
-                </div>
-                <UserProfile />
-            </header>
-            <NavMenu />
-            <DrawerFooter></DrawerFooter>
-        </MatDrawer>
-        <MatDrawerContent>
-            <MatAppBarContainer Style="display: flex; flex-direction: column; min-height: 100vh;">
-                <MatAppBar Fixed="true">
-                    <MatAppBarRow>
-                        <MatAppBarSection>
-                            <MatAppBarTitle>
-                            </MatAppBarTitle>
-                            <div class="hidden-mdc-down">
-                                <MatTooltip Tooltip="@L["AppHoverNavToggle"]">
-                                    <MudIconButton Class="navToggle" Icon="menu" ToggleIcon="menu" OnClick="@((e) => NavToggle())" RefBack="@context"></MudIconButton>
-                                </MatTooltip>
-                                <MatTooltip Tooltip="@L["AppHoverNavMinimize"]">
-                                    <MudIconButton Class="navToggle" Icon="format_indent_decrease" ToggleIcon="format_indent_increase" OnClick="@((e) => NavMinify())" RefBack="@context"></MudIconButton>
-                                </MatTooltip>
-                                @*</li>
-                                    <li>
-                                        <MatTooltip Tooltip="Lock Navigation">
-                                            <MudIconButton Class="navToggle" Icon="lock" ToggleIcon="radio_button_unchecked" OnClick="@((e) => NavLock())" RefBack="@context"></MudIconButton>
-                                        </MatTooltip>
-                                        </li>*@
-                            </div>
-                        </MatAppBarSection>
-                        <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                            <TopRightBarSection></TopRightBarSection>
-                        </MatAppBarSection>
-                    </MatAppBarRow>
-                </MatAppBar>
-                <MatAppBarContent Style="flex: 1; display: flex; flex-direction: column;">
-                    <Breadcrumbs RootLinkTitle="@appState.BreadCrumbHome"></Breadcrumbs>
-                    <section class="container-fluid" style="flex: 1;">
-                        @Body
-                    </section>
-                    <Footer></Footer>
-                </MatAppBarContent>
-            </MatAppBarContainer>
-        </MatDrawerContent>
-    </MatDrawerContainer>
+<MudLayout>
+    <MudAppBar Elevation="4">
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+            <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Size="Size.Large" />
+            <LoginDisplay />
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.MdAndUp">
+            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            <h2>mudicon</h2>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.Xs">
+            <MudText Typo="Typo.h6" Class="ml-4">Admin Dashboard</MudText>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+            <MudText Typo="Typo.subtitle2">Admin Dashboard</MudText>
+        </MudHidden>
+        <MudAppBarSpacer />
+        <MudMenu Icon="@Icons.Material.Outlined.Alarm" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+            <MudMenuItem>English</MudMenuItem>
+            <MudMenuItem>Swedish</MudMenuItem>
+            <MudMenuItem>Old Norse</MudMenuItem>
+        </MudMenu>
+        <MudMenu Icon="@Icons.Material.Outlined.Widgets" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+            <MudMenuItem Link="https://slicksysdev.com/">SSDC</MudMenuItem>
+            <MudMenuItem Link="https://christopherlane.net">Engineer</MudMenuItem>
+        </MudMenu>
+        <!--  -->
+        <MudMenu Direction="Direction.Left" OffsetX="true" Dense="true" Class="mt-1 ml-4">
+            <ActivatorContent>
+                <MudAvatar Image="images/ssdc.png" />
+            </ActivatorContent>
+            <ChildContent>
+                <PersonCard Class="mt-n2" />
+                <MudDivider Class="mb-2" />
+                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" Href="/personal/account" />
+                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/pages/authentication/login" />
+            </ChildContent>
+        </MudMenu>
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="25" ClipMode="_themeManager.DrawerClipMode">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+            <MudToolBar DisableGutters="true">
+                <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
+                <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+                <MudToolBarSpacer />
+                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#594AE2;">SSDC</MudButton>
+                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#424242;" Class="mr-3">Line Of Business Software</MudButton>
+            </MudToolBar>
+        </MudHidden>
+        <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
 
-    @code {
-        private MudTheme _currentTheme = new SSDCAdminDashboard();
-        bool _navMenuOpened = true;
-        bool _navMinified = false;
-        public string bbDrawerClass = string.Empty;
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
 
-        [CascadingParameter]
-        Task<AuthenticationState> authenticationStateTask { get; set; }
+<MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))" />
+<MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
 
-        protected override async Task OnInitializedAsync()
+
+@code {
+    private MudTheme _currentTheme = new SSDCAdminDashboard();
+    bool _navMenuOpened = true;
+    bool _navMinified = false;
+    public string bbDrawerClass = string.Empty;
+
+    [CascadingParameter]
+    Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    private ThemeManagerTheme _themeManager = new ThemeManagerTheme();
+
+    public bool _drawerOpen = true;
+    public bool _themeManagerOpen = false;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    void OpenThemeManager(bool value)
+    {
+        _themeManagerOpen = value;
+    }
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Personal", href: "/"),
+        new BreadcrumbItem("Dashboard", href: "/"),
+    };
+
+    void UpdateTheme(ThemeManagerTheme value)
+    {
+        _themeManager = value;
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        _themeManager.Theme = new SSDCAdminDashboard();
+        _themeManager.DrawerClipMode = DrawerClipMode.Always;
+        _themeManager.FontFamily = "Montserrat";
+        _themeManager.DefaultBorderRadius = 3;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
         {
-            var user = (await authenticationStateTask).User;
+            var profile = await appState.GetUserProfile();
 
-            if (user.Identity.IsAuthenticated)
-            {
-                var profile = await appState.GetUserProfile();
-
-                _navMenuOpened = profile.IsNavOpen;
-                _navMinified = profile.IsNavMinified;
-            }
-        }
-
-        void NavToggle()
-        {
-            _navMenuOpened = !_navMenuOpened;
-
-            if (_navMenuOpened)
-            {
-                bbDrawerClass = "full";
-            }
-            else
-            {
-                bbDrawerClass = "closed";
-            }
-
-            StateHasChanged();
-        }
-
-        void NavLock()
-        {
-            //Todo Lock Nav
-        }
-
-        void NavMinify()
-        {
-            _navMinified = !_navMinified;
-
-            if (!_navMenuOpened)
-            {
-                _navMinified = true;
-            }
-
-            if (_navMinified)
-            {
-                bbDrawerClass = "mini";
-                _navMenuOpened = true;
-            }
-            else if (_navMenuOpened)
-            {
-                bbDrawerClass = "full";
-            }
-
-            _navMenuOpened = true;
-
-            StateHasChanged();
+            _navMenuOpened = profile.IsNavOpen;
+            _navMinified = profile.IsNavMinified;
         }
     }
+
+    void NavToggle()
+    {
+        _navMenuOpened = !_navMenuOpened;
+
+        if (_navMenuOpened)
+        {
+            bbDrawerClass = "full";
+        }
+        else
+        {
+            bbDrawerClass = "closed";
+        }
+
+        StateHasChanged();
+    }
+
+    void NavLock()
+    {
+        //Todo Lock Nav
+    }
+
+    void NavMinify()
+    {
+        _navMinified = !_navMinified;
+
+        if (!_navMenuOpened)
+        {
+            _navMinified = true;
+        }
+
+        if (_navMinified)
+        {
+            bbDrawerClass = "mini";
+            _navMenuOpened = true;
+        }
+        else if (_navMenuOpened)
+        {
+            bbDrawerClass = "full";
+        }
+
+        _navMenuOpened = true;
+
+        StateHasChanged();
+    }
+}

@@ -2,147 +2,93 @@
 @inject IApiClient apiClient
 @inject IViewNotifier viewNotifier
 @inject IStringLocalizer<Global> L
+@inject IDialogService DialogService
 
-<h1>Todo List - CRUD</h1>
-<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Dashboard</MudText>
-<MudGrid>
-    <MudItem xs="12" sm="6" md="3">
-        <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
-            <MudIcon Icon="@Icons.Material.Filled.Euro" Color="Color.Primary" Class="mx-4" Style="width:54px; height:54px;"></MudIcon>
-            <div>
-                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Total Income</MudText>
-                <MudText Typo="Typo.h5">125,000</MudText>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="3">
-        <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
-            <MudIcon Icon="@Icons.Material.Filled.Layers" Color="Color.Secondary" Class="mx-4" Style="width:54px; height:54px;"></MudIcon>
-            <div>
-                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Total Stock</MudText>
-                <MudText Typo="Typo.h5">150,000</MudText>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="3">
-        <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
-            <MudIcon Icon="@Icons.Material.Filled.Public" Color="Color.Success" Class="mx-4" Style="width:54px; height:54px;"></MudIcon>
-            <div>
-                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Global Sales</MudText>
-                <MudText Typo="Typo.h5">46,000</MudText>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="6" md="3">
-        <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
-            <MudIcon Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Warning" Class="mx-4" Style="width:54px; height:54px;"></MudIcon>
-            <div>
-                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Roentgen</MudText>
-                <MudText Typo="Typo.h5">3,6</MudText>
-            </div>
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="8">
-        <MudPaper Elevation="25" Class="pa-4" Style="height:300px;">
-            Charts comming soon ish...
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Elevation="25" Class="pa-4" Style="height:300px;">
-            Charts comming soon ish...
-        </MudPaper>
-    </MudItem>
-    <MudItem xs="12" sm="12" md="6">
-        <MudCard Elevation="25" Style="height:100%;">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Earning Report</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="px-0">
-                <MudSimpleTable Elevation="0" Hover="true">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Priority</th>
-                            <th>Earnings</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var x in new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })
-                        {
-                            <tr>
-                                <td>
-                                    <div class="d-flex flex-row">
-                                        <MudAvatar Image=@x.ToString() Class="mud-elevation-25" />
-                                        <div class="ml-6">
-                                            <MudText Typo="Typo.subtitle2">@x.ToString()</MudText>
-                                            <MudText Typo="Typo.body2">@x.ToString()</MudText>
-                                        </div>
-                                    </div>
-                                </td>
-                          
-                            </tr>
-                        }
-                    </tbody>
-                </MudSimpleTable>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
-    <MudItem xs="12" sm="12" md="6">
-        <MudCard Elevation="25" Style="height:100%;">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Recent incidents</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="px-0">
-                <MudList Clickable="true">
-                    <MudListItem>
-                        <div class="d-flex flex-row">
-                            <MudAvatar Class="mud-elevation-25">
-                                <MudIcon Icon="@Icons.Custom.Brands.GitHub" Class="mx-4" />
-                            </MudAvatar>
-                            <div class="ml-6">
-                                <MudText Typo="Typo.subtitle2">Issues rising</MudText>
-                                <MudText Typo="Typo.body2">Issues is almost reaching 100</MudText>
-                            </div>
-                            <MudChip Label="true" Color="Color.Error" Size="Size.Small" Class="ml-auto mud-elevation-25">Danger</MudChip>
-                        </div>
-                    </MudListItem>
-                    <MudListItem>
-                        <div class="d-flex flex-row">
-                            <MudAvatar Class="mud-elevation-25">
-                                <MudIcon Icon="@Icons.Custom.Uncategorized.Radioactive" Class="mx-4" />
-                            </MudAvatar>
-                            <div class="ml-6">
-                                <MudText Typo="Typo.subtitle2">Incident in plant number 4</MudText>
-                                <MudText Typo="Typo.body2">Fire in reactor core</MudText>
-                            </div>
-                            <MudChip Label="true" Color="Color.Info" Size="Size.Small" Class="ml-auto mud-elevation-25">Minor</MudChip>
-                        </div>
-                    </MudListItem>
-                    <MudListItem>
-                        <div class="d-flex flex-row">
-                            <MudAvatar Class="mud-elevation-25">
-                                <MudIcon Icon="@Icons.Material.Filled.Person" Class="mx-4" />
-                            </MudAvatar>
-                            <div class="ml-6">
-                                <MudText Typo="Typo.subtitle2">Occupational injury</MudText>
-                                <MudText Typo="Typo.body2">Employee broke a finger while writing some code</MudText>
-                            </div>
-                            <MudChip Label="true" Color="Color.Success" Size="Size.Small" Class="ml-auto mud-elevation-25">Dismissed</MudChip>
-                        </div>
-                    </MudListItem>
-                </MudList>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
-</MudGrid>
+
+@using System.Net.Http.Json
+@inject HttpClient httpClient
+
+<MudLayout>
+    <MudMainContent>
+      <MudCard>
+
+<h1>Todo List - CRUD  </h1>
+<p>
+    This Todo List demonstrates fetching data from the server and CRUD for Blazor with <a href="http://breeze.github.io" target="_blank">Breeze</a> to make API design easy.
+    Check out the <a href="https://github.com/enkodellc/blazorboilerplate" target="_blank">repository to view the source.</a>
+    If you find this helpful please contribute or <DonateButton /> to support further development.
+    <b>Delete is Protected to Admin users only</b>.
+</p>
+
+<MudTable Items="@todos" Dense="true" Hover="@true" Bordered="@true" Striped="@true" @bind-SelectedItem="@selectedItem">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Periodic Elements</MudText>
+        <MudSpacer />
+        <MudTextField T="string" Text="Go Fuck Yourself" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Silly Icon</MudTh>
+        <MudTh>Fucking Id</MudTh>
+        <MudTh>Is Complete</MudTh>
+        <MudTh>Title</MudTh>
+        <MudTh>Created On</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteDialog(context.Id))"></MatIconButton>
+        </MudTd>
+        <MudTd>@String.Format("{0:d}", @context.Id)</MudTd>
+        <MudTd>Is Completed = @context.IsCompleted.ToString()</MudTd>
+        <MudTd>@context.Title</MudTd>
+        <MudTd>@context.CreatedOn</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+<MudDialog @bind-IsOpen="@dialogIsOpen">
+    <TitleContent>Create Todo</TitleContent>
+    <DialogContent>
+        <EditForm Model="@todo" OnValidSubmit="@NewEntity">
+            <FluentValidationValidator />
+            <ValidationSummary />
+            <fieldset>
+                <div class="form-group">
+                    <MudTextField @bind-Value="@todo.Title" Label="Title" Icon="title" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
+                </div>
+                <div class="form-group">
+                    <MudCheckBox T="bool" Checked="@todo.IsCompleted" Label="Completed"></MudCheckBox>
+                </div>
+            </fieldset>
+        </EditForm>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="@(e => { dialogIsOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@NewEntity">Create Todo</MudButton>
+    </DialogActions>
+</MudDialog>
+
+    <MudDialog @bind-IsOpen="@deleteDialogOpen" Style="z-index:100">
+        <TitleContent><MudIcon Icon="warning"></MudIcon> @L["Confirm Delete"]</TitleContent>
+        <DialogContent>
+            @L["Are you sure you want to delete {0}?", todo.Title]
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="@(e => { deleteDialogOpen = false; })">@L["Cancel"]</MudButton>
+            <MudButton OnClick="@Delete">@L["Delete"]</MudButton>
+        </DialogActions>
+    </MudDialog>
+      </MudCard>
+    </MudMainContent>
+</MudLayout>
+
 @code {
     bool deleteDialogOpen = false;
     bool dialogIsOpen = false;
     List<Todo> todos = new List<Todo>();
+    private Todo selectedItem = null;
     Todo todo { get; set; } = new Todo();
 
     protected override async Task OnInitializedAsync()
@@ -156,6 +102,7 @@
         {
             var result = await apiClient.GetToDos();
             todos = new List<Todo>(result);
+
             viewNotifier.Show(L["One item found", Plural.From("{0} items found", (int)result.InlineCount)], ViewNotifierType.Success, L["Operation Successful"]);
         }
         catch (Exception ex)
@@ -228,5 +175,8 @@
         }
 
         todo = new Todo();
+
+
     }
+
 }

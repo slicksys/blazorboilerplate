@@ -1,6 +1,5 @@
 @inherits DynamicComponentContainer
 
-<MudNavMenu>
 
     <MatNavMenu Multi="true" Class="app-sidebar">
     @foreach (var component in components)
@@ -9,6 +8,7 @@
     }
     </MatNavMenu>
 
+<MudNavMenu>
     <MudText Typo="Typo.subtitle2" Color="Color.Inherit" Class="ml-4 my-3">Personal</MudText>
     <MudNavLink Href="/personal/dashboard" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
     <MudNavLink Href="/personal/account" Icon="@Icons.Material.Outlined.Person">Account</MudNavLink>
@@ -28,10 +28,10 @@
 
     <MudText Typo="Typo.subtitle2" Color="Color.Inherit" Class="ml-4 my-3">Pages</MudText>
     <MudNavGroup Title="Authentication" Icon="@Icons.Material.Outlined.Security" HideExpandIcon="true">
-        <MudNavLink Href="pages/authentication/login" Icon="@Icons.Material.Outlined.InsertDriveFile">Login</MudNavLink>
-        <MudNavLink Href="pages/authentication/register" Icon="@Icons.Material.Outlined.InsertDriveFile">Register</MudNavLink>
-        <MudNavLink Href="pages/authentication/forgot-password" Icon="@Icons.Material.Outlined.InsertDriveFile">Forgot Password</MudNavLink>
-        <MudNavLink Href="pages/authentication/reset-password" Icon="@Icons.Material.Outlined.InsertDriveFile">Reset Password</MudNavLink>
+        <MudNavLink Href="account/login" Icon="@Icons.Material.Outlined.InsertDriveFile">Login</MudNavLink>
+        <MudNavLink Href="account/register" Icon="@Icons.Material.Outlined.InsertDriveFile">Register</MudNavLink>
+        <MudNavLink Href="account/forgot" Icon="@Icons.Material.Outlined.InsertDriveFile">Forgot Password</MudNavLink>
+        <MudNavLink Href="account/reset-password" Icon="@Icons.Material.Outlined.InsertDriveFile">Reset Password</MudNavLink>
     </MudNavGroup>
     <MudNavGroup Title="Error" Icon="@AlertAssignmentIcon" HideExpandIcon="true">
         <MudNavLink Href="pages/error/404" Icon="@Icons.Material.Outlined.InsertDriveFile">404</MudNavLink>
