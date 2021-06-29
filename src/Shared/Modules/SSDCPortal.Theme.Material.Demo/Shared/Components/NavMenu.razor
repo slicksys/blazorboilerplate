@@ -3,11 +3,13 @@
 @inject IStringLocalizer<Global> L
 @implements IDynamicComponent
 
-
+<PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text);"/>
+<MudDivider Class="mb-4" />
 <MudNavMenu>
-    <MudText Typo="Typo.subtitle2" Color="Color.Inherit" Class="ml-4 my-3">Personal</MudText>
-    <MudNavLink Href="/personal/dashboard" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
-    <MudNavLink Href="/personal/account" Icon="@Icons.Material.Outlined.Person">Account</MudNavLink>
+    <MudText Typo="Typo.subtitle2" Color="Color.Inherit" Class="ml-4 my-3">Personal Demo</MudText>
+    <MudNavLink Href="/dashboard" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+    <MudNavLink Href="/account/myaccount" Icon="@Icons.Material.Outlined.Person">Account</MudNavLink>
+    <MudNavLink Href="drag_and_drop" Icon="@Icons.Material.Outlined.Timer">Drag and Drop</MudNavLink>
 
     @* <MudNavGroup Title="Scheduling" Icon="@Icons.Material.Outlined.AssignmentInd" HideExpandIcon="true">*@
     <MudNavLink Href="drag_and_drop" Icon="@Icons.Material.Outlined.Timer">Drag and Drop</MudNavLink>
@@ -119,6 +121,10 @@
                     Icon="@Icons.Material.Outlined.InsertDriveFile">
             <span class="miniHover">@L["AppNavAppointments"]</span>
         </MudNavLink>
+        
+        <MudText Typo="Typo.subtitle2" Color="Color.Error" Class="ml-4 my-3">End of Demo Menu
+        </MudText>
+
     </MudNavGroup>
 
 

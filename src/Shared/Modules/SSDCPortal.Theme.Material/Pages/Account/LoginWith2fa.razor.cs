@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace SSDCPortal.Theme.Material
 {
-    public class LoginWith2faBase //: ComponentBase
+    public class LoginWith2faBase : ComponentBase
     {
         public string wow { get; set; }
         protected override void OnInitialized()

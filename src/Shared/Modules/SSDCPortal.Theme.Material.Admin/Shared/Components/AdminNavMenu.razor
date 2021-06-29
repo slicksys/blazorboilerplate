@@ -4,7 +4,13 @@
 @inject HttpClient Http
 @inject IStringLocalizer<Global> L
 
+<PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text);"/>
+<MudDivider Class="mb-4" />
+
 <MatNavMenu Multi="true" Class="app-sidebar">
+
+    <MudText Typo="Typo.subtitle2" Color="Color.Error" Class="ml-4 my-3">Begin Admin Nav Menu</MudText>
+
     <MatNavItem Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri" NavLinkMatch="NavLinkMatch.All">
         <MatIcon>home</MatIcon> <span class="miniHover">Frontend</span>
     </MatNavItem>
@@ -83,10 +89,15 @@
                 <MatIcon>notes</MatIcon> <span class="miniHover">@L["AppAdminNavDBLoggingView"]</span>
             </MatNavItem>
         </MatNavSubMenuList>
+
+        <MudText Typo="Typo.subtitle2" Color="Color.Error" Class="ml-4 my-3">End Admin Nav Menu</MudText>
+
+
     </MatNavSubMenu>
     @foreach (var component in components)
     {
-        @CreateDynamicComponent(component);
+        @CreateDynamicComponent(component)
+        ;
     }
 </MatNavMenu>
 

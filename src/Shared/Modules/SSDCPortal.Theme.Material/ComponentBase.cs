@@ -8,7 +8,7 @@ using Microsoft.JSInterop;
 
 namespace SSDCPortal.Theme.Material
 {
-    public abstract class ComponentBase : Microsoft.AspNetCore.Components.ComponentBase, IDisposable
+    public abstract class ComponentBase //: Microsoft.AspNetCore.Components.ComponentBase, IDisposable
     {
         protected override Task OnInitializedAsync()
         {
