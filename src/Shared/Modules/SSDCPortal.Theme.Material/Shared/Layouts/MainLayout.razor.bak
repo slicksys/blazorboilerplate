@@ -2,11 +2,6 @@
 @inject NavigationManager navigationManager
 @inject AppState appState
 @inject IStringLocalizer<Global> L
-@attribute [Authorize(Policies.IsAdmin)]
-
-<MudThemeProvider Theme="_currentTheme"  />
-<MudDialogProvider />
-<MudSnackbarProvider />
 
 <MatDrawerContainer Style="width: 100vw; height: 100vh;" Class="@bbDrawerClass">
     <MatDrawer @bind-Opened="@_navMenuOpened">
@@ -17,7 +12,8 @@
             </div>
             <UserProfile />
         </header>
-        <AdminNavMenu />
+        <NavMenu/>
+        <DrawerFooter></DrawerFooter>
     </MatDrawer>
     <MatDrawerContent>
         <MatAppBarContainer Style="display: flex; flex-direction: column; min-height: 100vh;">
@@ -28,16 +24,21 @@
                         </MatAppBarTitle>
                         <div class="hidden-mdc-down">
                             <MatTooltip Tooltip="@L["AppHoverNavToggle"]">
-                                <MatIconButton Class="navToggle" Icon="menu" ToggleIcon="menu" OnClick="@((e) => NavToggle())" RefBack="@context"></MatIconButton>
+                                <MudIconButton Class="navToggle" Icon="menu" ToggleIcon="menu" OnClick="@((e) => NavToggle())" RefBack="@context"></MudIconButton>
                             </MatTooltip>
                             <MatTooltip Tooltip="@L["AppHoverNavMinimize"]">
-                                <MatIconButton Class="navToggle" Icon="format_indent_decrease" ToggleIcon="format_indent_increase" OnClick="@((e) => NavMinify())" RefBack="@context"></MatIconButton>
+                                <MudIconButton Class="navToggle" Icon="format_indent_decrease" ToggleIcon="format_indent_increase" OnClick="@((e) => NavMinify())" RefBack="@context"></MudIconButton>
                             </MatTooltip>
+                            @*</li>
+                                <li>
+                                    <MatTooltip Tooltip="Lock Navigation">
+                                        <MudIconButton Class="navToggle" Icon="lock" ToggleIcon="radio_button_unchecked" OnClick="@((e) => NavLock())" RefBack="@context"></MudIconButton>
+                                    </MatTooltip>
+                                    </li>*@
                         </div>
                     </MatAppBarSection>
                     <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                        <SelectCulture />
-                        <Login />
+                        <TopRightBarSection></TopRightBarSection>
                     </MatAppBarSection>
                 </MatAppBarRow>
             </MatAppBar>
@@ -46,28 +47,16 @@
                 <section class="container-fluid" style="flex: 1;">
                     @Body
                 </section>
-                <footer class="page-footer">
-                    <TenantInfo />
-                </footer>
+                <Footer></Footer>
             </MatAppBarContent>
         </MatAppBarContainer>
     </MatDrawerContent>
 </MatDrawerContainer>
 
 @code {
-
-    private MudTheme _currentTheme = new SSDCAdminDashboard();
-
     bool _navMenuOpened = true;
     bool _navMinified = false;
-    public string bbDrawerClass = "";
-
-    private void CallLogin()
-    {
-        var returnUrl = navigationManager.ToBaseRelativePath(navigationManager.Uri);
-
-        navigationManager.NavigateTo($"{SSDCPortal.Constants.Settings.LoginPath}/{returnUrl}", forceLoad: false);
-    }
+    public string bbDrawerClass = string.Empty;
 
     [CascadingParameter]
     Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -80,9 +69,6 @@
         {
             var profile = await appState.GetUserProfile();
 
-            if (profile == null)
-                profile = new SSDCPortal.Shared.Dto.Db.UserProfile();
-
             _navMenuOpened = profile.IsNavOpen;
             _navMinified = profile.IsNavMinified;
         }
@@ -91,6 +77,7 @@
     void NavToggle()
     {
         _navMenuOpened = !_navMenuOpened;
+
         if (_navMenuOpened)
         {
             bbDrawerClass = "full";
@@ -100,7 +87,7 @@
             bbDrawerClass = "closed";
         }
 
-        this.StateHasChanged();
+        StateHasChanged();
     }
 
     void NavLock()
@@ -128,6 +115,7 @@
         }
 
         _navMenuOpened = true;
-        this.StateHasChanged();
+
+        StateHasChanged();
     }
 }

@@ -6,14 +6,14 @@
 
 <AuthorizeView Context="AuthorizeContext">
     <Authorized>
-        <MatTooltip Tooltip="@L["Logout"]">
-            <MudIconButton Icon="exit_to_app" RefBack="@context" OnClick="LogoutClick"></MudIconButton>
-        </MatTooltip>
+        <MudTooltip Tooltip="@L["Logout"]">
+            <MudIconButton Icon="exit_to_app" OnClick="LogoutClick"></MudIconButton>
+        </MudTooltip>
     </Authorized>
     <NotAuthorized>
-        <MatTooltip Tooltip="@L["Login"]">
-            <MudIconButton Icon="account_box" RefBack="@context" Link="@SSDCPortal.Constants.Settings.LoginPath"></MudIconButton>
-        </MatTooltip>
+        <MudTooltip Tooltip="@L["Login"]">
+            <MudIconButton Icon="account_box"  Link="@SSDCPortal.Constants.Settings.LoginPath"></MudIconButton>
+        </MudTooltip>
     </NotAuthorized>
 </AuthorizeView>
 

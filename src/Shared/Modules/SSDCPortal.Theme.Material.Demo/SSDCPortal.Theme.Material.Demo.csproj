@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Shared\Common\**" />
+    <Content Remove="Shared\Common\**" />
+    <EmbeddedResource Remove="Shared\Common\**" />
+    <None Remove="Shared\Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.5" />
   </ItemGroup>
 

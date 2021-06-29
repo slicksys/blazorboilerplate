@@ -1,13 +1,24 @@
 ﻿@inject NavigationManager navigationManager
 @inject IJSRuntime js
 
-<MatSelectValue Class="selectCulture" Value="CurrentCulture" Items="@SSDCPortal.Shared.Localizer.Settings.SupportedCulturesWithName"
-                ValueSelector=@(i => i.Item2)
-                ValueChanged="(string i) => OnCultureChanged(i)">
-    <ItemTemplate Context="CultureItem">
-        <span>@CultureItem.Item1</span>
-    </ItemTemplate>
-</MatSelectValue>
+<MudSelect T="string"  ValueChanged="(string i) => OnCultureChanged(i)">
+    @foreach (var culture in @SSDCPortal.Shared.Localizer.Settings.SupportedCulturesWithName)
+    {
+        <MudSelectItem Context="CultureItem" Value=@culture.Item2>@culture.Item1</MudSelectItem>
+    }
+
+</MudSelect>
+
+@*<MatSelectValue
+    Class="selectCulture"
+    Value="CurrentCulture"
+    Items="@SSDCPortal.Shared.Localizer.Settings.SupportedCulturesWithName"
+    ValueSelector=@(i => i.Item2)
+    ValueChanged="(string i) => OnCultureChanged(i)">
+
+    <ItemTemplate Context="CultureItem"><span>@CultureItem.Item1</span></ItemTemplate>
+
+</MatSelectValue>*@
 
 @code {
     private string CurrentCulture { get; set; }
@@ -19,6 +30,8 @@
         await base.OnInitializedAsync();
     }
 
+
+    //TODO: Fix the Culture Selection
     public void OnCultureChanged(string culture)
     {
         var uri = new Uri(navigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);

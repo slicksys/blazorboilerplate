@@ -1,0 +1,144 @@
+﻿@page "/account/resetpassword"
+@page "/account/resetpassword/{UserId}"
+@* inherets ResetPasswordBase *@
+
+@layout LoginLayout
+@inject NavigationManager navigationManager
+@inject AuthenticationStateProvider authStateProvider
+@inject IViewNotifier viewNotifier
+@inject AppState appState
+@inject NavigationManager NavigationManager
+@inject IJSRuntime js
+@inject IStringLocalizer<Global> L
+
+
+<EditForm Model="@forgotPasswordViewModel" OnValidSubmit="@ForgotPassword">
+
+    <MudText Typo="Typo.h4" GutterBottom="true">Forgot Password?</MudText>
+
+    <MudText Typo="Typo.subtitle2">Enter the email address linked to your account and you will recieve an email containing a link to reset your password.</MudText>
+
+    <MudTextField @bind-Value="@forgotPasswordViewModel.Email" Label=@L["Email"] Variant="Variant.Outlined" Class="my-4" Required="true"></MudTextField>
+
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit" Size="Size.Large" FullWidth="true" Class="mt-3">Reset Password</MudButton>
+</EditForm>
+
+    @code {
+
+    [CascadingParameter]
+    Task<AuthenticationState>
+        authenticationStateTask { get; set; }
+
+        private MudTextField<string>
+            UserNameInput;
+
+            string navigateTo = null;
+            IdentityAuthenticationStateProvider identityAuthenticationStateProvider;
+            bool forgotPasswordToggle = false;
+            LoginViewModel loginViewModel { get; set; } = new LoginViewModel();
+            ForgotPasswordViewModel forgotPasswordViewModel { get; set; } = new ForgotPasswordViewModel();
+
+            string ReturnUrl;
+
+            protected override async Task OnInitializedAsync()
+            {
+            if (navigationManager.TryGetQueryString<string>
+                ("ReturnUrl", out string url))
+                ReturnUrl = url;
+
+                var user = (await authenticationStateTask).User;
+
+                if (user.Identity.IsAuthenticated)
+                navigationManager.NavigateTo(ReturnUrl ?? "/");
+                else
+                {
+                identityAuthenticationStateProvider = (IdentityAuthenticationStateProvider)authStateProvider;
+
+                var apiResponse = await identityAuthenticationStateProvider.BuildLoginViewModel(ReturnUrl);
+
+                if (apiResponse.IsSuccessStatusCode)
+                {
+                loginViewModel = apiResponse.Result;
+
+                if (loginViewModel.IsExternalLoginOnly)
+                {
+                if (!string.IsNullOrEmpty(ReturnUrl))
+                ReturnUrl = Uri.EscapeDataString(ReturnUrl);
+                // we only have one option for logging in and it's an external provider
+                navigationManager.NavigateTo($"{navigationManager.BaseUri}api/externalauth/challenge/{loginViewModel.ExternalLoginScheme}/{ReturnUrl}", true);
+                }
+                }
+                else
+                viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["LoginFailed"]);
+                }
+                }
+
+                void SignInWith(ExternalProvider provider)
+                {
+                if (!string.IsNullOrEmpty(ReturnUrl))
+                ReturnUrl = Uri.EscapeDataString(ReturnUrl);
+
+                navigationManager.NavigateTo($"{navigationManager.BaseUri}api/externalauth/challenge/{provider.AuthenticationScheme}/{ReturnUrl}", true);
+                }
+
+                void Register()
+                {
+                navigationManager.NavigateTo("/account/register");
+                }
+
+                async Task SubmitLogin()
+                {
+                try
+                {
+                loginViewModel.ReturnUrl = ReturnUrl;
+                var response = await identityAuthenticationStateProvider.Login(loginViewModel);
+
+                if (response.IsSuccessStatusCode)
+                {
+                if (navigationManager.IsWebAssembly())
+                {
+                if (response.Result?.RequiresTwoFactor == true)
+                {
+                var par = string.IsNullOrEmpty(ReturnUrl) ? string.Empty : $"?returnurl={Uri.EscapeDataString(ReturnUrl)}";
+                navigationManager.NavigateTo($"{SSDCPortal.Constants.Settings.LoginWith2faPath}{par}", true);
+                }
+                else
+                {
+                if (string.IsNullOrEmpty(ReturnUrl))
+                {
+                var userProfile = await appState.GetUserProfile();
+
+                navigateTo = navigationManager.BaseUri + (!string.IsNullOrEmpty(userProfile?.LastPageVisited) ? userProfile?.LastPageVisited : "/dashboard");
+                }
+                else
+                navigateTo = ReturnUrl;
+
+
+                navigationManager.NavigateTo(navigateTo);
+                }
+                }
+                }
+                else
+                viewNotifier.Show(response.Message, ViewNotifierType.Error, L["LoginFailed"]);
+                }
+                catch (Exception ex)
+                {
+                viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["LoginFailed"]);
+                }
+                }
+
+                async Task ForgotPassword()
+                {
+                try
+                {
+                await identityAuthenticationStateProvider.ForgotPassword(forgotPasswordViewModel);
+                viewNotifier.Show(L["ForgotPasswordEmailSent"], ViewNotifierType.Success);
+                forgotPasswordViewModel.Email = string.Empty;
+                forgotPasswordToggle = false;
+                }
+                catch (Exception ex)
+                {
+                viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["ResetPasswordFailed"]);
+                }
+                }
+                }

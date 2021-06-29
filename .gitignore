@@ -354,3 +354,26 @@ healthchecksdb
 
 /src/Server/SSDCPortal.Server/Modules
 /src/Server/SSDCPortal.Server/Keys
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/UserProfile.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/UserNotAuthorized.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/TopRightBarSection.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/SelectCulture.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/RefreshTimer.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/RedirectToLogin.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/PageNotFound.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/NavMenu.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/Login.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/LoadingBackground.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/Footer.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/DynamicComponentContainer.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/DrawerFooter.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/Breadcrumbs.razor.css
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/Breadcrumbs.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/AutoFocus.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Components_bak/AuthorizingInProgress.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Layouts_bak/MainLayout.razor.css
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Layouts_bak/MainLayout.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Layouts_bak/MainLayout - Copy.razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Layouts_bak/MainLayout - Copy (2).razor
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Layouts_bak/LoginLayout.razor.css
+/src/Shared/Modules/SSDCPortal.Theme.Material/Shared/Layouts_bak/LoginLayout.razor

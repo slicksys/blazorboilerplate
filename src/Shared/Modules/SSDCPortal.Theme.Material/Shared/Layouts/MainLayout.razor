@@ -3,119 +3,124 @@
 @inject AppState appState
 @inject IStringLocalizer<Global> L
 
-<MatDrawerContainer Style="width: 100vw; height: 100vh;" Class="@bbDrawerClass">
-    <MatDrawer @bind-Opened="@_navMenuOpened">
-        <header class="drawer-header">
-            <div class="drawer-logo">
-                <img alt="@appState.AppName" class="logo-img" src="_content/SSDCPortal.Theme.Material/images/logo-dark.svg" title="@appState.AppName">
-                <a class="miniHover" href="/">@appState.AppName</a>
-            </div>
-            <UserProfile />
-        </header>
-        <NavMenu />
-        <DrawerFooter></DrawerFooter>
-    </MatDrawer>
-    <MatDrawerContent>
-        <MatAppBarContainer Style="display: flex; flex-direction: column; min-height: 100vh;">
-            <MatAppBar Fixed="true">
-                <MatAppBarRow>
-                    <MatAppBarSection>
-                        <MatAppBarTitle>
-                        </MatAppBarTitle>
-                        <div class="hidden-mdc-down">
-                            <MatTooltip Tooltip="@L["AppHoverNavToggle"]">
-                                <MudIconButton Class="navToggle" Icon="menu" ToggleIcon="menu" OnClick="@((e) => NavToggle())" RefBack="@context"></MudIconButton>
-                            </MatTooltip>
-                            <MatTooltip Tooltip="@L["AppHoverNavMinimize"]">
-                                <MudIconButton Class="navToggle" Icon="format_indent_decrease" ToggleIcon="format_indent_increase" OnClick="@((e) => NavMinify())" RefBack="@context"></MudIconButton>
-                            </MatTooltip>
-                            @*</li>
-                                <li>
-                                    <MatTooltip Tooltip="Lock Navigation">
-                                        <MudIconButton Class="navToggle" Icon="lock" ToggleIcon="radio_button_unchecked" OnClick="@((e) => NavLock())" RefBack="@context"></MudIconButton>
-                                    </MatTooltip>
-                                    </li>*@
-                        </div>
-                    </MatAppBarSection>
-                    <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                        <TopRightBarSection></TopRightBarSection>
-                    </MatAppBarSection>
-                </MatAppBarRow>
-            </MatAppBar>
-            <MatAppBarContent Style="flex: 1; display: flex; flex-direction: column;">
-                <Breadcrumbs RootLinkTitle="@appState.BreadCrumbHome"></Breadcrumbs>
-                <section class="container-fluid" style="flex: 1;">
-                    @Body
-                </section>
-                <Footer></Footer>
-            </MatAppBarContent>
-        </MatAppBarContainer>
-    </MatDrawerContent>
-</MatDrawerContainer>
+<MudThemeProvider Theme="_currentTheme"  />
+    <MudDialogProvider />
+<MudSnackbarProvider />
 
-@code {
-    bool _navMenuOpened = true;
-    bool _navMinified = false;
-    public string bbDrawerClass = string.Empty;
+    <MatDrawerContainer Style="width: 100vw; height: 100vh;" Class="@bbDrawerClass">
+        <MatDrawer @bind-Opened="@_navMenuOpened">
+            <header class="drawer-header">
+                <div class="drawer-logo">
+                    <img alt="@appState.AppName" class="logo-img" src="_content/SSDCPortal.Theme.Material/images/logo-dark.svg" title="@appState.AppName">
+                    <a class="miniHover" href="/">@appState.AppName</a>
+                </div>
+                <UserProfile />
+            </header>
+            <NavMenu />
+            <DrawerFooter></DrawerFooter>
+        </MatDrawer>
+        <MatDrawerContent>
+            <MatAppBarContainer Style="display: flex; flex-direction: column; min-height: 100vh;">
+                <MatAppBar Fixed="true">
+                    <MatAppBarRow>
+                        <MatAppBarSection>
+                            <MatAppBarTitle>
+                            </MatAppBarTitle>
+                            <div class="hidden-mdc-down">
+                                <MatTooltip Tooltip="@L["AppHoverNavToggle"]">
+                                    <MudIconButton Class="navToggle" Icon="menu" ToggleIcon="menu" OnClick="@((e) => NavToggle())" RefBack="@context"></MudIconButton>
+                                </MatTooltip>
+                                <MatTooltip Tooltip="@L["AppHoverNavMinimize"]">
+                                    <MudIconButton Class="navToggle" Icon="format_indent_decrease" ToggleIcon="format_indent_increase" OnClick="@((e) => NavMinify())" RefBack="@context"></MudIconButton>
+                                </MatTooltip>
+                                @*</li>
+                                    <li>
+                                        <MatTooltip Tooltip="Lock Navigation">
+                                            <MudIconButton Class="navToggle" Icon="lock" ToggleIcon="radio_button_unchecked" OnClick="@((e) => NavLock())" RefBack="@context"></MudIconButton>
+                                        </MatTooltip>
+                                        </li>*@
+                            </div>
+                        </MatAppBarSection>
+                        <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                            <TopRightBarSection></TopRightBarSection>
+                        </MatAppBarSection>
+                    </MatAppBarRow>
+                </MatAppBar>
+                <MatAppBarContent Style="flex: 1; display: flex; flex-direction: column;">
+                    <Breadcrumbs RootLinkTitle="@appState.BreadCrumbHome"></Breadcrumbs>
+                    <section class="container-fluid" style="flex: 1;">
+                        @Body
+                    </section>
+                    <Footer></Footer>
+                </MatAppBarContent>
+            </MatAppBarContainer>
+        </MatDrawerContent>
+    </MatDrawerContainer>
 
-    [CascadingParameter]
-    Task<AuthenticationState> authenticationStateTask { get; set; }
+    @code {
+        private MudTheme _currentTheme = new SSDCAdminDashboard();
+        bool _navMenuOpened = true;
+        bool _navMinified = false;
+        public string bbDrawerClass = string.Empty;
 
-    protected override async Task OnInitializedAsync()
-    {
-        var user = (await authenticationStateTask).User;
+        [CascadingParameter]
+        Task<AuthenticationState> authenticationStateTask { get; set; }
 
-        if (user.Identity.IsAuthenticated)
+        protected override async Task OnInitializedAsync()
         {
-            var profile = await appState.GetUserProfile();
+            var user = (await authenticationStateTask).User;
 
-            _navMenuOpened = profile.IsNavOpen;
-            _navMinified = profile.IsNavMinified;
-        }
-    }
+            if (user.Identity.IsAuthenticated)
+            {
+                var profile = await appState.GetUserProfile();
 
-    void NavToggle()
-    {
-        _navMenuOpened = !_navMenuOpened;
-
-        if (_navMenuOpened)
-        {
-            bbDrawerClass = "full";
-        }
-        else
-        {
-            bbDrawerClass = "closed";
+                _navMenuOpened = profile.IsNavOpen;
+                _navMinified = profile.IsNavMinified;
+            }
         }
 
-        StateHasChanged();
-    }
-
-    void NavLock()
-    {
-        //Todo Lock Nav
-    }
-
-    void NavMinify()
-    {
-        _navMinified = !_navMinified;
-
-        if (!_navMenuOpened)
+        void NavToggle()
         {
-            _navMinified = true;
+            _navMenuOpened = !_navMenuOpened;
+
+            if (_navMenuOpened)
+            {
+                bbDrawerClass = "full";
+            }
+            else
+            {
+                bbDrawerClass = "closed";
+            }
+
+            StateHasChanged();
         }
 
-        if (_navMinified)
+        void NavLock()
         {
-            bbDrawerClass = "mini";
+            //Todo Lock Nav
+        }
+
+        void NavMinify()
+        {
+            _navMinified = !_navMinified;
+
+            if (!_navMenuOpened)
+            {
+                _navMinified = true;
+            }
+
+            if (_navMinified)
+            {
+                bbDrawerClass = "mini";
+                _navMenuOpened = true;
+            }
+            else if (_navMenuOpened)
+            {
+                bbDrawerClass = "full";
+            }
+
             _navMenuOpened = true;
-        }
-        else if (_navMenuOpened)
-        {
-            bbDrawerClass = "full";
-        }
 
-        _navMenuOpened = true;
-
-        StateHasChanged();
+            StateHasChanged();
+        }
     }
-}

@@ -15,6 +15,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using MudBlazor.Services;
 
 namespace SSDCPortal.Client
 {
@@ -27,8 +28,8 @@ namespace SSDCPortal.Client
             //TODO see what oqtane does
             var baseModule = new Theme.Material.Module();
             //var schedModule = new Scheduler.Admin.Module();
-            var adminModule = new Theme.Material.Admin.Module();
-            var demoModule = new Theme.Material.Demo.Module();
+          //  var adminModule = new Theme.Material.Admin.Module();
+           // var demoModule = new Theme.Material.Demo.Module();
 
             Assembly[] allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
@@ -54,6 +55,7 @@ namespace SSDCPortal.Client
             builder.Services.AddScoped<IAccountApiClient, AccountApiClient>();
             builder.Services.AddScoped<AppState>();
             builder.Services.AddScoped<IApiClient, ApiClient>();
+            builder.Services.AddMudServices();
 
             foreach (var module in ModuleProvider.Modules)
                 module.ConfigureWebAssemblyServices(builder.Services);

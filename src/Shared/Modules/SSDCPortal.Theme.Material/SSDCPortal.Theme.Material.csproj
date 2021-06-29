@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Shared\Components_bak\**" />
+    <Compile Remove="Shared\Layouts_bak\**" />
+    <Content Remove="Shared\Components_bak\**" />
+    <Content Remove="Shared\Layouts_bak\**" />
+    <EmbeddedResource Remove="Shared\Components_bak\**" />
+    <EmbeddedResource Remove="Shared\Layouts_bak\**" />
+    <None Remove="Shared\Components_bak\**" />
+    <None Remove="Shared\Layouts_bak\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="ComponentBase.cs" />
     <Compile Remove="Pages\Account\ConfirmEmail.razor.cs" />
     <Compile Remove="Pages\Account\Login.razor.cs" />
@@ -17,6 +28,12 @@
   <ItemGroup>
 	  <!-- Removed by Chris / Undo if it breaks soemthing -->
     <Content Remove="C:\Users\Christopher\.nuget\packages\matblazor\2.8.0\contentFiles\any\netstandard2.1\Properties\launchSettings.json" />
+    <Content Remove="Pages\Account\Forgot.razor" />
+    <Content Remove="Shared\Layouts\NavMenu.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Layouts\MainLayout.razor.bak" />
   </ItemGroup>
 
   <ItemGroup>

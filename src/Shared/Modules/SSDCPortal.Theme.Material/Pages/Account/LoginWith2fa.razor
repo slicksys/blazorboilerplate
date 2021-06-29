@@ -1,4 +1,5 @@
 @page "/account/loginwith2fa"
+@using InputType = MudBlazor.InputType
 
 @layout LoginLayout
 @inject NavigationManager navigationManager
@@ -24,7 +25,7 @@
         }
         else
         {
-            <MatCard>
+            <MudCard>
                 <div class="hidden-mdc-down">
                     <MudIconButton Icon="home" Class="float-left" Link="/" />
                 </div>
@@ -38,8 +39,16 @@
                     <ValidationSummary />
                     <fieldset>
                         <div class="form-group">
-                            <MatTextField @ref="CodeInput" @bind-Value="@loginViewModel.TwoFactorCode" Label=@L["Code"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password" tabindex="1"></MatTextField>
-                            <AutoFocus Control=@(() => CodeInput.InputRef) />
+                            <MudTextField @ref="CodeInput" 
+                                           @bind-Value="@loginViewModel.TwoFactorCode"
+                                           Text=@L["Code"] 
+                                           AdornmentIcon="@PasswordInputIcon" 
+                                           OnAdornmentClick="TogglePasswordVisibility" 
+                                           FullWidth="true" 
+                                           Required="true" 
+                                           InputType="@PasswordInput" 
+                                           tabindex="1"></MudTextField>
+                            @*<AutoFocus Control=@(() => CodeInput.InputRef) />*@
                         </div>
                         <div class="form-group">
                             <MatButton class="float-right" Type="submit" Raised="true" tabindex="2">@L["Login"]</MatButton>
@@ -47,33 +56,39 @@
                         </div>
                     </fieldset>
                 </EditForm>
-            </MatCard>
-            <MatAccordion>
-                <MatExpansionPanel @bind-Expanded="@forgotAuthenticatorToggle">
-                    <MatExpansionPanelSummary>
-                        <MatExpansionPanelHeader>@L["ForgotAuthenticator"]</MatExpansionPanelHeader>
-                        <MatExpansionPanelSubHeader></MatExpansionPanelSubHeader>
-                    </MatExpansionPanelSummary>
-                    <MatExpansionPanelDetails>
-                        <EditForm Model="@forgotAuthenticatorInputModel" OnValidSubmit="@ForgotAuthenticator">
-                            <FluentValidationValidator />
-                            <ValidationSummary />
-                            <div class="form-group">
-                                <MatTextField @bind-Value="@forgotAuthenticatorInputModel.RecoveryCode" Label=@L["RecoveryCode"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
-                            </div>
-                            <div class="form-group">
-                                <MatButton class="float-right" Type="submit" Raised="true">@L["Login"]</MatButton>
-                            </div>
-                        </EditForm>
-                    </MatExpansionPanelDetails>
-                </MatExpansionPanel>
-            </MatAccordion>
+            </MudCard>
+
+
+
+
+            <MudExpansionPanels>
+                <MudExpansionPanel IsExpanded="@forgotAuthenticatorToggle">
+                    <MudCard>
+                        <MudCardHeader>@L["ForgotAuthenticator"]</MudCardHeader> 
+                        <MudCardContent>
+                            <EditForm Model="@forgotAuthenticatorInputModel" OnValidSubmit="@ForgotAuthenticator">
+                                <FluentValidationValidator />
+                                <ValidationSummary />
+                                <div class="form-group">
+                                    <MudTextField @bind-Value="@forgotAuthenticatorInputModel.RecoveryCode" Label=@L["RecoveryCode"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
+                                </div>
+                                <div class="form-group">
+                                    <MudButton class="float-right" ButtonType="ButtonType.Submit" >@L["Login"]</MudButton>
+                                </div>
+                            </EditForm>
+                        </MudCardContent>
+                    </MudCard>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
         }
     </NotAuthorized>
 </AuthorizeView>
 @code {
 
-    private MatTextField<string> CodeInput;
+    private MudTextField<string> CodeInput;
+    private bool PasswordVisibility { get; set; } = false;
+    private string PasswordInputIcon { get; set; } = Icons.Material.Filled.VisibilityOff;
+    private InputType PasswordInput { get; set;  } 
 
     string navigateTo = null;
     IdentityAuthenticationStateProvider identityAuthenticationStateProvider;
@@ -102,6 +117,23 @@
 
     [CascadingParameter]
     Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    void TogglePasswordVisibility()
+    {
+
+    @if (PasswordVisibility)
+    {
+        PasswordVisibility = false;
+        PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+        PasswordInput = InputType.Password;
+    }
+    else
+    {
+        PasswordVisibility = true;
+        PasswordInputIcon = Icons.Material.Filled.Visibility;
+        PasswordInput = InputType.Text;
+    }
+    }
 
 
     protected override async Task OnParametersSetAsync()

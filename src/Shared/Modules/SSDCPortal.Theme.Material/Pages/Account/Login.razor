@@ -15,76 +15,83 @@
             <label>@L["Loading"]</label>
         </LoadingBackground>
     </Authorized>
+
     <NotAuthorized>
         @if (loginViewModel.EnableLocalLogin)
         {
-            <MatCard>
-                <div class="hidden-mdc-down">
-                    <MudIconButton Icon="home" Class="float-left" Link="/" />
+            <!-- New Mud Design -->
+            <MudCard>
+            <EditForm Model="@loginViewModel" OnValidSubmit="@SubmitLogin">
+                <FluentValidationValidator />
+                <ValidationSummary />
+                <MudText Typo="Typo.h4" GutterBottom="true">Sign In</MudText>
+
+                <MudText>Don't have an account?<MudLink Href="/account/register">Sign Up</MudLink></MudText>
+
+                <MudTextField @ref="UserNameInput" @bind-Value="@loginViewModel.UserName" Label=@L["UserName"] T="string" Variant="Variant.Outlined" Class="my-6" autocomplete="username" InputType="InputType.Email" />
+
+                @*<AutoFocus Control=@(() => UserNameInput.InputRef) />*@
+
+                <MudTextField @bind-Value="@loginViewModel.Password" Label=@L["Password"] Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" autocomplete="Password"> </MudTextField>
+
+                <div Class="d-flex justify-space-between align-center">
+
+                    @if (loginViewModel.AllowRememberLogin)
+                    {
+                        <MudSwitch @bind-Checked="@loginViewModel.RememberMe" Label=@L["Keep me logged in"] Color="Color.Primary" Class="ml-n1 my-3"></MudSwitch>
+                    }
+
+                    <MudLink Href="/forgot">@L["Forgot your password?"]</MudLink>
                 </div>
-                <div class="logo">
-                    <a href="/" title="@appState.AppName Home"><img src="_content/SSDCPortal.Theme.Material/images/logo.svg" style="width:100px;" title="@appState.AppName Home" alt="@appState.AppName" /><br />@appState.AppName</a>
-                    <br />
-                    <h4>@L["Log in"]</h4>
-                </div>
-                <EditForm Model="@loginViewModel" OnValidSubmit="@SubmitLogin">
+
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" ButtonType="ButtonType.Submit" FullWidth="true">@L["Submit"]</MudButton>
+
+            </EditForm>
+
+            <!-- Register Link -->
+            <MudButton class="float-left" OnClick="@Register" Raised="true">@L["Sign up"]</MudButton>
+            </MudCard>
+            <!-- Forgot Password Code -->
+
+            <MudCard>
+                <EditForm Model="@forgotPasswordViewModel" OnValidSubmit="@ForgotPassword">
                     <FluentValidationValidator />
                     <ValidationSummary />
-                    <fieldset>
-                        <div class="form-group">
-                            <MatTextField @ref="UserNameInput" @bind-Value="@loginViewModel.UserName" Label=@L["UserName"] Icon="person" IconTrailing="true" FullWidth="true" Required="true" tabindex="1"></MatTextField>
-                            <AutoFocus Control=@(() => UserNameInput.InputRef) />
-                        </div>
-                        <div class="form-group">
-                            <MatTextField @bind-Value="@loginViewModel.Password" Label=@L["Password"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password" tabindex="2"></MatTextField>
-                        </div>
-                        <div class="form-group">
-                            <MatButton class="float-right" Type="submit" Raised="true" tabindex="3">@L["Login"]</MatButton>
-                            @if (loginViewModel.AllowRememberLogin)
-                            {<MatCheckbox @bind-Value="@loginViewModel.RememberMe" class="filled-in chk-col-blue">@L["Keep me logged in"]</MatCheckbox>}
-                        </div>
-                    </fieldset>
+                    <div class="form-group">
+                        <MudTextField @bind-Value="@forgotPasswordViewModel.Email" Label=@L["Email"] Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
+                    </div>
+                    <div class="form-group">
+                        <MudButton class="float-right" Type="submit" Raised="true">@L["Submit"]</MudButton>
+                    </div>
                 </EditForm>
-                <hr />
-                <div>
-                    <MatButton class="float-left" OnClick="@Register" Raised="true">@L["Sign up"]</MatButton>
-                </div>
-            </MatCard>
-            <MatAccordion>
-                <MatExpansionPanel @bind-Expanded="@forgotPasswordToggle">
-                    <MatExpansionPanelSummary>
-                        <MatExpansionPanelHeader>@L["Forgot your password?"]</MatExpansionPanelHeader>
-                        <MatExpansionPanelSubHeader></MatExpansionPanelSubHeader>
-                    </MatExpansionPanelSummary>
-                    <MatExpansionPanelDetails>
-                        <EditForm Model="@forgotPasswordViewModel" OnValidSubmit="@ForgotPassword">
-                            <FluentValidationValidator />
-                            <ValidationSummary />
-                            <div class="form-group">
-                                <MatTextField @bind-Value="@forgotPasswordViewModel.Email" Label=@L["Email"] Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
-                            </div>
-                            <div class="form-group">
-                                <MatButton class="float-right" Type="submit" Raised="true">@L["Submit"]</MatButton>
-                            </div>
-                        </EditForm>
-                    </MatExpansionPanelDetails>
-                </MatExpansionPanel>
-            </MatAccordion>
+            </MudCard>
+            <!-- End Forgot Password Code -->
+
             @if (loginViewModel.VisibleExternalProviders.Any())
             {
-                <br />
+
                 <MudCard>
+
+                    <!-- If Local Login is enabled -->
                     @if (!loginViewModel.EnableLocalLogin)
-                    {<div class="hidden-mdc-down">
-                            <MudIconButton Icon="home" Class="float-left" Link="/" />
-                        </div>}
-                    <div class="logo">
-                        @if (!loginViewModel.EnableLocalLogin)
-                        {<a href="/" title="@appState.AppName Home"><img src="_content/SSDCPortal.Theme.Material/images/logo.svg" style="width:100px;" 
-                                                                         title="@appState.AppName Home" alt="@appState.AppName" /><br />@appState.AppName</a>
-                        <br />}
-                        <h4>@L["Sign in with"]</h4>
-                    </div>
+                    {
+                        <MudIconButton Icon="home" Class="float-left" Link="/" />
+                    }
+
+
+
+                    @if (!loginViewModel.EnableLocalLogin)
+                    {
+                        <a href="/" title="@appState.AppName Home">
+                            <img src="_content/SSDCPortal.Theme.Material/images/logo.svg" style="width:100px;" title="@appState.AppName Home" alt="@appState.AppName" /><br />@appState.AppName
+                        </a><br />
+                    }
+                   
+                            
+                    
+                    <h4>@L["Sign in with"]</h4>
+                    
+                    
                     <div style="text-align: center">
                         @foreach (var provider in loginViewModel.VisibleExternalProviders)
                         {
@@ -93,25 +100,29 @@
                                 case "Google":
                                 case "Facebook":
                                     <div class="form-group">
-                                        <MatButton Style="min-width: 140px;" OnClick="@(() => SignInWith(provider))" Raised="true"><img height="18" src="/images/@(provider.AuthenticationScheme.ToLower()).svg" /></MatButton>
+                                        <MudButton Style="min-width: 140px;" OnClick="@(() => SignInWith(provider))" Raised="true"><img height="18" src="/images/@(provider.AuthenticationScheme.ToLower()).svg" /></MudButton>
                                     </div>
                                     break;
                                 case "Twitter":
                                 case "Microsoft":
                                 case "Apple":
                                     <div class="form-group">
-                                        <MatButton Style="min-width: 140px;" OnClick="@(() => SignInWith(provider))" Raised="true"><img height="18" src="/images/@(provider.AuthenticationScheme.ToLower()).svg" />&nbsp;@provider.DisplayName</MatButton>
+                                        <MudButton Style="min-width: 140px;" OnClick="@(() => SignInWith(provider))" Raised="true"><img height="18" src="/images/@(provider.AuthenticationScheme.ToLower()).svg" />&nbsp;@provider.DisplayName</MudButton>
                                     </div>
                                     break;
                                 default:
                                     <div class="form-group">
-                                        <MatButton Style="min-width: 140px;" OnClick="@(() => SignInWith(provider))" Raised="true" Label="@provider.DisplayName" />
+                                        <MudButton Style="min-width: 140px;" OnClick="@(() => SignInWith(provider))" Raised="true" Label="@provider.DisplayName" />
                                     </div>
                                     break;
                             }
                         }
                     </div>
-                </MudCard>}
+                </MudCard>
+            }
+
+
+
             @if (!loginViewModel.EnableLocalLogin && !loginViewModel.VisibleExternalProviders.Any())
             {
                 <div class="alert alert-warning">
@@ -127,7 +138,12 @@
     [CascadingParameter]
     Task<AuthenticationState> authenticationStateTask { get; set; }
 
-    private MatTextField<string> UserNameInput;
+    private MudTextField<string> UserNameInput;
+
+    bool PasswordVisibility;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
 
     string navigateTo = null;
     IdentityAuthenticationStateProvider identityAuthenticationStateProvider;
@@ -235,6 +251,22 @@
         catch (Exception ex)
         {
             viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["ResetPasswordFailed"]);
+        }
+    }
+
+    void TogglePasswordVisibility()
+    {
+        @if (PasswordVisibility)
+        {
+            PasswordVisibility = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+    else
+        {
+            PasswordVisibility = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
         }
     }
 }

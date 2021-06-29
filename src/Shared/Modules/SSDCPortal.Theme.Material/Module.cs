@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
+using Syncfusion;
+using MudBlazor.Services;
 
 namespace SSDCPortal.Theme.Material
 {
@@ -28,6 +30,7 @@ namespace SSDCPortal.Theme.Material
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDIyNzQ0QDMxMzkyZTMxMmUzMG5HZ25LN1hzSW5ITWlIb1dHNjM5RTlhM3k1S0ErVk9IY2xEd3Y5TzhSLzg9");
             services.AddTransient<ITagHelperComponent, ThemeTagHelperComponent>();
             services.AddTransient<ITagHelperComponent, AppTagHelperComponent>();
 
@@ -40,6 +43,9 @@ namespace SSDCPortal.Theme.Material
                 config.MaximumOpacity = 95;
                 config.VisibleStateDuration = 3000;
             });
+            
+            services.AddMudServices();
+
 
             services.AddScoped<IViewNotifier, ViewNotifier>();
         }

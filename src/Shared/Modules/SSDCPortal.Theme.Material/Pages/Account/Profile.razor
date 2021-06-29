@@ -15,52 +15,52 @@
 else
 {
     <div class="form-group">
-        <MatButton Type="submit" form="mainForm" Raised="true">@L["Update"]</MatButton>
+        <MudButton ButtonType="ButtonType.Submit" form="mainForm">@L["Update"]</MudButton>
         @if (userViewModel.HasPassword)
         {
-            <MatButton Icon="rotate_right" OnClick="@(() => OpenUpdatePasswordDialog())" Label=@L["Change Password"] Raised="true"></MatButton>
+            <MudButton IconClass="rotate_right" OnClick="@(() => OpenUpdatePasswordDialog())">@L["Change Password"]</MudButton>
         }
         @if (userViewModel.HasAuthenticator)
         {
-            <MatButton Icon="rotate_right" OnClick="@(() => DisableAuthenticator())" Label=@L["ResetAuthenticator"] Raised="true"></MatButton>
+            <MudButton IconClass="rotate_right" OnClick="@(() => DisableAuthenticator())">@L["ResetAuthenticator"]</MudButton>
         }
     </div>
     <EditForm id="mainForm" Model="@userViewModel" OnValidSubmit="@UpdateUser">
-        <FluentValidationValidator />
-        <ValidationSummary />
+        <FluentValidationValidator/>
+        <ValidationSummary/>
         <fieldset>
             <div class="form-group">
-                <MatTextField @bind-Value="@userViewModel.UserName" Label=@L["UserName"] Icon="person" IconTrailing="true" FullWidth="true" Required="true" ReadOnly="true"></MatTextField>
+                <MudTextField @bind-Value="@userViewModel.UserName" Text=@L["UserName"] Icon="person" IconTrailing="true" FullWidth="true" Required="true" ReadOnly="true"></MudTextField>
             </div>
             <div class="form-group">
-                <MatTextField @bind-Value="@userViewModel.Email" Label="Email" Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                <MudTextField @bind-Value="@userViewModel.Email" Text="Email" Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
             </div>
             <div class="form-group">
-                <MatTextField @bind-Value="@userViewModel.FirstName" Label=@L["FirstName"] FullWidth="true"></MatTextField>
+                <MudTextField @bind-Value="@userViewModel.FirstName" Text=@L["FirstName"] FullWidth="true"></MudTextField>
             </div>
             <div class="form-group">
-                <MatTextField @bind-Value="@userViewModel.LastName" Label=@L["LastName"] FullWidth="true"></MatTextField>
+                <MudTextField @bind-Value="@userViewModel.LastName" Text=@L["LastName"] FullWidth="true"></MudTextField>
             </div>
             <div class="form-group">
-                <strong>@L["Roles"]</strong><br />
-                <MatChipSet>
+                <strong>@L["Roles"]</strong><br/>
+                <MudChipSet>
                     @foreach (var role in userViewModel.Roles)
                     {
-                        <MatChip Label="@role"></MatChip>
+                        <MudChip Text="@role"></MudChip>
                     }
-                </MatChipSet>
+                </MudChipSet>
             </div>
         </fieldset>
     </EditForm>
     @if (userViewModel.TwoFactorEnabled)
     {
         <div class="form-group">
-            <MatSlideToggle @bind-Value="@TwoFactorEnabled" Label=@L["TwoFactorAuthentication"] />
+            <MatSlideToggle @bind-Value="@TwoFactorEnabled" Label=@L["TwoFactorAuthentication"]/>
         </div>
         @if (userViewModel.BrowserRemembered)
         {
             <div class="form-group">
-                <MatSlideToggle @bind-Value="@BrowserRemembered" Label=@L["BrowserRemembered"] />
+                <MatSlideToggle @bind-Value="@BrowserRemembered" Label=@L["BrowserRemembered"]/>
             </div>
         }
         if (userViewModel.RecoveryCodes != null)
@@ -88,41 +88,42 @@ else
             Download a two-factor authenticator app like Microsoft Authenticator or Google Authenticator.
         </p>
         <p>Scan the QR Code or enter this key <kbd>@userViewModel.SharedKey</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
-        <img src="@($"https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl={userViewModel.AuthenticatorUri}")" />
+        <img src="@($"https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl={userViewModel.AuthenticatorUri}")"/>
         <p>
             Once you have scanned the QR code or input the key above, your two factor authentication app will provide you
             with a unique code. Enter the code in the confirmation box below.
         </p>
-        <MatTextField @bind-Value="@authenticatorVerificationCodeViewModel.Code" Label=@L["Code"] FullWidth="true"></MatTextField>
+        <MudTextField @bind-Value="@authenticatorVerificationCodeViewModel.Code" Label=@L["Code"] FullWidth="true"></MudTextField>
         <MatButton OnClick="@EnableAuthenticator">@L["VerifyCode"]</MatButton>
     }
-
-    <MatDialog @bind-IsOpen="@updatePasswordDialogOpen">
-        <MatDialogTitle>Password Update for @userViewModel.UserName</MatDialogTitle>
-        <MatDialogContent>
+    <MudDialog IsVisible="@updatePasswordDialogOpen">
+        <TitleContent>
+            <MudText Typo="Typo.h6">Password Update for @userViewModel.UserName</MudText>
+        </TitleContent>
+        <DialogContent>
             <EditForm Model="@updatePasswordViewModel" OnValidSubmit="@UpdatePassword">
-                <FluentValidationValidator />
-                <ValidationSummary />
+                <FluentValidationValidator/>
+                <ValidationSummary/>
                 <fieldset>
                     <div class="form-group">
-                        <MatTextField @bind-Value="@updatePasswordViewModel.CurrentPassword" Label=@L["CurrentPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
+                        <MudTextField @bind-Value="@updatePasswordViewModel.CurrentPassword" Text=@L["CurrentPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
                     </div>
                     <div class="form-group">
-                        <MatTextField @bind-Value="@updatePasswordViewModel.NewPassword" Label=@L["NewPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
+                        <MudTextField @bind-Value="@updatePasswordViewModel.NewPassword" Text=@L["NewPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
                     </div>
                     <div class="form-group">
-                        <MatTextField @bind-Value="@updatePasswordViewModel.NewPasswordConfirm" Label=@L["Password Confirmation"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MatTextField>
+                        <MudTextField @bind-Value="@updatePasswordViewModel.NewPasswordConfirm" Text=@L["Password Confirmation"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
                     </div>
                 </fieldset>
             </EditForm>
-        </MatDialogContent>
-        <MatDialogActions>
-            <MatButton OnClick="@(e => { updatePasswordDialogOpen = false; })">@L["Cancel"]</MatButton>
-            <MatButton OnClick="@UpdatePassword">@L["Update Password"]</MatButton>
-        </MatDialogActions>
-    </MatDialog>
-
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="@(e => { updatePasswordDialogOpen = false; })">@L["Cancel"]</MudButton>
+            <MudButton Color="Color.Secondary" OnClick="@UpdatePassword">@L["Update Password"]</MudButton>
+        </DialogActions>
+    </MudDialog>
 }
+
 @code {
     UserViewModel userViewModel;
     bool updatePasswordDialogOpen = false;

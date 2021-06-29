@@ -1,5 +1,4 @@
 using AutoMapper;
-using AutoMapper;
 using static SSDCPortal.Constants.PasswordPolicy;
 using SSDCPortal.Infrastructure.AuthorizationDefinitions;
 using SSDCPortal.Infrastructure.Server;
@@ -52,7 +51,7 @@ using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
 using Serilog;
 using System;
-using Syncfusion;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -63,6 +62,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using static IdentityServer4.IdentityServerConstants;
 using static Microsoft.AspNetCore.Http.StatusCodes;
+
 
 namespace SSDCPortal.Server
 {
@@ -84,7 +84,7 @@ namespace SSDCPortal.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDIyNzQ0QDMxMzkyZTMxMmUzMG5HZ25LN1hzSW5ITWlIb1dHNjM5RTlhM3k1S0ErVk9IY2xEd3Y5TzhSLzg9");
+          
             services.AddSingleton<ILocalizationProvider, StorageLocalizationProvider>();
             services.AddTextLocalization(options =>
             {
@@ -593,6 +593,9 @@ namespace SSDCPortal.Server
             Log.Logger.Debug("Adding AuthenticationStateProvider...");
             services.AddScoped<AuthenticationStateProvider, IdentityAuthenticationStateProvider>();
             /**********************/
+
+            
+
 
             services.AddModules();
 

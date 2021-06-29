@@ -5,18 +5,14 @@
 
     <div>@Label</div>
     <div>
-        <MatSlideToggle @bind-Value="timer.Enabled" />
+        <MudSwitch @bind-Checked="@timer.Enabled" Color="Color.Primary" Class="ml-n1 my-3"></MudSwitch>
     </div>
     <div class="refresh-timer-interval-wrapper">
-        <MatNumericUpDownField Label="@Text"
-                               Value="@Interval"
-                               ValueChanged="@UpdateInterval"
-                               DecimalPlaces="0"
-                               Dense="true"
-                               Minimum="1"
-                               TValue="double">
-
-        </MatNumericUpDownField>
+        <MudNumericField Label="@Text"
+                         @bind-Value="@Interval"
+                         Format="F1" 
+                         TextChanged="UpdateInterval">
+        </MudNumericField>
     </div>
 </div>
 @code {
@@ -50,10 +46,11 @@
         base.OnInitialized();
 
     }
-    void UpdateInterval(double newInterval)
+    void UpdateInterval(string newInterval)
     {
-        Interval = newInterval;
-        timer.Interval = newInterval * 1000; //convert to milliseconds
+        double.TryParse(newInterval, out double newInter);
+        Interval = newInter;
+        timer.Interval = Interval * 1000; //convert to milliseconds
     }
     public void Dispose()
     {
