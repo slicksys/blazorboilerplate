@@ -1,35 +1,28 @@
 ﻿@inject NavigationManager navigationManager
-@inject IJSRuntime js
 
-<MudSelect T="string"  ValueChanged="(string i) => OnCultureChanged(i)">
-    @foreach (var culture in @SSDCPortal.Shared.Localizer.Settings.SupportedCulturesWithName)
-    {
-        <MudSelectItem Context="CultureItem" Value=@culture.Item2>@culture.Item1</MudSelectItem>
-    }
-
-</MudSelect>
-
-@*<MatSelectValue
-    Class="selectCulture"
-    Value="CurrentCulture"
-    Items="@SSDCPortal.Shared.Localizer.Settings.SupportedCulturesWithName"
-    ValueSelector=@(i => i.Item2)
-    ValueChanged="(string i) => OnCultureChanged(i)">
-
-    <ItemTemplate Context="CultureItem"><span>@CultureItem.Item1</span></ItemTemplate>
-
-</MatSelectValue>*@
+<MudItem Class="mt-n3" xs="12" sm="4" md="2">
+    <MudSelect Placeholder=@CurrentCulture  
+               @bind-Value="@cultureValue" HelperText="CultureInfo" ToStringFunc="@convertFunc" OffsetY="true"
+               OpenIcon="@Icons.Material.Filled.LocalDrink"
+               CloseIcon="@Icons.Material.Filled.Flag" AdornmentColor="Color.Secondary">
+        @foreach (var culture in @SSDCPortal.Shared.Localizer.Settings.SupportedCulturesWithName)
+        {
+            <MudSelectItem Value="@(CultureInfo.GetCultureInfo(culture.Item2))" />
+        }
+    </MudSelect>
+</MudItem>
 
 @code {
     private string CurrentCulture { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentCulture = CultureInfo.CurrentCulture.Name;
+        CurrentCulture = CultureInfo.CurrentCulture.DisplayName;
 
         await base.OnInitializedAsync();
     }
-
+    private CultureInfo cultureValue { get; set; }
+    private Func<CultureInfo, string> convertFunc = ci => ci?.DisplayName;
 
     //TODO: Fix the Culture Selection
     public void OnCultureChanged(string culture)

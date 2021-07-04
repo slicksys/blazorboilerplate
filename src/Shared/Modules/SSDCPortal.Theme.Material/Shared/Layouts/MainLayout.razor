@@ -9,26 +9,46 @@
 
 <MudLayout>
     <MudAppBar Elevation="4">
-        <MudHidden Breakpoint="Breakpoint.SmAndDown">
-            <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Size="Size.Large" />
+        @*<MudHidden Breakpoint="Breakpoint.SmAndDown">
+            <MudIcon Icon="@Icons.Custom.FileFormats.FileImage..MudBlazor" Size="Size.Large" />
             <LoginDisplay />
         </MudHidden>
+
+
+        <!-- Show Icon in far left of HEADER -->
+        <MudHidden>
+            <MudAvatar Image="images/ssdc.png" />
+            <LoginDisplay />
+        </MudHidden>
+
+        *@
+
         <MudHidden Breakpoint="Breakpoint.MdAndUp">
             <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-            <h2>mudicon</h2>
         </MudHidden>
+
+
+
         <MudHidden Breakpoint="Breakpoint.Xs">
-            <MudText Typo="Typo.h6" Class="ml-4">Admin Dashboard</MudText>
+            <MudText Typo="Typo.h6" Class="ml-4">Main Dashboard</MudText>
         </MudHidden>
         <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
-            <MudText Typo="Typo.subtitle2">Admin Dashboard</MudText>
+            <MudText Typo="Typo.subtitle2">Main Dashboard</MudText>
         </MudHidden>
         <MudAppBarSpacer />
+
+
+        <SelectCulture></SelectCulture>
+
+        @*
+        <!-- Old Sample Cuture Select -->
         <MudMenu Icon="@Icons.Material.Outlined.Alarm" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
             <MudMenuItem>English</MudMenuItem>
             <MudMenuItem>Swedish</MudMenuItem>
             <MudMenuItem>Old Norse</MudMenuItem>
         </MudMenu>
+        *@
+
         <MudMenu Icon="@Icons.Material.Outlined.Widgets" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
             <MudMenuItem Link="https://slicksysdev.com/">SSDC</MudMenuItem>
             <MudMenuItem Link="https://christopherlane.net">Engineer</MudMenuItem>
@@ -51,7 +71,7 @@
     </MudDrawer>
     <MudMainContent>
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
-            <MudToolBar DisableGutters="true">
+            <MudToolBar DisableGutters="false">
                 <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
                 <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
                 <MudToolBarSpacer />

@@ -1,0 +1,328 @@
+<Query Kind="Statements" />
+
+SSDCPortal.Scheduler.Admin
+_Imports.razor
+               
+SSDCPortal.Scheduler.Admin --> Pages --> Admin
+        ApiLogViewer.razor
+        ApiResources.razor
+        Clients.razor
+        DbLogViewer.razor
+        IdentityResources.razor
+        Index.razor
+        MultiTenancy.razor
+        PluralizationRules.razor
+        Roles.razor
+        Translations.razor
+        Users.razor
+
+SSDCPortal.Scheduler.Admin --> Pages --> Admin --> Settings
+        Email.razor
+        Index.razor
+
+
+SSDCPortal.Scheduler.Admin --> Shared --> Components
+        AdminNavMenu.razor
+        TenantInfo.razor
+
+SSDCPortal.Scheduler.Admin --> Shared --> Layouts
+        AdminLayout.razor
+
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material
+App.razor
+_Imports.razor
+
+-----Pages\Account
+
+ ConfirmEmail.razor
+ Forgot.razor
+ Login.razor
+ LoginWith2fa.razor
+ MyAccount.razor
+ Profile.razor
+ Register.razor
+ ResetPassword.razor
+
+-----Pages\ExternalAuth
+
+ Confirm.razor
+ Error.razor
+ Success.razor
+
+----Pages\IdentityServer
+Error.razor
+
+-----Pages\Utility
+
+ Faq.razor
+ WasmLoading.razor
+
+-----Shared\Components
+
+ AuthorizingInProgress.razor
+ AutoFocus.razor
+ Breadcrumbs.razor
+ DrawerFooter.razor
+ DynamicComponentContainer.razor
+ Footer.razor
+ LoadingBackground.razor
+ Login.razor
+ NavMenu.razor
+ PageNotFound.razor
+ RedirectToLogin.razor
+ RefreshTimer.razor
+ SelectCulture.razor
+ TopRightBarSection.razor
+ UserNotAuthorized.razor
+ UserProfile.razor
+
+-----Shared\Components_bak
+
+ AuthorizingInProgress.razor
+ AutoFocus.razor
+ Breadcrumbs.razor
+ DrawerFooter.razor
+ DynamicComponentContainer.razor
+ Footer.razor
+ LoadingBackground.razor
+ Login.razor
+ NavMenu.razor
+ PageNotFound.razor
+ RedirectToLogin.razor
+ RefreshTimer.razor
+ SelectCulture.razor
+ TopRightBarSection.razor
+ UserNotAuthorized.razor
+ UserProfile.razor
+
+
+-----Shared\Layouts
+
+ LoginDisplay.razor
+ LoginLayout.razor
+ MainLayout.razor
+ NavMenu.razor
+ PersonCard.razor
+
+-----Shared\Layouts_bak
+
+ LoginLayout.razor
+ MainLayout - Copy (2).razor
+ MainLayout - Copy.razor
+ MainLayout.razor
+
+
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin
+_Imports.razor
+
+-----Pages\Admin
+ApiLogViewer.razor
+ApiResources.razor
+Clients.razor
+DbLogViewer.razor
+IdentityResources.razor
+Index.razor
+MultiTenancy.razor
+PluralizationRules.razor
+Roles.razor
+Translations.razor
+Users.razor
+
+-----Settings
+Email.razor
+Index.razor
+
+-----Shared\Components
+AdminNavMenu.razor
+TenantInfo.razor
+
+-----Shared\Layouts
+AdminLayout.razor
+
+SSDCPortal.Theme.Material.Admin >
+
+
+SSDCPortal.Theme.Material 
+SSDCPortal.GoogleAnalytics
+SSDCPortal.Theme.Material
+SSDCPortal.Theme.Material.Admin
+
+
+
+
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo
+
+ Pages --> Appointments.razor
+ Pages --> Dashboard.razor
+ Pages --> DragNDrop.razor
+ Pages --> Faq.razor
+ Pages --> Index.razor
+ Pages --> KennelScheduler.razor
+ Pages --> Scheduler.razor
+ Pages --> TestEmail.razor
+ Pages --> TestEmailView.razor
+ Pages --> TodoList.razor
+ Pages --> _Imports.razor
+ 
+ 
+ Pages --> Forum --> Forum.razor
+ Pages --> Forum --> ForumMessage.razor
+ Pages --> Forum --> ForumMessageCreateForm.razor
+ 
+ 
+ Shared\Common\SpinnerComponent.razor
+ 
+ 
+ Shared --> Components --> DonateButton.razor
+ Shared --> Components --> DrawerFooter.razor
+ Shared --> Components --> Footer.razor
+ Shared --> Components --> NavMenu.razor
+ Shared --> Components --> TopRightBarSection.razor
+ 
+ 
+ 
+ Shared --> Components --> DragNDrop --> Job.razor
+ Shared --> Components --> DragNDrop --> JobList.razor
+ Shared --> Components --> DragNDrop --> JobsContainer.razor
+ Shared --> Components --> DragNDrop --> ReportPeriod.razor
+ Shared --> Components --> DragNDrop --> ReportPeriodList.razor
+ Shared --> Components --> DragNDrop --> ReportPeriodsContainer.ra
+
+
+
+
+
+
+SSDCPortal.Scheduler.Admin
+                                                                                                                                                 SDCPortal.Server\.Pages\    Error.razor
+                                                    _Imports.razor
+                  .Pages\                  Admin    ApiLogViewer.razor
+                  .Pages\                  Admin    ApiResources.razor
+                  .Pages\                  Admin    Clients.razor
+                  .Pages\                  Admin    DbLogViewer.razor
+                  .Pages\                  Admin    IdentityResources.razor
+                  .Pages\                  Admin    Index.razor
+                  .Pages\                  Admin    MultiTenancy.razor
+                  .Pages\                  Admin    PluralizationRules.razor
+                  .Pages\                  Admin    Roles.razor
+                  .Pages\                  Admin    Translations.razor
+                  .Pages\                  Admin    Users.razor
+                  .Pages\                  Admin    Settings\Email.razor
+                  .Pages\                  Admin    Settings\Index.razor
+                  Shared\Components\                AdminNavMenu.razor
+                  Shared\Components\                TenantInfo.razor
+                  Shared\layouts\                   AdminLayout.razor
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\                                                       App.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\                                                       _Imports.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    ConfirmEmail.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    Forgot.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    Login.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    LoginWith2fa.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    MyAccount.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    Profile.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    Register.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Account                    ResetPassword.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     ExternalAuth               Confirm.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     ExternalAuth               Error.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     ExternalAuth               Success.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     IdentityServer             Error.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Utility\                   Faq.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\.Pages\                     Utility\                   WasmLoading.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     AuthorizingInProgress.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     AutoFocus.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     Breadcrumbs.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     DrawerFooter.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     DynamicComponentContainer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     Footer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     LoadingBackground.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     Login.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     NavMenu.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     PageNotFound.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     RedirectToLogin.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     RefreshTimer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     SelectCulture.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     TopRightBarSection.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     UserNotAuthorized.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components\                                     UserProfile.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             AuthorizingInProgress.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             AutoFocus.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             Breadcrumbs.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             DrawerFooter.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             DynamicComponentContainer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             Footer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             LoadingBackground.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             Login.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             NavMenu.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             PageNotFound.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             RedirectToLogin.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             RefreshTimer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             SelectCulture.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             TopRightBarSection.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             UserNotAuthorized.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Components_  bak  \                             UserProfile.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\layouts\                                        LoginDisplay.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\layouts\                                        LoginLayout.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\layouts\                                        MainLayout.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\layouts\                                        NavMenu.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\layouts\                                        PersonCard.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Layouts_bak                                     LoginLayout.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Layouts_bak                                     MainLayout - Copy (2).razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Layouts_bak                                     MainLayout - Copy.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material\Shared\Layouts_bak                                     MainLayout.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                                                 _Imports.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  ApiLogViewer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  ApiResources.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  Clients.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  DbLogViewer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  IdentityResources.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  Index.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  MultiTenancy.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  PluralizationRules.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  Roles.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  Translations.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  Users.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  Settings\Email.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    .Pages\               Admin  Settings\Index.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    Shared\Components\           AdminNavMenu.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    Shared\Components\           TenantInfo.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Admin\                    Shared\layouts\              AdminLayout.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\                                                  _Imports.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Appointments.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Dashboard.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           DragNDrop.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Faq.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Index.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           KennelScheduler.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Scheduler.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           TestEmail.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           TestEmailView.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           TodoList.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           _Imports.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Forum\Forum.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Forum\ForumMessage.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\.Pages\                                           Forum\ForumMessageCreateForm.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\common\                                    SpinnerComponent.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DonateButton.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DrawerFooter.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                Footer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                NavMenu.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                TopRightBarSection.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DragNDrop\Job.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DragNDrop\JobList.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DragNDrop\JobsContainer.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DragNDrop\ReportPeriod.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DragNDrop\ReportPeriodList.razor
+D:\GitDevelopment\SSDCPortalpLate\src\Shared\Modules\SSDCPortal.Theme.Material.Demo\Shared\Components\                                DragNDrop\ReportPeriodsContainer.razor
+
+D:\GitDevelopment\SSDCPortalpLate\src>

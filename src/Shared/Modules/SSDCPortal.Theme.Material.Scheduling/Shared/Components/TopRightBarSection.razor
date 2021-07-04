@@ -1,0 +1,18 @@
+﻿@implements IDynamicComponent
+
+<DonateButton />
+<MudTooltip Text="Github Repository">
+   <MudIconButton Link="https://github.com/slicksys" Icon="fa fa-github"> </MudIconButton>
+
+</MudTooltip>
+<MudTooltip Tooltip="Admin">
+    <MudIconButton Link="/admin" Icon="fa fa-gear">HitMe</MudIconButton>
+    @*<MatIconButton Link="/admin" RefBack="@context"><i class="fa fa-gear" aria-hidden="true"></i></MatIconButton>*@
+</MudTooltip> 
+<SelectCulture />
+<Login />
+
+@code {
+    public int Order { get => 1; }
+    public string IntoComponent { get => "TopRightBarSection"; }
+}

@@ -11,12 +11,11 @@
 <MudLayout>
     <MudAppBar Elevation="4">
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
-            <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Size="Size.Large" />
+            <MudIcon Icon="@Icons.Material.Filled.Pets" Size="Size.Large" />
             <LoginDisplay />
         </MudHidden>
         <MudHidden Breakpoint="Breakpoint.MdAndUp">
             <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-            <h2>mudicon</h2>
         </MudHidden>
         <MudHidden Breakpoint="Breakpoint.Xs">
             <MudText Typo="Typo.h6" Class="ml-4">Admin Dashboard</MudText>
@@ -25,16 +24,25 @@
             <MudText Typo="Typo.subtitle2">Admin Dashboard</MudText>
         </MudHidden>
         <MudAppBarSpacer />
-        <MudMenu Icon="@Icons.Material.Outlined.Alarm" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
-            <MudMenuItem>English</MudMenuItem>
-            <MudMenuItem>Swedish</MudMenuItem>
-            <MudMenuItem>Old Norse</MudMenuItem>
-        </MudMenu>
+
+        @*  <!-- Old sample Cuture Selection -->
+            <MudMenu Icon="@Icons.Material.Outlined.Alarm" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+                <MudMenuItem>English</MudMenuItem>
+                <MudMenuItem>Swedish</MudMenuItem>
+                <MudMenuItem>Old Norse</MudMenuItem>
+            </MudMenu>
+        *@
+        
+        <!-- Select Cutlture Dropdown -->
+        <SelectCulture></SelectCulture>
+        
+        <!-- Drop Down Menu -->
         <MudMenu Icon="@Icons.Material.Outlined.Widgets" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
             <MudMenuItem Link="https://slicksysdev.com/">SSDC</MudMenuItem>
             <MudMenuItem Link="https://christopherlane.net">Engineer</MudMenuItem>
         </MudMenu>
-        <!--  -->
+        
+        <!-- Drop Down Menu -->
         <MudMenu Direction="Direction.Left" OffsetX="true" Dense="true" Class="mt-1 ml-4">
             <ActivatorContent>
                 <MudAvatar Image="images/ssdc.png" />
@@ -42,26 +50,38 @@
             <ChildContent>
                 <PersonCard Class="mt-n2" />
                 <MudDivider Class="mb-2" />
-                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" Href="/personal/account" />
-                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/pages/authentication/login" />
+                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" Href="/account/account" />
+                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/account/login" />
             </ChildContent>
         </MudMenu>
     </MudAppBar>
+    
+    <!-- Left Sidebar Menu -->
     <MudDrawer @bind-Open="_drawerOpen" Elevation="25" ClipMode="_themeManager.DrawerClipMode">
-        <NavMenu />
+        <AdminNavMenu />
     </MudDrawer>
+    
+    <!-- Main Body -->
     <MudMainContent>
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
             <MudToolBar DisableGutters="true">
+                
+                <!-- Left Sidebar Open/Close Button -->
                 <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
+              
+                <!-- Breadcrumbs at top of main Body -->
                 <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
                 <MudToolBarSpacer />
+                
+                <!-- A couple of links buttons -->
                 <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#594AE2;">SSDC</MudButton>
                 <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#424242;" Class="mr-3">Line Of Business Software</MudButton>
+
             </MudToolBar>
         </MudHidden>
+        
+        <!-- Page Body -->
         <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
-
             @Body
         </MudContainer>
     </MudMainContent>
@@ -70,38 +90,67 @@
 
 @code {
 
-    private MudTheme _currentTheme = new SSDCAdminDashboard();
-
-    bool _navMenuOpened = true;
-    bool _navMinified = false;
-    public string bbDrawerClass = "";
-
-    private void CallLogin()
-    {
-        var returnUrl = navigationManager.ToBaseRelativePath(navigationManager.Uri);
-
-        navigationManager.NavigateTo($"{SSDCPortal.Constants.Settings.LoginPath}/{returnUrl}", forceLoad: false);
-    }
-
     [CascadingParameter]
     Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    private ThemeManagerTheme _themeManager = new ThemeManagerTheme();
+    private MudTheme _currentTheme = new SSDCAdminDashboard();
+    bool _navMenuOpened = true;
+    bool _navMinified = false;
+    bool _drawerOpen = true;
+    bool _themeManagerOpen = false;
+
+    public string bbDrawerClass = "";
+
 
     protected override async Task OnInitializedAsync()
     {
         var user = (await authenticationStateTask).User;
-
         if (user.Identity.IsAuthenticated)
         {
             var profile = await appState.GetUserProfile();
-
             if (profile == null)
                 profile = new SSDCPortal.Shared.Dto.Db.UserProfile();
 
-            _navMenuOpened = profile.IsNavOpen;
-            _navMinified = profile.IsNavMinified;
+            //_navMenuOpened = profile.IsNavOpen;
+            //_navMinified = profile.IsNavMinified;
+            _drawerOpen = profile.IsNavOpen; 
+
+            _themeManager.Theme = new SSDCAdminDashboard();
+            _themeManager.DrawerClipMode = DrawerClipMode.Always;
+            _themeManager.FontFamily = "Montserrat";
+            _themeManager.DefaultBorderRadius = 6;
+            _themeManager.AppBarElevation = 4;
+            _themeManager.DrawerElevation = 25;
+            StateHasChanged();
         }
     }
 
+    // Begin Mud Stuff (Remove as necessary
+    //--------------------------------------------------------------------------------
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    void OpenThemeManager(bool value)
+    {
+        _themeManagerOpen = value;
+    }
+
+    void UpdateTheme(ThemeManagerTheme value)
+    {
+        _themeManager = value;
+        StateHasChanged();
+    }
+
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Personal", href: "#"),
+        new BreadcrumbItem("Dashboard", href: "#"),
+    };
+
+    //--------------------------------------------------------------------------------
     void NavToggle()
     {
         _navMenuOpened = !_navMenuOpened;
@@ -146,47 +195,10 @@
     }
 
 
-
-    // Begin Mud Stuff (Remove as necessary
-    //--------------------------------------------------------------------------------
-
-    private ThemeManagerTheme _themeManager = new ThemeManagerTheme();
-
-    public bool _drawerOpen = true;
-    public bool _themeManagerOpen = false;
-
-    void DrawerToggle()
+    private void CallLogin()
     {
-        _drawerOpen = !_drawerOpen;
+        var returnUrl = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+        navigationManager.NavigateTo($"{SSDCPortal.Constants.Settings.LoginPath}/{returnUrl}", forceLoad: false);
     }
-
-    void OpenThemeManager(bool value)
-    {
-        _themeManagerOpen = value;
-    }
-
-    void UpdateTheme(ThemeManagerTheme value)
-    {
-        _themeManager = value;
-        StateHasChanged();
-    }
-
-    protected override void OnInitialized()
-    {
-        _themeManager.Theme = new SSDCAdminDashboard();
-        _themeManager.DrawerClipMode = DrawerClipMode.Always;
-        _themeManager.FontFamily = "Montserrat";
-        _themeManager.DefaultBorderRadius = 3;
-    }
-
-    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-{
-        new BreadcrumbItem("Personal", href: "/"),
-        new BreadcrumbItem("Dashboard", href: "/"),
-    };
-
-    //--------------------------------------------------------------------------------
-
-
 
 }

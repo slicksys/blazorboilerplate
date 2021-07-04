@@ -1,0 +1,159 @@
+@using Microsoft.AspNetCore.Components;
+@inject NavigationManager navigationManager
+@inject IStringLocalizer<Global> L
+@implements IDynamicComponent
+
+<PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text);"/>
+<MudDivider Class="mb-4" />
+<MudNavMenu>
+    <MudText Typo="Typo.subtitle2" Color="Color.Inherit" Class="ml-4 my-3">Personal Demo</MudText>
+    <MudNavLink Href="/dashboard" Match="NavLinkMatch.All" Icon="@Icons.Material.Outlined.Dashboard">Dashboard</MudNavLink>
+    <MudNavLink Href="/account/myaccount" Icon="@Icons.Material.Outlined.Person">Account</MudNavLink>
+    <MudNavLink Href="drag_and_drop" Icon="@Icons.Material.Outlined.Timer">Drag and Drop</MudNavLink>
+
+    @* <MudNavGroup Title="Scheduling" Icon="@Icons.Material.Outlined.AssignmentInd" HideExpandIcon="true">*@
+    <MudNavLink Href="drag_and_drop" Icon="@Icons.Material.Outlined.Timer">Drag and Drop</MudNavLink>
+    <MudNavLink Href="admin/kennelscheduler" Icon="@Icons.Material.Outlined.CalendarViewDay">Kennel Reservations</MudNavLink>
+    <MudNavLink Href="admin/employeeschedule" Icon="@Icons.Material.Outlined.AssignmentInd">Employee Schedule</MudNavLink>
+    @*  </MudNavGroup>*@
+
+    @* <MudNavGroup Title="Sample Apps" Icon="@Icons.Material.Outlined.Security" HideExpandIcon="true">*@
+    <MudNavLink Href="application/email" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Outlined.Email">Email</MudNavLink>
+    <MudNavLink Href="application/chat" Icon="@Icons.Material.Outlined.Forum">Chat</MudNavLink>
+    <MudNavLink Href="application/todo" Icon="@Icons.Custom.Uncategorized.AlertSuccess" Disabled="false">Todo</MudNavLink>
+    <MudNavLink Href="application/users" Icon="@Icons.Material.Outlined.PeopleAlt" Disabled="false">Users</MudNavLink>
+    @*</MudNavGroup>*@
+
+    <MudNavLink Href="pages/error/404" Icon="@Icons.Material.Outlined.InsertDriveFile" Disabled="false">404</MudNavLink>
+    <MudNavLink Href="pages/utility/faq" Icon="@Icons.Material.Outlined.InsertDriveFile">Faq</MudNavLink>
+    @*<MudNavGroup Title="Error" Icon="@AlertAssignmentIcon" HideExpandIcon="true"></MudNavGroup>*@
+    @*<MudNavGroup Title="Utility" Icon="@Icons.Material.Outlined.Assignment" HideExpandIcon="true"></MudNavGroup>*@
+
+    <MudText Typo="Typo.subtitle2" Color="Color.Error" Class="ml-4 my-3">Authentication / Permissions</MudText>
+    @*<MudNavGroup Title="Authentication" Icon="@Icons.Material.Outlined.Security" HideExpandIcon="true">*@
+    <MudNavLink Href="account/login" Icon="@Icons.Material.Outlined.InsertDriveFile">Login</MudNavLink>
+    <MudNavLink Href="account/register" Icon="@Icons.Material.Outlined.InsertDriveFile">Register</MudNavLink>
+    <MudNavLink Href="account/forgot-password" Icon="@Icons.Material.Outlined.InsertDriveFile">Forgot Password</MudNavLink>
+    <MudNavLink Href="account/reset-password" Icon="@Icons.Material.Outlined.InsertDriveFile">Reset Password</MudNavLink>
+    @*</MudNavGroup>*@
+    <br />
+    <br />
+
+    <MudNavGroup Title="Scheduling" Icon="@Icons.Material.Outlined.AssignmentInd" HideExpandIcon="true">
+        <!-- Navigate Home -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["AppNavHome"]</span>
+        </MudNavLink>
+
+        <!-- Navigate Dashboard -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["Dashboard"]</span>
+        </MudNavLink>
+
+        <!-- Navigate ToDo List -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["TodoNav"]</span>
+        </MudNavLink>
+    </MudNavGroup>
+
+    <MudNavGroup Title="Utility" Icon="@Icons.Material.Outlined.Assignment" HideExpandIcon="true">
+        <!-- Navigate App Navigation Features -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover"> @L["AppNavFeatures"]</span>
+        </MudNavLink>
+
+        <!-- Navigate Drag and Drop -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["AppNavDragAndDrop"]</span>
+        </MudNavLink>
+
+        <!-- Navigate Email -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover"> @L["AppNavEmail"]</span>
+        </MudNavLink>
+
+        <!-- Navigate Read Email -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["AppNavReadEmail"]</span>
+        </MudNavLink>
+
+        <!-- Navigate Send Email -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["AppNavSendEmail"]</span>
+        </MudNavLink>
+    </MudNavGroup>
+
+    <MudNavGroup Title="Utility" Icon="@Icons.Material.Outlined.Assignment" HideExpandIcon="true">
+
+        <!-- Navigate Forum -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["AppNavForum"]</span>
+        </MudNavLink>
+
+        <!-- Navigate Kennel Mgt. -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["AppNavKennels"]</span>
+        </MudNavLink>
+
+        <!-- Navigate Appointment Scheduling -->
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri"
+                    Disabled="@(!IsLoggedIn)"
+                    Icon="@Icons.Material.Outlined.InsertDriveFile">
+            <span class="miniHover">@L["AppNavAppointments"]</span>
+        </MudNavLink>
+        
+        <MudText Typo="Typo.subtitle2" Color="Color.Error" Class="ml-4 my-3">End of Demo Menu
+        </MudText>
+
+    </MudNavGroup>
+
+
+</MudNavMenu>
+
+@code {
+
+    public int Order { get => 1; }
+    public string IntoComponent { get => "NavMenu"; }
+
+    public bool IsLoggedIn = false;
+
+    [CascadingParameter]
+    Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        IsLoggedIn = false;
+        var user = (await authenticationStateTask).User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            IsLoggedIn = true;
+        }
+
+        if (user.IsInRole(DefaultRoleNames.Administrator))
+        {
+            // Perform some action only available to users in the 'admin' role
+            //Console.WriteLine(DefaultRoleNames.Administrator);
+        }
+    }
+}

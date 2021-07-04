@@ -9,8 +9,6 @@
 
 <MatNavMenu Multi="true" Class="app-sidebar">
 
-    <MudText Typo="Typo.subtitle2" Color="Color.Error" Class="ml-4 my-3">Begin Admin Nav Menu</MudText>
-
     <MatNavItem Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri" NavLinkMatch="NavLinkMatch.All">
         <MatIcon>home</MatIcon> <span class="miniHover">Frontend</span>
     </MatNavItem>
@@ -18,6 +16,7 @@
     <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin").AbsoluteUri" NavLinkMatch="NavLinkMatch.All">
         <MatIcon>bar_chart</MatIcon> <span class="miniHover">@L["Dashboard"]</span>
     </MatNavItem>
+    
     <MatNavSubMenu>
         <MatNavSubMenuHeader>
             <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/settings").AbsoluteUri" AllowSelection="false">
@@ -30,6 +29,7 @@
             </MatNavItem>
         </MatNavSubMenuList>
     </MatNavSubMenu>
+    
     <MatNavSubMenu>
         <MatNavSubMenuHeader>
             <MatNavItem AllowSelection="false">
@@ -89,10 +89,6 @@
                 <MatIcon>notes</MatIcon> <span class="miniHover">@L["AppAdminNavDBLoggingView"]</span>
             </MatNavItem>
         </MatNavSubMenuList>
-
-        <MudText Typo="Typo.subtitle2" Color="Color.Error" Class="ml-4 my-3">End Admin Nav Menu</MudText>
-
-
     </MatNavSubMenu>
     @foreach (var component in components)
     {
