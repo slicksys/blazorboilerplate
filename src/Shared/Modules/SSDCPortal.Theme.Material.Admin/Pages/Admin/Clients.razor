@@ -20,307 +20,305 @@
 }
 else
 {
-    <MatTable Class="mat-elevation-z5" Items="@clients" Striped="true">
-        <MatTableHeader>
-            <th><MatButton Icon="add" Label=@L["New Client"] OnClick="@(() => OpenUpsertClientDialog())"></MatButton></th>
-            <th>Id</th>
-            <th>Enabled</th>
-            <th>Access Token Lifetime</th>
-            <th>Require Client Secret</th>
-            <th>Require Consent</th>
-            <th>Local Login</th>
-            <th>Grant Types</th>
-            <th>PKCE</th>
-            <th>Scopes</th>
-        </MatTableHeader>
-        <MatTableRow Context="ClientRow">
-            <td>
+    <MudTable Class="mat-elevation-z5" Items="@clients" Striped="true">
+        <HeaderContent>
+            <MudTh><MudButton Icon="add" Label=@L["New Client"] OnClick="@(() => OpenUpsertClientDialog())"></MudButton></MudTh>
+            <MudTh>Id</MudTh>
+            <MudTh>Enabled</MudTh>
+            <MudTh>Access Token Lifetime</MudTh>
+            <MudTh>Require Client Secret</MudTh>
+            <MudTh>Require Consent</MudTh>
+            <MudTh>Local Login</MudTh>
+            <MudTh>Grant Types</MudTh>
+            <MudTh>PKCE</MudTh>
+            <MudTh>Scopes</MudTh>
+        </HeaderContent>
+        <RowTemplate Context="ClientRow">
+            <MudTd>
                 <div style="width:155px;">
-                    <MatIconButton Icon="edit" OnClick="@(() => OpenUpsertClientDialog(ClientRow))"></MatIconButton>
-                    <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteClientDialog(ClientRow))"></MatIconButton>
+                    <MudIconButton Icon="edit" OnClick="@(() => OpenUpsertClientDialog(ClientRow))"></MudIconButton>
+                    <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteClientDialog(ClientRow))"></MudIconButton>
                 </div>
-            </td>
-            <td><div style="min-width:130px;">@ClientRow.ClientId</div></td>
-            <td><MatSlideToggle TValue="bool" Value="@ClientRow.Enabled" ValueChanged="@((item) => UpdateEnabled(ClientRow))"></MatSlideToggle></td>
-            <td><div style="min-width:130px;">@ClientRow.AccessTokenLifetime</div></td>
-            <td><MatSlideToggle TValue="bool" Value="@ClientRow.RequireClientSecret" Disabled="true"></MatSlideToggle></td>
-            <td><MatSlideToggle TValue="bool" Value="@ClientRow.RequireConsent" Disabled="true"></MatSlideToggle></td>
-            <td><MatSlideToggle TValue="bool" Value="@ClientRow.EnableLocalLogin" Disabled="true"></MatSlideToggle></td>
-            <td>
-                <MatChipSet>
+            </MudTd>
+            <MudTd><div style="min-width:130px;">@ClientRow.ClientId</div></MudTd>
+            <MudTd>MudSwitch Checked="  ClientRow.Enabled" ValueChanged= ((item) => UpdateEnabled(ClientRow))</MudTd>
+            <MudTd><div style="min-width:130px;">@ClientRow.AccessTokenLifetime</div></MudTd>
+            <MudTd><MudSwitch Checked="@ClientRow.RequireClientSecret" Disabled="true"></MudSwitch></MudTd>
+            <MudTd><MudSwitch Checked="@ClientRow.RequireConsent" Disabled="true"></MudSwitch></MudTd>
+            <MudTd><MudSwitch Checked="@ClientRow.EnableLocalLogin" Disabled="true"></MudSwitch></MudTd>
+            <MudTd>
+                <MudChipSet>
                     @foreach (var grantType in ClientRow.AllowedGrantTypes)
                         {
-                        <MatChip Label="@grantType"></MatChip>
+                        <MudChip Text="@grantType"></MudChip>
                         }
-                </MatChipSet>
-            </td>
-            <td><MatSlideToggle TValue="bool" Value="@ClientRow.RequirePkce" Disabled="true"></MatSlideToggle></td>
-            <td>
-                <MatChipSet>
+                </MudChipSet>
+            </MudTd>
+            <MudTd><MudSwitch Checked="@ClientRow.RequirePkce" Disabled="true"></MudSwitch></MudTd>
+            <MudTd>
+                <MudChipSet>
                     @foreach (var scope in ClientRow.AllowedScopes)
                         {
-                        <MatChip Label="@scope"></MatChip>
+                        <MudChip Text="@scope"></MudChip>
                         }
-                </MatChipSet>
-            </td>
-        </MatTableRow>
-    </MatTable>
+                </MudChipSet>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
 }
 
-<MatDialog @bind-IsOpen="@isUpsertClientDialogOpen">
-    <MatDialogTitle>
-        @labelUpsertDialogTitle
-    </MatDialogTitle>
-    <MatDialogContent>
+<MudDialog @bind-IsOpen="@isUpsertClientDialogOpen">
+    <TitleContent>@labelUpsertDialogTitle</TitleContent>
+    <DialogContent>
         <EditForm Model="@currentClient">
             <FluentValidationValidator />
             <ValidationSummary />
-            <MatTabGroup>
-                <MatTab Label="Main">
+            <MudTabs>
+                <MudTabPanel Text="Main">
                     <fieldset>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.ClientId" Disabled="@isCurrentClientKeyReadOnly" Label="Id" Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.ClientId" Disabled="@isCurrentClientKeyReadOnly" Label="Id" Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.Enabled" Label="Enabled"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.Enabled" Label="Enabled"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.Description" Label="Description" Icon="description" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.Description" Label="Description" Icon="description" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
-                        <MatDivider></MatDivider>
+                        <MudDivider></MudDivider>
                         <h3 class="mat-subtitle1">Device Flow</h3>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.DeviceCodeLifetime" Label="Device Code Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.DeviceCodeLifetime" Label="Device Code Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.UserCodeType" Label="User Code Type" Icon="description" IconTrailing="true" FullWidth="true" Required="false"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.UserCodeType" Label="User Code Type" Icon="description" IconTrailing="true" FullWidth="true" Required="false"></MudTextField>
                         </div>
                     </fieldset>
-                </MatTab>
-                <MatTab Label="Secrets">
+                </MudTabPanel>
+                <MudTabPanel Text="Secrets">
                     <fieldset>
                         <div class="form-group" style="margin-top:16px;">
-                            <MatSlideToggle @bind-Value="@currentClient.RequireClientSecret" Label="Require Client Secret"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.RequireClientSecret" Label="Require Client Secret"></MudSwitch>
                         </div>
                     </fieldset>
-                    <MatTable Items="@currentClient.ClientSecrets" Class="mat-elevation-z5" ShowPaging="false" PageSize="@int.MaxValue" style="@(currentClient.RequireClientSecret ? "" : "display:none;")">
-                        <MatTableHeader>
-                            <th style="min-width:190px;"><MatButton Icon="add" Label="New Secret" OnClick="@(() => OpenCreateClientSecretDialogOpen())"></MatButton></th>
-                            <th>Expiration</th>
-                            <th>Description</th>
-                        </MatTableHeader>
-                        <MatTableRow Context="ClientSecretRow">
-                            <td style="text-align:center;">
-                                <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteClientSecretDialog(ClientSecretRow))"></MatIconButton>
-                            </td>
-                            <td>@ClientSecretRow.Expiration</td>
-                            <td>@ClientSecretRow.GetDisplayValue()</td>
-                        </MatTableRow>
-                    </MatTable>
-                </MatTab>
-                <MatTab Label="Grant Types">
-                    <MatTable Items="@grantTypeSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
-                        <MatTableHeader>
-                            <th>@L["Name"]</th>
-                            <th>Allow</th>
-                        </MatTableHeader>
-                        <MatTableRow Context="GrantTypeRow">
-                            <td>@GrantTypeRow.Name</td>
-                            <td><MatCheckbox TValue="bool" @bind-Value="@GrantTypeRow.IsSelected"></MatCheckbox></td>
-                        </MatTableRow>
-                    </MatTable>
-                    <MatSlideToggle @bind-Value="@currentClient.RequirePkce" Label="Proof Key for Code Exchange (PKCE)"></MatSlideToggle>
-                </MatTab>
-                <MatTab Label="Standard Scopes">
-                    <MatTable Items="@standardScopeSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
-                        <MatTableHeader>
-                            <th>@L["Name"]</th>
-                            <th>Allow</th>
-                        </MatTableHeader>
-                        <MatTableRow Context="StandardScopeRow">
-                            <td>@StandardScopeRow.Name</td>
-                            <td><MatCheckbox TValue="bool" @bind-Value="@StandardScopeRow.IsSelected"></MatCheckbox></td>
-                        </MatTableRow>
-                    </MatTable>
-                </MatTab>
-                <MatTab Label="API Scopes">
-                    <MatTable Items="@apiScopeSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
-                        <MatTableHeader>
-                            <th>@L["Name"]</th>
-                            <th>Allow</th>
-                        </MatTableHeader>
-                        <MatTableRow Context="ApiScopeRow">
-                            <td>@ApiScopeRow.Name</td>
-                            <td><MatCheckbox TValue="bool" @bind-Value="@ApiScopeRow.IsSelected"></MatCheckbox></td>
-                        </MatTableRow>
-                    </MatTable>
-                </MatTab>
-                <MatTab Label="Authentication / Logout">
+                    <MudTable Items="@currentClient.ClientSecrets" Class="mat-elevation-z5" ShowPaging="false" PageSize="@int.MaxValue" style="@(currentClient.RequireClientSecret ? "" : "display:none;")">
+                        <HeaderContent>
+                            <MudTh style="min-width:190px;"><MudButton Icon="add" Label="New Secret" OnClick="@(() => OpenCreateClientSecretDialogOpen())"></MudButton></MudTh>
+                            <MudTh>Expiration</MudTh>
+                            <MudTh>Description</MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="ClientSecretRow">
+                            <MudTd style="text-align:center;">
+                                <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteClientSecretDialog(ClientSecretRow))"></MudIconButton>
+                            </MudTd>
+                            <MudTd>@ClientSecretRow.Expiration</MudTd>
+                            <MudTd>@ClientSecretRow.GetDisplayValue()</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudTabPanel>
+                <MudTabPanel Text="Grant Types">
+                    <MudTable Items="@grantTypeSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
+                        <HeaderContent>
+                            <MudTh>@L["Name"]</MudTh>
+                            <MudTh>Allow</MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="GrantTypeRow">
+                            <MudTd>@GrantTypeRow.Name</MudTd>
+                            <MudTd>There was a CheckBox</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                    <MudSwitch @bind-Checked="@currentClient.RequirePkce" Label="Proof Key for Code Exchange (PKCE)"></MudSwitch>
+                </MudTabPanel>
+                <MudTabPanel Text="Standard Scopes">
+                    <MudTable Items="@standardScopeSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
+                        <HeaderContent>
+                            <MudTh>@L["Name"]</MudTh>
+                            <MudTh>Allow</MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="StandardScopeRow">
+                            <MudTd>@StandardScopeRow.Name</MudTd>
+                            <MudTd><MudSwitch @bind-Checked="@StandardScopeRow.IsSelected"></MudSwitch></MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudTabPanel>
+                <MudTabPanel Text="API Scopes">
+                    <MudTable Items="@apiScopeSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
+                        <HeaderContent>
+                            <MudTh>@L["Name"]</MudTh>
+                            <MudTh>Allow</MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="ApiScopeRow">
+                            <MudTd>@ApiScopeRow.Name</MudTd>
+                            <MudTd><MudSwitch @bind-Checked="@ApiScopeRow.IsSelected"></MudSwitch></MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudTabPanel>
+                <MudTabPanel Label="Authentication / Logout">
                     <fieldset>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.PostLogoutRedirectUrisText" Label="Post Logout Redirect Uris" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.PostLogoutRedirectUrisText" Label="Post Logout Redirect Uris" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.FrontChannelLogoutUri" Label="Front Channel Logout Uri" Icon="link" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.FrontChannelLogoutUri" Label="Front Channel Logout Uri" Icon="link" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.FrontChannelLogoutSessionRequired" Label="Front Channel Logout Session Required"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.FrontChannelLogoutSessionRequired" Label="Front Channel Logout Session Required"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.BackChannelLogoutUri" Label="Back Channel Logout Uri" Icon="link" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.BackChannelLogoutUri" Label="Back Channel Logout Uri" Icon="link" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.BackChannelLogoutSessionRequired" Label="Back Channel Logout Session Required"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.BackChannelLogoutSessionRequired" Label="Back Channel Logout Session Required"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.EnableLocalLogin" Label="Enable Local Login"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.EnableLocalLogin" Label="Enable Local Login"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.IdentityProviderRestrictionsText" Label="Identity Provider Restrictions" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.IdentityProviderRestrictionsText" Label="Identity Provider Restrictions" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.UserSsoLifetime" Label="User Sso Lifetime  in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.UserSsoLifetime" Label="User Sso Lifetime  in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                     </fieldset>
-                </MatTab>
-                <MatTab Label="Token">
+                </MudTabPanel>
+                <MudTabPanel Text="Token">
                     <fieldset>
                         <div class="form-group" style="margin-top:16px;">
-                            <MatSlideToggle @bind-Value="@currentClient.AllowOfflineAccess" Label="Allow Offline Access (client can request refresh tokens)"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.AllowOfflineAccess" Label="Allow Offline Access (client can request refresh tokens)"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.IdentityTokenLifetime" Label="Identity Token Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.IdentityTokenLifetime" Label="Identity Token Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.AccessTokenLifetime" Label="Access Token Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.AccessTokenLifetime" Label="Access Token Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.AllowAccessTokensViaBrowser" Label="Allow Access Tokens Via Browser"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.AllowAccessTokensViaBrowser" Label="Allow Access Tokens Via Browser"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.AuthorizationCodeLifetime" Label="Authorization Code Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.AuthorizationCodeLifetime" Label="Authorization Code Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.AbsoluteRefreshTokenLifetime" Label="Maximum lifetime of a refresh token in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.AbsoluteRefreshTokenLifetime" Label="Maximum lifetime of a refresh token in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.SlidingRefreshTokenLifetime" Label="Sliding lifetime of a refresh token in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.SlidingRefreshTokenLifetime" Label="Sliding lifetime of a refresh token in seconds" Icon="timer" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatSelectItem @bind-Value="@currentClient.RefreshTokenUsage" Items="@TokenUsages" Label="Refresh Token Usage"></MatSelectItem>
+                            <MudSelectItem @bind-Value="@currentClient.RefreshTokenUsage" Items="@TokenUsages" Label="Refresh Token Usage"></MudSelectItem>
                         </div>
                         <div class="form-group">
-                            <MatSelectItem @bind-Value="@currentClient.RefreshTokenExpiration" Items="@RefreshTokenExpirations" Label="Refresh Token Expiration"></MatSelectItem>
+                            <MudSelectItem @bind-Value="@currentClient.RefreshTokenExpiration" Items="@RefreshTokenExpirations" Label="Refresh Token Expiration"></MudSelectItem>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.UpdateAccessTokenClaimsOnRefresh" Label="Update Access Token Claims on refresh"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.UpdateAccessTokenClaimsOnRefresh" Label="Update Access Token Claims on refresh"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatSelectItem @bind-Value="@currentClient.AccessTokenType" Items="@AccessTokenTypes" Label="Access Token Type"></MatSelectItem>
+                            <MudSelectItem @bind-Value="@currentClient.AccessTokenType" Items="@AccessTokenTypes" Label="Access Token Type"></MudSelectItem>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.IncludeJwtId" Label="Include Jwt Id"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.IncludeJwtId" Label="Include Jwt Id"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.AllowedCorsOriginsText" Label="Allowed Cors Origins" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.AllowedCorsOriginsText" Label="Allowed Cors Origins" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.RedirectUrisText" Label="Redirect Uris" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.RedirectUrisText" Label="Redirect Uris" Icon="link" IconTrailing="true" TextArea="true" FullWidth="true" Required="false"></MudTextField>
                         </div>
                     </fieldset>
                     <h3 class="mat-subtitle1">Allowed Identity Token Signing Algorithms</h3>
-                    <MatTable Items="@tokenSigningAlgorithmsSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
-                        <MatTableHeader>
-                            <th>@L["Name"]</th>
-                            <th>Allow</th>
-                        </MatTableHeader>
-                        <MatTableRow Context="TokenSigningAlgorithmsRow">
-                            <td>@TokenSigningAlgorithmsRow.Name</td>
-                            <td><MatCheckbox TValue="bool" @bind-Value="@TokenSigningAlgorithmsRow.IsSelected"></MatCheckbox></td>
-                        </MatTableRow>
-                    </MatTable>
-                </MatTab>
-                <MatTab Label="Consent Screen">
+                    <MudTable Items="@tokenSigningAlgorithmsSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
+                        <HeaderContent>
+                            <MudTh>@L["Name"]</MudTh>
+                            <MudTh>Allow</MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="TokenSigningAlgorithmsRow">
+                            <MudTd>@TokenSigningAlgorithmsRow.Name</MudTd>
+                            <MudTd>There was a CheckBox</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudTabPanel>
+                <MudTabPanel Text="Consent Screen">
                     <fieldset>
                         <div class="form-group" style="margin-top:16px;">
-                            <MatSlideToggle @bind-Value="@currentClient.RequireConsent" Label="Require Consent"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.RequireConsent" Label="Require Consent"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentClient.AllowRememberConsent" Label="Allow Remember Consent"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentClient.AllowRememberConsent" Label="Allow Remember Consent"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.ConsentLifetime" Label="Consent Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.ConsentLifetime" Label="Consent Lifetime in seconds" Icon="timer" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.ClientName" Label="Client display name" Icon="description" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.ClientName" Label="Client display name" Icon="description" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.ClientUri" Label="Client Uri" Icon="link" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.ClientUri" Label="Client Uri" Icon="link" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentClient.LogoUri" Label="Logo Uri" Icon="link" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentClient.LogoUri" Label="Logo Uri" Icon="link" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                     </fieldset>
-                </MatTab>
-            </MatTabGroup>
+                </MudTabPanel>
+            </MudTabs>
         </EditForm>
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@CancelChanges">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@UpsertClient">@labelUpsertDialogOkButton</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@CancelChanges">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@UpsertClient">@labelUpsertDialogOkButton</MudButton>
+    </DialogActions>
+</MudDialog>
 
-<MatDialog @bind-IsOpen="@isDeleteClientDialogOpen" Style="z-index:100">
-    <MatDialogTitle><MatIcon Icon="warning"></MatIcon> @L["Confirm Delete"]</MatDialogTitle>
-    <MatDialogContent>
+<MudDialog @bind-IsOpen="@isDeleteClientDialogOpen" Style="z-index:100">
+    <TitleContent><MudIcon Icon="warning"></MudIcon> @L["Confirm Delete"]</TitleContent>
+    <DialogContent>
         @L["Are you sure you want to delete {0}?", currentClient.ClientId]
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { isDeleteClientDialogOpen = false; })">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@DeleteClientAsync">@L["Delete"]</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { isDeleteClientDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@DeleteClientAsync">@L["Delete"]</MudButton>
+    </DialogActions>
+</MudDialog>
 
-<MatDialog @bind-IsOpen="@isDeleteClientSecretDialogOpen" Style="z-index:100">
-    <MatDialogTitle><MatIcon Icon="warning"></MatIcon> @L["Confirm Delete"]</MatDialogTitle>
-    <MatDialogContent>
+<MudDialog @bind-IsOpen="@isDeleteClientSecretDialogOpen" Style="z-index:100">
+    <TitleContent><MudIcon Icon="warning"/>@L["Confirm Delete"]</TitleContent>
+    <DialogContent>
         @L["Are you sure you want to delete {0}?", currentSecret.GetDisplayValue()]
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { isDeleteClientSecretDialogOpen = false; })">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@DeleteClientSecret">@L["Delete"]</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { isDeleteClientSecretDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@DeleteClientSecret">@L["Delete"]</MudButton>
+    </DialogActions>
+</MudDialog>
 
-<MatDialog @bind-IsOpen="@isCreateClientSecretDialogOpen">
-    <MatDialogTitle>New Secret for Client @currentClient.ClientId</MatDialogTitle>
-    <MatDialogContent>
+<MudDialog @bind-IsOpen="@isCreateClientSecretDialogOpen">
+    <TitleContent>New Secret for Client @currentClient.ClientId</TitleContent>
+    <DialogContent>
         <EditForm Model="@currentSecret">
             <FluentValidationValidator />
             <ValidationSummary />
             <fieldset>
                 <div class="form-group">
-                    <MatTextField @bind-Value="@currentSecret.Description" Label="Description" Icon="description" IconTrailing="true" FullWidth="true"></MatTextField>
+                    <MudTextField @bind-Value="@currentSecret.Description" Label="Description" Icon="description" IconTrailing="true" FullWidth="true"></MudTextField>
                 </div>
                 <div class="form-group">
-                    <MatTextField @bind-Value="@currentSecret.Value" Label="Secret" Icon="lock_outline" IconTrailing="true" Required="true"></MatTextField>
-                    <MatIconButton OnClick="@GenerateSecret" Icon="refresh"></MatIconButton>
+                    <MudTextField @bind-Value="@currentSecret.Value" Label="Secret" Icon="lock_outline" IconTrailing="true" Required="true"></MudTextField>
+                    <MudIconButton OnClick="@GenerateSecret" Icon="refresh"></MudIconButton>
                     @*https://github.com/SamProf/MatBlazor/issues/303
-                        <MatTooltip Tooltip="You have to copy the secret now, because it cannot be retrieved anymore."></MatTooltip>*@
-                    <MatIconButton Icon="info"></MatIconButton>
+                        <MudTooltip Tooltip="You have to copy the secret now, because it cannot be retrieved anymore."></MudTooltip>*@
+                    <MudIconButton Icon="info"></MudIconButton>
                 </div>
                 <div class="form-group">
-                    <MatDatePicker @bind-Value="@currentSecret.Expiration" Label="Expiration" FullWidth="true" Minimum="@DateTime.Now"></MatDatePicker>
+                    <MudDatePicker @bind-Value="@currentSecret.Expiration" Label="Expiration" FullWidth="true" Minimum="@DateTime.Now"></MudDatePicker>
                 </div>
             </fieldset>
         </EditForm>
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { isCreateClientSecretDialogOpen = false; })">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@CreateSecret">Create Client Secret</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { isCreateClientSecretDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@CreateSecret">Create Client Secret</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
     int pageSize { get; set; } = 15;

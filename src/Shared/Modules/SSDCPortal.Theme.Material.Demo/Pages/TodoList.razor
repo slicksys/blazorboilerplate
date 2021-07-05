@@ -35,7 +35,7 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd>
-            <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteDialog(context.Id))"></MatIconButton>
+            <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteDialog(context.Id))"></MudIconButton>
         </MudTd>
         <MudTd>@String.Format("{0:d}", @context.Id)</MudTd>
         <MudTd>Is Completed = @context.IsCompleted.ToString()</MudTd>

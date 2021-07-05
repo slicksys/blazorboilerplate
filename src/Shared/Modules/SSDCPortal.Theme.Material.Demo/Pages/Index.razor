@@ -1,4 +1,5 @@
 ﻿@page "/index"
+@inject ISnackbar Snackbar
 
 <h1><img src="_content/SSDCPortal.Theme.Material/images/logo-title.png" alt="Loading" title="SSDCPortal" style="max-width: 100%;" /></h1>
 
@@ -37,7 +38,7 @@
     Other devs are charging $30 - $1500 to download their code with similar functionality.
 </p>
 <p>
-    <MatButton Link="https://github.com/enkodellc/blazorboilerplate"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;  Github Repository / Contribute</MatButton>- Contribute to this repo to help it grow!
+    <MudButton Link="https://github.com/enkodellc/blazorboilerplate"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;  Github Repository / Contribute</MudButton>- Contribute to this repo to help it grow!
 </p>
 <hr />
 <h2>Authorization / Identity</h2>
@@ -119,13 +120,7 @@
     .Net WebForms project. Please take the time to Star, Contribute or Donate to support my efforts to continue to drive the project, especially if you use it in production.
 </p>
 
-<MatSnackbar @bind-IsOpen="@lazySnackbarIsOpen">
-    <MatSnackbarContent>If you like SSDCPortal, please put a <a href="https://github.com/enkodellc/blazorboilerplate" target="_blank">star on GitHub</a>.</MatSnackbarContent>
-    <MatSnackbarActions>
-        <MatIconButton Icon="@MatIconNames.Stars" Link="https://github.com/enkodellc/blazorboilerplate" style="color: white !important;" target="_blank"></MatIconButton>
-    </MatSnackbarActions>
-</MatSnackbar>
-
+     
 @code{
     bool lazySnackbarIsOpen = false;
 
@@ -135,7 +130,7 @@
 
         await Task.Delay(TimeSpan.FromSeconds(3)).ContinueWith((_) =>
         {
-            this.lazySnackbarIsOpen = true;
+            Snackbar.Add("If you like what I'm doing, send a post card!");
         });
     }
 }

@@ -1,7 +1,7 @@
 ﻿using SSDCPortal.Shared.Interfaces;
 using SSDCPortal.Theme.Material.Services;
 using SSDCPortal.Theme.Material.TagHelpers;
-using MatBlazor;
+//using MatBlazor;
 using MudBlazor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 using Syncfusion;
+using Syncfusion.Blazor;
 using MudBlazor.Services;
 
 namespace SSDCPortal.Theme.Material
@@ -34,36 +35,36 @@ namespace SSDCPortal.Theme.Material
             services.AddTransient<ITagHelperComponent, ThemeTagHelperComponent>();
             services.AddTransient<ITagHelperComponent, AppTagHelperComponent>();
 
-            services.AddMatToaster(config =>
-            {
-                config.Position = MatToastPosition.BottomRight;
-                config.PreventDuplicates = true;
-                config.NewestOnTop = true;
-                config.ShowCloseButton = true;
-                config.MaximumOpacity = 95;
-                config.VisibleStateDuration = 3000;
-            });
+           // services.AddMatToaster(config =>
+           // {
+           //     config.Position = MatToastPosition.BottomRight;
+           //     config.PreventDuplicates = true;
+           //     config.NewestOnTop = true;
+           //     config.ShowCloseButton = true;
+           //     config.MaximumOpacity = 95;
+           //     config.VisibleStateDuration = 3000;
+           // });
             
             services.AddMudServices();
+         //   services.AddSyncfusionBlazor();
 
-
-            services.AddScoped<IViewNotifier, ViewNotifier>();
+            
         }
 
         public void ConfigureWebAssemblyServices(IServiceCollection services)
         {
             services.AddLoadingBar();
-            services.AddMatToaster(config =>
-            {
-                config.Position = MatToastPosition.BottomRight;
-                config.PreventDuplicates = true;
-                config.NewestOnTop = true;
-                config.ShowCloseButton = true;
-                config.MaximumOpacity = 95;
-                config.VisibleStateDuration = 3000;
-            });
+            //services.AddMatToaster(config =>
+            //{
+            //    config.Position = MatToastPosition.BottomRight;
+            //    config.PreventDuplicates = true;
+            //    config.NewestOnTop = true;
+            //    config.ShowCloseButton = true;
+            //    config.MaximumOpacity = 95;
+            //    config.VisibleStateDuration = 3000;
+            //});
 
-            services.AddScoped<IViewNotifier, ViewNotifier>();
+         //   services.AddScoped<IViewNotifier, ViewNotifier>();
 
             var sp = services.BuildServiceProvider();
             

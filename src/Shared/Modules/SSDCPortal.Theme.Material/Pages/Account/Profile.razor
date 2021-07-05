@@ -4,124 +4,126 @@
 @inject HttpClient Http
 @inject AuthenticationStateProvider authStateProvider
 @inject IStringLocalizer<Global> L
-@inject IViewNotifier viewNotifier
+@inject ISnackbar Snackbar
+
+
 
 <h1>@L["User Profile"]</h1>
 <p>User profile management.</p>
-@if (userViewModel == null)
-{
-    <LoadingBackground ShowLogoBox="true"></LoadingBackground>
+
+
+<LoadingBackground ShowLogoBox="true"></LoadingBackground>
 }
 else
 {
+<div class="form-group">
+    <MudButton ButtonType="ButtonType.Submit" form="mainForm">@L["Update"]</MudButton>
+    @if (userViewModel.HasPassword)
+    {
+        <MudButton IconClass="rotate_right" OnClick="@(() => OpenUpdatePasswordDialog())">@L["Change Password"]</MudButton>
+    }
+    @if (userViewModel.HasAuthenticator)
+    {
+        <MudButton IconClass="rotate_right" OnClick="@(() => DisableAuthenticator())">@L["ResetAuthenticator"]</MudButton>
+    }
+</div>
+<EditForm id="mainForm" Model="@userViewModel" OnValidSubmit="@UpdateUser">
+    <FluentValidationValidator />
+    <ValidationSummary />
+    <fieldset>
+        <div class="form-group">
+            <MudTextField @bind-Value="@userViewModel.UserName" Text=@L["UserName"] Icon="person" IconTrailing="true" FullWidth="true" Required="true" ReadOnly="true"></MudTextField>
+        </div>
+        <div class="form-group">
+            <MudTextField @bind-Value="@userViewModel.Email" Text="Email" Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
+        </div>
+        <div class="form-group">
+            <MudTextField @bind-Value="@userViewModel.FirstName" Text=@L["FirstName"] FullWidth="true"></MudTextField>
+        </div>
+        <div class="form-group">
+            <MudTextField @bind-Value="@userViewModel.LastName" Text=@L["LastName"] FullWidth="true"></MudTextField>
+        </div>
+        <div class="form-group">
+            <strong>@L["Roles"]</strong><br />
+            <MudChipSet>
+                @foreach (var role in userViewModel.Roles)
+                {
+                    <MudChip Text="@role"></MudChip>
+                }
+            </MudChipSet>
+        </div>
+    </fieldset>
+</EditForm>
+@if (userViewModel.TwoFactorEnabled)
+{
     <div class="form-group">
-        <MudButton ButtonType="ButtonType.Submit" form="mainForm">@L["Update"]</MudButton>
-        @if (userViewModel.HasPassword)
-        {
-            <MudButton IconClass="rotate_right" OnClick="@(() => OpenUpdatePasswordDialog())">@L["Change Password"]</MudButton>
-        }
-        @if (userViewModel.HasAuthenticator)
-        {
-            <MudButton IconClass="rotate_right" OnClick="@(() => DisableAuthenticator())">@L["ResetAuthenticator"]</MudButton>
-        }
+        <MudSwitch @bind-Checked="@TwoFactorEnabled" Label=@L["TwoFactorAuthentication"] />
     </div>
-    <EditForm id="mainForm" Model="@userViewModel" OnValidSubmit="@UpdateUser">
-        <FluentValidationValidator/>
-        <ValidationSummary/>
-        <fieldset>
-            <div class="form-group">
-                <MudTextField @bind-Value="@userViewModel.UserName" Text=@L["UserName"] Icon="person" IconTrailing="true" FullWidth="true" Required="true" ReadOnly="true"></MudTextField>
-            </div>
-            <div class="form-group">
-                <MudTextField @bind-Value="@userViewModel.Email" Text="Email" Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
-            </div>
-            <div class="form-group">
-                <MudTextField @bind-Value="@userViewModel.FirstName" Text=@L["FirstName"] FullWidth="true"></MudTextField>
-            </div>
-            <div class="form-group">
-                <MudTextField @bind-Value="@userViewModel.LastName" Text=@L["LastName"] FullWidth="true"></MudTextField>
-            </div>
-            <div class="form-group">
-                <strong>@L["Roles"]</strong><br/>
-                <MudChipSet>
-                    @foreach (var role in userViewModel.Roles)
-                    {
-                        <MudChip Text="@role"></MudChip>
-                    }
-                </MudChipSet>
-            </div>
-        </fieldset>
-    </EditForm>
-    @if (userViewModel.TwoFactorEnabled)
+    @if (userViewModel.BrowserRemembered)
     {
         <div class="form-group">
-            <MatSlideToggle @bind-Value="@TwoFactorEnabled" Label=@L["TwoFactorAuthentication"]/>
+            <MudSwitch @bind-Checked="@BrowserRemembered" Label=@L["BrowserRemembered"] />
         </div>
-        @if (userViewModel.BrowserRemembered)
-        {
-            <div class="form-group">
-                <MatSlideToggle @bind-Value="@BrowserRemembered" Label=@L["BrowserRemembered"]/>
-            </div>
-        }
-        if (userViewModel.RecoveryCodes != null)
-        {
-            <div class="form-group">
-                <MatChipSet>
-                    @foreach (var rcode in userViewModel.RecoveryCodes)
-                    {
-                        <MatChip Label="@rcode"></MatChip>
-                    }
-                </MatChipSet>
-            </div>
-        }
-        else
-        {
-            <div class="form-group">
-                <span>@L["RecoveryCodesLeft"]</span> @userViewModel.CountRecoveryCodes
-            </div>
-        }
+    }
+    if (userViewModel.RecoveryCodes != null)
+    {
+        <div class="form-group">
+            <MudChipSet>
+                @foreach (var rcode in userViewModel.RecoveryCodes)
+                {
+                    <MudChip Text="@rcode.ToString()"></MudChip>
+                }
+            </MudChipSet>
+        </div>
     }
     else
     {
-        <h3>@L["TwoFactorAuthentication"]</h3>
-        <p>
-            Download a two-factor authenticator app like Microsoft Authenticator or Google Authenticator.
-        </p>
-        <p>Scan the QR Code or enter this key <kbd>@userViewModel.SharedKey</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
-        <img src="@($"https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl={userViewModel.AuthenticatorUri}")"/>
-        <p>
-            Once you have scanned the QR code or input the key above, your two factor authentication app will provide you
-            with a unique code. Enter the code in the confirmation box below.
-        </p>
-        <MudTextField @bind-Value="@authenticatorVerificationCodeViewModel.Code" Label=@L["Code"] FullWidth="true"></MudTextField>
-        <MatButton OnClick="@EnableAuthenticator">@L["VerifyCode"]</MatButton>
+        <div class="form-group">
+            <span>@L["RecoveryCodesLeft"]</span> @userViewModel.CountRecoveryCodes
+        </div>
     }
-    <MudDialog IsVisible="@updatePasswordDialogOpen">
-        <TitleContent>
-            <MudText Typo="Typo.h6">Password Update for @userViewModel.UserName</MudText>
-        </TitleContent>
-        <DialogContent>
-            <EditForm Model="@updatePasswordViewModel" OnValidSubmit="@UpdatePassword">
-                <FluentValidationValidator/>
-                <ValidationSummary/>
-                <fieldset>
-                    <div class="form-group">
-                        <MudTextField @bind-Value="@updatePasswordViewModel.CurrentPassword" Text=@L["CurrentPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
-                    </div>
-                    <div class="form-group">
-                        <MudTextField @bind-Value="@updatePasswordViewModel.NewPassword" Text=@L["NewPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
-                    </div>
-                    <div class="form-group">
-                        <MudTextField @bind-Value="@updatePasswordViewModel.NewPasswordConfirm" Text=@L["Password Confirmation"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
-                    </div>
-                </fieldset>
-            </EditForm>
-        </DialogContent>
-        <DialogActions>
-            <MudButton OnClick="@(e => { updatePasswordDialogOpen = false; })">@L["Cancel"]</MudButton>
-            <MudButton Color="Color.Secondary" OnClick="@UpdatePassword">@L["Update Password"]</MudButton>
-        </DialogActions>
-    </MudDialog>
+}
+else
+{
+    <h3>@L["TwoFactorAuthentication"]</h3>
+    <p>
+        Download a two-factor authenticator app like Microsoft Authenticator or Google Authenticator.
+    </p>
+    <p>Scan the QR Code or enter this key <kbd>@userViewModel.SharedKey</kbd> into your two factor authenticator app. Spaces and casing do not matter.</p>
+    <img src="@($"https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl={userViewModel.AuthenticatorUri}")" />
+    <p>
+        Once you have scanned the QR code or input the key above, your two factor authentication app will provide you
+        with a unique code. Enter the code in the confirmation box below.
+    </p>
+    <MudTextField @bind-Value="@authenticatorVerificationCodeViewModel.Code" Label=@L["Code"] FullWidth="true"></MudTextField>
+    <MudButton OnClick="@EnableAuthenticator">@L["VerifyCode"]</MudButton>
+}
+<MudDialog IsVisible="@updatePasswordDialogOpen">
+    <TitleContent>
+        <MudText Typo="Typo.h6">Password Update for @userViewModel.UserName</MudText>
+    </TitleContent>
+    <DialogContent>
+        <EditForm Model="@updatePasswordViewModel" OnValidSubmit="@UpdatePassword">
+            <FluentValidationValidator />
+            <ValidationSummary />
+            <fieldset>
+                <div class="form-group">
+                    <MudTextField @bind-Value="@updatePasswordViewModel.CurrentPassword" Text=@L["CurrentPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
+                </div>
+                <div class="form-group">
+                    <MudTextField @bind-Value="@updatePasswordViewModel.NewPassword" Text=@L["NewPassword"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
+                </div>
+                <div class="form-group">
+                    <MudTextField @bind-Value="@updatePasswordViewModel.NewPasswordConfirm" Text=@L["Password Confirmation"] Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true" Type="password"></MudTextField>
+                </div>
+            </fieldset>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { updatePasswordDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton Color="Color.Secondary" OnClick="@UpdatePassword">@L["Update Password"]</MudButton>
+    </DialogActions>
+</MudDialog>
 }
 
 @code {
@@ -136,12 +138,16 @@ else
         get { return userViewModel.BrowserRemembered; }
         set
         {
-            if (userViewModel.BrowserRemembered != value)
-                ForgetTwoFactorClient().ContinueWith(t =>
-                {
-                    if (t.IsFaulted)
-                        viewNotifier.Show(t.Exception.Message, ViewNotifierType.Error, L["Operation Failed"]);
-                });
+           // if (userViewModel.BrowserRemembered != value)
+           //     ForgetTwoFactorClient().ContinueWith(t =>
+           //     {
+           //         if (t.IsFaulted)
+           //             Snackbar.Add(t.Exception.Message, Severity.Error, config => { config.ShowCloseIcon = true;
+           //                                                                           config.SnackbarVariant = Variant.Filled;
+           //                                                                           config.ActionColor = Color.Error;
+           //                                                                       });
+           //           // viewNotifier.Show(t.Exception.Message, ViewNotifierType.Error, L["Operation Failed"]);
+           //     });
         }
     }
 
@@ -154,7 +160,13 @@ else
                 EnableDisable2fa().ContinueWith(t =>
                 {
                     if (t.IsFaulted)
-                        viewNotifier.Show(t.Exception.Message, ViewNotifierType.Error, L["Operation Failed"]);
+                        Snackbar.Add(t.Exception.Message, Severity.Error, config =>
+                        {
+                            config.ShowCloseIcon = true;
+                            config.SnackbarVariant = Variant.Filled;
+                            config.ActionColor = Color.Error;
+                        });
+                    //  viewNotifier.Show(t.Exception.Message, ViewNotifierType.Error, L["Operation Failed"]);
                 });
         }
     }
@@ -164,7 +176,7 @@ else
     {
         identityAuthenticationStateProvider = (IdentityAuthenticationStateProvider)authStateProvider;
 
-        userViewModel = await identityAuthenticationStateProvider.GetUserViewModel();
+        // userViewModel = await identityAuthenticationStateProvider.GetUserViewModel();
     }
 
     void OpenUpdatePasswordDialog()
@@ -177,7 +189,13 @@ else
     {
         if (updatePasswordViewModel.NewPassword != updatePasswordViewModel.NewPasswordConfirm)
         {
-            viewNotifier.Show(L["PasswordConfirmationFailed"], ViewNotifierType.Warning);
+            //  viewNotifier.Show(L["PasswordConfirmationFailed"], ViewNotifierType.Warning);
+            Snackbar.Add("PasswordConfirmationFailed.", Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
         }
         else
         {
@@ -186,13 +204,27 @@ else
                 var apiResponse = await identityAuthenticationStateProvider.UpdatePassword(updatePasswordViewModel);
 
                 if (apiResponse.IsSuccessStatusCode)
-                    viewNotifier.Show(L["UpdatePasswordSuccessful"], ViewNotifierType.Success);
+                    Snackbar.Add("Your Password has been successfully updated.", Severity.Success, config =>
+                    {
+                        config.ShowCloseIcon = true;
+                        config.SnackbarVariant = Variant.Filled;
+                        config.ActionColor = Color.Success;
+                    });
                 else
-                    viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["UpdatePasswordFailed"]);
+                    Snackbar.Add(apiResponse.Message, Severity.Error, config =>
+                    {
+                        config.ShowCloseIcon = true;
+                        config.SnackbarVariant = Variant.Filled;
+                        config.ActionColor = Color.Error;
+
+                    });
+                //viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["UpdatePasswordFailed"]);
             }
             catch (Exception ex)
             {
-                viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["UpdatePasswordFailed"]);
+
+                Snackbar.Add(ex.Message, Severity.Error, config => { config.ShowCloseIcon = true; config.SnackbarVariant = Variant.Filled; config.ActionColor = Color.Error; });
+                // viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["UpdatePasswordFailed"]);
             }
 
             updatePasswordDialogOpen = false;
@@ -206,13 +238,31 @@ else
             var apiResponse = await identityAuthenticationStateProvider.UpdateUser(userViewModel);
 
             if (apiResponse.IsSuccessStatusCode)
-                viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
+                Snackbar.Add(L["Operation Successful"], Severity.Success, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Error;
+                });
+            //viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
             else
-                viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
+                Snackbar.Add(L["Operation Failed"], Severity.Success, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Error;
+                });
+            //viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
         }
         catch (Exception ex)
         {
-            viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(ex.Message, Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
+            // viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["Operation Failed"]);
         }
     }
 
@@ -222,12 +272,24 @@ else
 
         if (apiResponse.IsSuccessStatusCode)
         {
-            viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
+            Snackbar.Add(L["Operation Successful"], Severity.Success, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Success;
+            });
+            //viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
             userViewModel = apiResponse.Result;
             StateHasChanged();
         }
         else
-            viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(L["Operation Failed"], Severity.Success, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Success;
+            });
+        //viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
 
     }
 
@@ -239,39 +301,41 @@ else
 
             if (apiResponse.IsSuccessStatusCode)
             {
-                viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
+                Snackbar.Add(L["Operation Successful"], Severity.Success, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Success;
+                });
+                //viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
                 userViewModel = apiResponse.Result;
                 authenticatorVerificationCodeViewModel = new AuthenticatorVerificationCodeViewModel();
                 StateHasChanged();
             }
             else
-                viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
+                Snackbar.Add(L["Operation Failed"], Severity.Error, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Error;
+                });
         }
+        //viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
         catch (Exception ex)
         {
-            viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(L["Operation Failed"], Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
+
+            //viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["Operation Failed"]);
         }
 
     }
 
-    async Task ForgetTwoFactorClient()
-    {
-        if (userViewModel.BrowserRemembered)
-        {
-            var apiResponse = await identityAuthenticationStateProvider.ForgetTwoFactorClient();
 
-            if (apiResponse.IsSuccessStatusCode)
-            {
-                viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
-                userViewModel = apiResponse.Result;
-                StateHasChanged();
-            }
-            else
-            {
-                viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
-            }
-        }
-    }
 
     async Task EnableDisable2fa()
     {
@@ -279,13 +343,26 @@ else
 
         if (apiResponse.IsSuccessStatusCode)
         {
-            viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
+            Snackbar.Add(L["Operation Cancelled"], Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
+            //viewNotifier.Show(L["Operation Successful"], ViewNotifierType.Success);
             userViewModel = apiResponse.Result;
             StateHasChanged();
         }
         else
         {
-            viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(L["Operation Failed"], Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
+            //viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
         }
     }
+
 }

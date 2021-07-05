@@ -2,6 +2,7 @@
 @inject NavigationManager navigationManager
 @inject AppState appState
 @inject IStringLocalizer<Global> L
+@inject ISnackbar Snackbar
 @attribute [Authorize(Policies.IsAdmin)]
 
 <MudThemeProvider Theme="_currentTheme" />
@@ -32,16 +33,16 @@
                 <MudMenuItem>Old Norse</MudMenuItem>
             </MudMenu>
         *@
-        
+
         <!-- Select Cutlture Dropdown -->
         <SelectCulture></SelectCulture>
-        
+
         <!-- Drop Down Menu -->
         <MudMenu Icon="@Icons.Material.Outlined.Widgets" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
             <MudMenuItem Link="https://slicksysdev.com/">SSDC</MudMenuItem>
             <MudMenuItem Link="https://christopherlane.net">Engineer</MudMenuItem>
         </MudMenu>
-        
+
         <!-- Drop Down Menu -->
         <MudMenu Direction="Direction.Left" OffsetX="true" Dense="true" Class="mt-1 ml-4">
             <ActivatorContent>
@@ -55,31 +56,31 @@
             </ChildContent>
         </MudMenu>
     </MudAppBar>
-    
+
     <!-- Left Sidebar Menu -->
     <MudDrawer @bind-Open="_drawerOpen" Elevation="25" ClipMode="_themeManager.DrawerClipMode">
         <AdminNavMenu />
     </MudDrawer>
-    
+
     <!-- Main Body -->
     <MudMainContent>
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
             <MudToolBar DisableGutters="true">
-                
+
                 <!-- Left Sidebar Open/Close Button -->
                 <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
-              
+
                 <!-- Breadcrumbs at top of main Body -->
                 <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
                 <MudToolBarSpacer />
-                
+
                 <!-- A couple of links buttons -->
                 <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#594AE2;">SSDC</MudButton>
                 <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#424242;" Class="mr-3">Line Of Business Software</MudButton>
 
             </MudToolBar>
         </MudHidden>
-        
+
         <!-- Page Body -->
         <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
             @Body
@@ -114,7 +115,7 @@
 
             //_navMenuOpened = profile.IsNavOpen;
             //_navMinified = profile.IsNavMinified;
-            _drawerOpen = profile.IsNavOpen; 
+            _drawerOpen = profile.IsNavOpen;
 
             _themeManager.Theme = new SSDCAdminDashboard();
             _themeManager.DrawerClipMode = DrawerClipMode.Always;
@@ -145,7 +146,7 @@
     }
 
     private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-    {
+{
         new BreadcrumbItem("Personal", href: "#"),
         new BreadcrumbItem("Dashboard", href: "#"),
     };

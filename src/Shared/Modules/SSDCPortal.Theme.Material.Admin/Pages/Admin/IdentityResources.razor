@@ -2,9 +2,8 @@
 @attribute [Authorize(Policies.IsAdmin)]
 @layout AdminLayout
 @inject HttpClient Http
-@inject IViewNotifier viewNotifier
 @inject IStringLocalizer<Global> L
-
+@inject ISnackbar Snackbar
 @using IdentityServer4.Models
 @using IdentityModel
 @using System.Net
@@ -20,118 +19,118 @@
 }
 else
 {
-    <MatTable Class="mat-elevation-z5" Items="@identiyResources" Striped="true">
-        <MatTableHeader>
-            <th><MatButton Icon="add" Label=@L["New Identity Resource"] OnClick="@(() => OpenUpsertIdentityResourceDialog())"></MatButton></th>
-            <th>@L["Name"]</th>
-            <th>Enabled</th>
-            <th>Display Name</th>
-            <th>Description</th>
-            <th>Required</th>
-            <th>Emphasize</th>
-            <th>Show in discovery document</th>
-            <th>User Claims</th>
-        </MatTableHeader>
-        <MatTableRow Context="IdentityResourceRow">
-            <td>
+    <MudTable Class="mat-elevation-z5" Items="@identiyResources" Striped="true">
+        <HeaderContent>
+            <MudTh><MudButton Icon="add" Label=@L["New Identity Resource"] OnClick="@(() => OpenUpsertIdentityResourceDialog())"></MudButton></MudTh>
+            <MudTh>@L["Name"]</MudTh>
+            <MudTh>Enabled</MudTh>
+            <MudTh>Display Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Required</MudTh>
+            <MudTh>Emphasize</MudTh>
+            <MudTh>Show in discovery document</MudTh>
+            <MudTh>User Claims</MudTh>
+        </HeaderContent>
+        <RowTemplate Context="IdentityResourceRow">
+            <MudTd>
                 <div style="width:155px;">
-                    <MatIconButton Icon="edit" OnClick="@(() => OpenUpsertIdentityResourceDialog(IdentityResourceRow))"></MatIconButton>
-                    <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteIdentityResourceDialog(IdentityResourceRow))"></MatIconButton>
+                    <MudIconButton Icon="edit" OnClick="@(() => OpenUpsertIdentityResourceDialog(IdentityResourceRow))"></MudIconButton>
+                    <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteIdentityResourceDialog(IdentityResourceRow))"></MudIconButton>
                 </div>
-            </td>
-            <td><div style="min-width:130px;">@IdentityResourceRow.Name</div></td>
-            <td><MatSlideToggle TValue="bool" Value="@IdentityResourceRow.Enabled" ValueChanged="@((item) => UpdateEnabled(IdentityResourceRow))"></MatSlideToggle></td>
-            <td><div style="min-width:130px;">@IdentityResourceRow.DisplayName</div></td>
-            <td><div style="min-width:130px;">@IdentityResourceRow.Description</div></td>
-            <td><MatSlideToggle TValue="bool" Value="@IdentityResourceRow.Required" Disabled="true"></MatSlideToggle></td>
-            <td><MatSlideToggle TValue="bool" Value="@IdentityResourceRow.Emphasize" Disabled="true"></MatSlideToggle></td>
-            <td><MatSlideToggle TValue="bool" Value="@IdentityResourceRow.ShowInDiscoveryDocument" Disabled="true"></MatSlideToggle></td>
-            <td>
-                <MatChipSet>
+            </MudTd>
+            <MudTd><div style="min-width:130px;">@IdentityResourceRow.Name</div></MudTd>
+            <MudTd><MudSwitch Checked="@IdentityResourceRow.Enabled" ValueChanged="@((item) => UpdateEnabled(IdentityResourceRow))"></MudSwitch></MudTd>
+            <MudTd><div style="min-width:130px;">@IdentityResourceRow.DisplayName</div></MudTd>
+            <MudTd><div style="min-width:130px;">@IdentityResourceRow.Description</div></MudTd>
+            <MudTd><MudSwitch Checked="@IdentityResourceRow.Required" Disabled="true"></MudSwitch></MudTd>
+            <MudTd><MudSwitch Checked="@IdentityResourceRow.Emphasize" Disabled="true"></MudSwitch></MudTd>
+            <MudTd><MudSwitch Checked="@IdentityResourceRow.ShowInDiscoveryDocument" Disabled="true"></MudSwitch></MudTd>
+            <MudTd>
+                <MudChipSet>
                     @foreach (var userClaim in IdentityResourceRow.UserClaims)
                         {
-                        <MatChip Label="@userClaim"></MatChip>
+                        <MudChip Text="@userClaim"></MudChip>
                         }
-                </MatChipSet>
-            </td>
-        </MatTableRow>
-    </MatTable>
+                </MudChipSet>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
 }
 
-<MatDialog @bind-IsOpen="@isUpsertIdentityResourceDialogOpen">
-    <MatDialogTitle>
+<MudDialog @bind-IsOpen="@isUpsertIdentityResourceDialogOpen">
+    <TitleContent>
         @labelUpsertDialogTitle
-    </MatDialogTitle>
-    <MatDialogContent>
+    </TitleContent>
+    <DialogContent>
         <EditForm Model="@currentIdentityResource">
             <FluentValidationValidator />
             <ValidationSummary />
-            <MatTabGroup>
-                <MatTab Label="Main">
+            <MudTabs>
+                <MudTabPanel Text="Main">
                     <fieldset>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentIdentityResource.Name" Disabled="@isCurrentIdentityContextIdReadOnly" Label="Id" Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentIdentityResource.Name" Disabled="@isCurrentIdentityContextIdReadOnly" Label="Id" Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentIdentityResource.Enabled" Label="Enabled"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentIdentityResource.Enabled" Label="Enabled"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentIdentityResource.DisplayName" Label="Display Name" Icon="description" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentIdentityResource.DisplayName" Label="Display Name" Icon="description" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@currentIdentityResource.Description" Label="Description" Icon="description" IconTrailing="true" FullWidth="true"></MatTextField>
+                            <MudTextField @bind-Value="@currentIdentityResource.Description" Label="Description" Icon="description" IconTrailing="true" FullWidth="true"></MudTextField>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentIdentityResource.Required" Label="Required"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentIdentityResource.Required" Label="Required"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentIdentityResource.Emphasize" Label="Emphasize in consent screen"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentIdentityResource.Emphasize" Label="Emphasize in consent screen"></MudSwitch>
                         </div>
                         <div class="form-group">
-                            <MatSlideToggle @bind-Value="@currentIdentityResource.ShowInDiscoveryDocument" Label="Show in discovery document"></MatSlideToggle>
+                            <MudSwitch @bind-Checked="@currentIdentityResource.ShowInDiscoveryDocument" Label="Show in discovery document"></MudSwitch>
                         </div>
                     </fieldset>
-                </MatTab>
-                <MatTab Label="User Claims">
+                </MudTabPanel>
+                <MudTabPanel Text="User Claims">
                     <fieldset>
                         <div class="form-group" style="margin-top:16px;">
                             <div class="form-group">
-                                <MatTextField @bind-Value="@currentIdentityResource.CustomUserClaimsText" Label="Custom User Claims" TextArea="true" FullWidth="true" Required="false"></MatTextField>
+                                <MudTextField @bind-Value="@currentIdentityResource.CustomUserClaimsText" Label="Custom User Claims" TextArea="true" FullWidth="true" Required="false"></MudTextField>
                             </div>
                         </div>
                     </fieldset>
-                    <MatDivider></MatDivider>
+                    <MudDivider></MudDivider>
                     <h3 class="mat-subtitle1">Jwt Claims</h3>
-                    <MatTable Items="@jwtClaimSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
-                        <MatTableHeader>
-                            <th>@L["Name"]</th>
-                            <th>Required</th>
-                        </MatTableHeader>
-                        <MatTableRow Context="JwtClaimRow">
-                            <td>@JwtClaimRow.Name</td>
-                            <td><MatCheckbox TValue="bool" @bind-Value="@JwtClaimRow.IsSelected"></MatCheckbox></td>
-                        </MatTableRow>
-                    </MatTable>
-                </MatTab>
-            </MatTabGroup>
+                    <MudTable Items="@jwtClaimSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
+                        <HeaderContent>
+                            <MudTh>@L["Name"]</MudTh>
+                            <MudTh>Required</MudTh>
+                        </HeaderContent>
+                        <RowTemplate Context="JwtClaimRow">
+                            <MudTd>@JwtClaimRow.Name</MudTd>
+                            <MudTd>There was a CheckBox</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudTabPanel>
+            </MudTabs>
         </EditForm>
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@CancelChanges">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@UpsertIdentityResource">@labelUpsertDialogOkButton</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@CancelChanges">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@UpsertIdentityResource">@labelUpsertDialogOkButton</MudButton>
+    </DialogActions>
+</MudDialog>
 
-<MatDialog @bind-IsOpen="@isDeleteIdentityResourceDialogOpen" Style="z-index:100">
-    <MatDialogTitle><MatIcon Icon="warning"></MatIcon> @L["Confirm Delete"]</MatDialogTitle>
-    <MatDialogContent>
+<MudDialog @bind-IsOpen="@isDeleteIdentityResourceDialogOpen" Style="z-index:100">
+    <TitleContent><MudIcon Icon="warning"></MudIcon> @L["Confirm Delete"]</TitleContent>
+    <DialogContent>
         @L["Are you sure you want to delete {0}?", currentIdentityResource.Name]
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { isDeleteIdentityResourceDialogOpen = false; })">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@DeleteIdentityResourceAsync">@L["Delete"]</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { isDeleteIdentityResourceDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@DeleteIdentityResourceAsync">@L["Delete"]</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
     int pageSize { get; set; } = 15;
@@ -158,15 +157,35 @@ else
 
             if (identiyResponse.IsSuccessStatusCode)
             {
-                viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Success, L["Operation Successful"]);
+                //viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Success,);
+                Snackbar.Add(L["Operation Successful"], Severity.Success, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Success;
+                });
+
                 identiyResources = identiyResponse.Result;
             }
             else
-                viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
+                //viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Error, L["Operation Failed"]);
+                Snackbar.Add(L["Operation failed"], Severity.Success, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Success;
+                });
+
         }
         catch (Exception ex)
         {
-            viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+            //viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(ex.GetBaseException().Message, Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
         }
     }
 
@@ -232,7 +251,13 @@ else
         }
         catch (Exception ex)
         {
-            viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+           // viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(ex.GetBaseException().Message, Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
         }
     }
 
@@ -256,7 +281,13 @@ else
         {
             if (currentIdentityResource == null)
             {
-                viewNotifier.Show("IdentityResource Creation Error", ViewNotifierType.Error, "New Identity Resource not found");
+                //viewNotifier.Show("IdentityResource Creation Error", ViewNotifierType.Error, "New Identity Resource not found");
+                Snackbar.Add(L["IdentityResource Creation Error"], Severity.Error, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Error;
+                });
                 return;
             }
 
@@ -275,21 +306,37 @@ else
 
             if (identiyResponse.IsSuccessStatusCode)
             {
-                viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Success);
-
+                //viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Success);
+                Snackbar.Add(L["IdentityResource Creation Error"], Severity.Error, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Error;
+                });
                 StateHasChanged();
             }
             else
-                viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Error);
+                //viewNotifier.Show(identiyResponse.Message, ViewNotifierType.Error);
 
-
+                Snackbar.Add(L["IdentityResource Creation Error"], Severity.Error, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Error;
+                });
             await OnInitializedAsync();
 
             isUpsertIdentityResourceDialogOpen = false;
         }
         catch (Exception ex)
         {
-            viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+            //viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(L["IdentityResource Creation Error"], Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
         }
         finally
         {
@@ -316,18 +363,37 @@ else
             var response = await Http.DeleteAsync($"api/Admin/IdentityResource/{currentIdentityResource.Name}");
             if (response.StatusCode != (HttpStatusCode)Status200OK)
             {
-                viewNotifier.Show("Identity Resource Delete Failed", ViewNotifierType.Error);
+                //viewNotifier.Show("Identity Resource Delete Failed", ViewNotifierType.Error);
+                Snackbar.Add(L["IdentityResource Creation Error"], Severity.Error, config =>
+                {
+                    config.ShowCloseIcon = true;
+                    config.SnackbarVariant = Variant.Filled;
+                    config.ActionColor = Color.Error;
+                });
+                
                 return;
             }
 
-            viewNotifier.Show("Identity Resource Deleted", ViewNotifierType.Success);
+            //viewNotifier.Show("Identity Resource Deleted", ViewNotifierType.Success);
+            Snackbar.Add("Identity Resource Deleted", Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
             await OnInitializedAsync();
             isDeleteIdentityResourceDialogOpen = false;
             StateHasChanged();
         }
         catch (Exception ex)
         {
-            viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+            Snackbar.Add(ex.GetBaseException().Message, Severity.Error, config =>
+            {
+                config.ShowCloseIcon = true;
+                config.SnackbarVariant = Variant.Filled;
+                config.ActionColor = Color.Error;
+            });
+
         }
     }
 

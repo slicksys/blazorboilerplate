@@ -1,0 +1,38 @@
+﻿@namespace MudBlazor.Docs.Examples
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudGrid Spacing="@spacing" Justify="Justify.Center">
+            <MudItem>
+                <MudPaper Style="height:140px;width:140px;" />
+            </MudItem>
+            <MudItem>
+                <MudPaper Style="height:140px;width:140px;" />
+            </MudItem>
+            <MudItem>
+                <MudPaper Style="height:140px;width:140px;" />
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+</MudGrid>
+<MudPaper Class="d-flex align-center mud-full-width px-4 py-2 mt-6" Elevation="0">
+    <MudButton Color="Color.Primary" OnClick="@AddSpacing">Change Spacing</MudButton>
+    <MudSpacer/>
+    <MudText>Spacing: @spacing</MudText>
+</MudPaper>
+
+@code {
+    public int spacing { get; set; } = 2;
+    void AddSpacing()
+    {
+        if (spacing >= 10)
+        {
+            spacing = 0;
+        }
+        else
+        {
+            spacing += 1;
+        }
+        StateHasChanged();
+    }
+}

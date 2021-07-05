@@ -1,0 +1,16 @@
+﻿@namespace MudBlazor
+@typeparam T
+@inherits MudBaseSelectItem
+
+<MudListItem @attributes="UserAttributes" @onclick="@OnClicked" Icon="@CheckBoxIcon" Disabled="@Disabled">
+    @if (ChildContent!=null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        @DisplayString
+    }
+</MudListItem>
+
+

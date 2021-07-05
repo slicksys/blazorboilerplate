@@ -19,79 +19,77 @@
 }
 else
 {
-    <MatTable Class="mat-elevation-z5" Items="@tenants" Striped="true">
-        <MatTableHeader>
-            <th><MatButton Icon="add" Label=@L["New Tenant"] OnClick="@(() => OpenUpsertTenantDialog())"></MatButton></th>
-            <th>Id</th>
-            <th>Identifier</th>
-            <th>@L["Name"]</th>
-            <th>ConnectionString</th>
-        </MatTableHeader>
-        <MatTableRow Context="TenantRow">
-            <td>
+    <MudTable Class="mat-elevation-z5" Items="@tenants" Striped="true">
+        <HeaderContent>
+            <MudTh><MudButton Icon="add" Label=@L["New Tenant"] OnClick="@(() => OpenUpsertTenantDialog())"></MudButton></MudTh>
+            <MudTh>Id</MudTh>
+            <MudTh>Identifier</MudTh>
+            <MudTh>@L["Name"]</MudTh>
+            <MudTh>ConnectionString</MudTh>
+        </HeaderContent>
+        <RowTemplate Context="TenantRow">
+            <MudTd>
                 <div style="width:155px;">
-                    <MatIconButton Icon="edit" OnClick="@(() => OpenUpsertTenantDialog(TenantRow))"></MatIconButton>
-                    <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteTenantDialog(TenantRow))" Disabled="@(TenantRow.Id == SSDCPortal.Constants.Settings.DefaultTenantId)"></MatIconButton>
+                    <MudIconButton Icon="edit" OnClick="@(() => OpenUpsertTenantDialog(TenantRow))"></MudIconButton>
+                    <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteTenantDialog(TenantRow))" Disabled="@(TenantRow.Id == SSDCPortal.Constants.Settings.DefaultTenantId)"></MudIconButton>
                 </div>
-            </td>
-            <td><div style="min-width:130px;">@TenantRow.Id</div></td>
-            <td>
+            </MudTd>
+            <MudTd><div style="min-width:130px;">@TenantRow.Id</div></MudTd>
+            <MudTd>
                 <div style="min-width:130px; white-space:nowrap;">
                     @TenantRow.Identifier
-                    @if (TenantRow.Id != SSDCPortal.Constants.Settings.DefaultTenantId)
-                        {
-                        <MatIconButton Link="@GetTenantUri(TenantRow)" Target="_blank">
-                            <MatIcon>@MatIconNames.Link</MatIcon>
-                        </MatIconButton>
-                        }
+                    @if (TenantRow.Id != SSDCPortal.Constants.Settings.DefaultTenantId) {
+                        <MudIconButton Link="@GetTenantUri(TenantRow)" Target="_blank">
+                            <MudIcon Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                        </MudIconButton> }
                 </div>
-            </td>
-            <td><div style="min-width:130px;">@TenantRow.Name</div></td>
-            <td><div style="min-width:130px;">@TenantRow.ConnectionString</div></td>
-        </MatTableRow>
-    </MatTable>
+            </MudTd>
+            <MudTd><div style="min-width:130px;">@TenantRow.Name</div></MudTd>
+            <MudTd><div style="min-width:130px;">@TenantRow.ConnectionString</div></MudTd>
+        </RowTemplate>
+    </MudTable>
 }
 
-<MatDialog @bind-IsOpen="@isUpsertTenantDialogOpen">
-    <MatDialogTitle>
+<MudDialog @bind-IsOpen="@isUpsertTenantDialogOpen">
+    <TitleContent>
         @labelUpsertDialogTitle
-    </MatDialogTitle>
-    <MatDialogContent>
+    </TitleContent>
+    <DialogContent>
         <EditForm Model="@currentTenant">
             <FluentValidationValidator />
             <ValidationSummary />
             <fieldset>
                 <div class="form-group">
-                    <MatTextField @bind-Value="@currentTenant.Id" Disabled="@isCurrentTenantKeyReadOnly" Label="Id" Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                    <MudTextField @bind-Value="@currentTenant.Id" Disabled="@isCurrentTenantKeyReadOnly" Label="Id" Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                 </div>
                 <div class="form-group">
-                    <MatTextField @bind-Value="@currentTenant.Identifier" Disabled="@(currentTenant.Id == SSDCPortal.Constants.Settings.DefaultTenantId)" Label="Identifier" Icon="description" IconTrailing="true" FullWidth="true"></MatTextField>
+                    <MudTextField @bind-Value="@currentTenant.Identifier" Disabled="@(currentTenant.Id == SSDCPortal.Constants.Settings.DefaultTenantId)" Label="Identifier" Icon="description" IconTrailing="true" FullWidth="true"></MudTextField>
                 </div>
                 <div class="form-group">
-                    <MatTextField @bind-Value="@currentTenant.Name" Label=@L["Name"] Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                    <MudTextField @bind-Value="@currentTenant.Name" Label=@L["Name"] Icon="description" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                 </div>
                 <div class="form-group">
-                    <MatTextField @bind-Value="@currentTenant.ConnectionString" Label="ConnectionString" Icon="description" IconTrailing="true" FullWidth="true" TextArea="true"></MatTextField>
+                    <MudTextField @bind-Value="@currentTenant.ConnectionString" Label="ConnectionString" Icon="description" IconTrailing="true" FullWidth="true" TextArea="true"></MudTextField>
                 </div>
             </fieldset>
         </EditForm>
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@CancelChanges">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@UpsertTenant">@labelUpsertDialogOkButton</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@CancelChanges">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@UpsertTenant">@labelUpsertDialogOkButton</MudButton>
+    </DialogActions>
+</MudDialog>
 
-<MatDialog @bind-IsOpen="@isDeleteTenantDialogOpen" Style="z-index:100">
-    <MatDialogTitle><MatIcon Icon="warning"></MatIcon> @L["Confirm Delete"]</MatDialogTitle>
-    <MatDialogContent>
+<MudDialog @bind-IsOpen="@isDeleteTenantDialogOpen" Style="z-index:100">
+    <TitleContent><MudIcon Icon="warning"></MudIcon> @L["Confirm Delete"]</TitleContent>
+    <DialogContent>
         Are you sure you want to delete the Tenant "@currentTenant.Name" ?
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { isDeleteTenantDialogOpen = false; })">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@DeleteTenantAsync">@L["Delete"]</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { isDeleteTenantDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@DeleteTenantAsync">@L["Delete"]</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
     int pageSize { get; set; } = 15;

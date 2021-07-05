@@ -13,69 +13,66 @@
 }
 else
 {
-    <MatTable Class="mat-elevation-z5" Items="@roles" Striped="true" PageSize="@pageSize" ShowPaging="false">
-        <MatTableHeader>
-            <th><MatButton Icon="add" Label=@L["New Role"] OnClick="@(() => OpenUpsertRoleDialog())"></MatButton></th>
-            <th>@L["Name"]</th>
-            <th>@L["Permissions"]</th>
-        </MatTableHeader>
-        <MatTableRow Context="RoleRow">
-            <td>
+    <MudTable Class="mat-elevation-z5" Items="@roles" Striped="true" PageSize="@pageSize" ShowPaging="false">
+        <HeaderContent>
+            <MudTh><MudButton Icon="add" Label=@L["New Role"] OnClick="@(() => OpenUpsertRoleDialog())"></MudButton></MudTh>
+            <MudTh>@L["Name"]</MudTh>
+            <MudTh>@L["Permissions"]</MudTh>
+        </HeaderContent>
+        <RowTemplate Context="RoleRow">
+            <MudTd>
                 <div style="width:155px;">
-                    <MatIconButton Icon="edit" OnClick="@(() => OpenUpsertRoleDialog(@RoleRow.Name))" Disabled="@(RoleRow.Name == SSDCPortal.Constants.DefaultRoleNames.Administrator)"></MatIconButton>
-                    <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteDialog(@RoleRow.Name))" Disabled="@(RoleRow.Name == SSDCPortal.Constants.DefaultRoleNames.Administrator)"></MatIconButton>
+                    <MudIconButton Icon="edit" OnClick="@(() => OpenUpsertRoleDialog(@RoleRow.Name))" Disabled="@(RoleRow.Name == SSDCPortal.Constants.DefaultRoleNames.Administrator)"></MudIconButton>
+                    <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteDialog(@RoleRow.Name))" Disabled="@(RoleRow.Name == SSDCPortal.Constants.DefaultRoleNames.Administrator)"></MudIconButton>
                 </div>
-            </td>
-            <td><div style="width:130px;">@RoleRow.Name</div></td>
-            <td>
-                <MatChipSet>
+            </MudTd>
+            <MudTd><div style="width:130px;">@RoleRow.Name</div></MudTd>
+            <MudTd>
+                <MudChipSet>
                     @foreach (var permission in @RoleRow.Permissions)
                         {
-                        <MatChip Label="@permission"></MatChip>
+                        <MudChip Label="@permission"></MudChip>
                         }
-                </MatChipSet>
-            </td>
-        </MatTableRow>
-    </MatTable>
+                </MudChipSet>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
 }
 
-<MatDialog @bind-IsOpen="@isUpsertRoleDialogOpen">
-    <MatDialogTitle>
-        @labelUpsertDialogTitle
-    </MatDialogTitle>
-    <MatDialogContent>
+<MudDialog TitleContent="@labelUpsertDialogTitle" @bind-IsOpen="@isUpsertRoleDialogOpen">
+    <DialogContent>
         <fieldset>
             <div class="form-group">
-                <MatTextField @bind-Value="@currentRoleName" Disabled="@isCurrentRoleReadOnly" Label="Role Name" Icon="add" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                <MudTextField @bind-Value="@currentRoleName" Disabled="@isCurrentRoleReadOnly" Label="Role Name" Icon="add" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
             </div>
         </fieldset>
-        <MatTable Items="@permissionsSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
-            <MatTableHeader>
-                <th>@L["Permissions"]</th>
-                <th>@L["Allow"]</th>
-            </MatTableHeader>
-            <MatTableRow>
-                <td>@context.Name</td>
-                <td><MatCheckbox TValue="bool" @bind-Value="@context.IsSelected"></MatCheckbox></td>
-            </MatTableRow>
-        </MatTable>
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { isUpsertRoleDialogOpen = false; })">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@UpsertRole">@labelUpsertDialogOkButton</MatButton>
-    </MatDialogActions>
-</MatDialog>
+        <MudTable Items="@permissionsSelections" Class="mat-elevation-z5, mdc-table-allow" ShowPaging="false" PageSize="@int.MaxValue">
+            <HeaderContent>
+                <MudTh>@L["Permissions"]</MudTh>
+                <MudTh>@L["Allow"]</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.Name</MudTd>
+                <MudTd>There was a CheckBox</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { isUpsertRoleDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@UpsertRole">@labelUpsertDialogOkButton</MudButton>
+    </DialogActions>
+</MudDialog>
 
-<MatDialog @bind-IsOpen="@isDeleteRoleDialogOpen" Style="z-index:100">
-    <MatDialogTitle><MatIcon Icon="warning"></MatIcon> @L["Confirm Delete"]</MatDialogTitle>
-    <MatDialogContent>
+<MudDialog @bind-IsOpen="@isDeleteRoleDialogOpen" Style="z-index:100">
+    <TitleContent><MudIcon Icon="warning"/> @L["Confirm Delete"]</TitleContent>
+    <DialogContent>
         @L["Are you sure you want to delete {0}?", currentRoleName]
-    </MatDialogContent>
-    <MatDialogActions>
-        <MatButton OnClick="@(e => { isDeleteRoleDialogOpen = false; })">@L["Cancel"]</MatButton>
-        <MatButton OnClick="@DeleteRoleAsync">@L["Delete"]</MatButton>
-    </MatDialogActions>
-</MatDialog>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="@(e => { isDeleteRoleDialogOpen = false; })">@L["Cancel"]</MudButton>
+        <MudButton OnClick="@DeleteRoleAsync">@L["Delete"]</MudButton>
+    </DialogActions>
+</MudDialog>
 
 @code {
 

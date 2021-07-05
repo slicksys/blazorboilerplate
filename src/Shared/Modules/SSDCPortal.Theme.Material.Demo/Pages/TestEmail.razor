@@ -12,10 +12,10 @@
     <ValidationSummary />
     <fieldset>
         <div class="form-group">
-            <MatTextField @bind-Value="@emailParameters.ToAddress" Label="Email" Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+            <MudText @bind-value="@emailParameters.ToAddress" Label="Email" Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MudText>
         </div>
         <div class="form-group d-flex justify-content-end">
-            <MatButton Type="submit" Raised="true">Send Test Template Email</MatButton>
+            <MudButton ButtonType="ButtonType.Submit" Raised="true">Send Test Template Email</MudButton>
         </div>
     </fieldset>
 </EditForm>

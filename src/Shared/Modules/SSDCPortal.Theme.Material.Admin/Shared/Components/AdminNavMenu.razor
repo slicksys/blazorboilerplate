@@ -7,95 +7,94 @@
 <PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text);"/>
 <MudDivider Class="mb-4" />
 
-<MatNavMenu Multi="true" Class="app-sidebar">
+<MudNavMenu Multi="true" Class="app-sidebar">
 
-    <MatNavItem Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri" NavLinkMatch="NavLinkMatch.All">
-        <MatIcon>home</MatIcon> <span class="miniHover">Frontend</span>
-    </MatNavItem>
+    <MudNavLink Href="@navigationManager.ToAbsoluteUri(" ").AbsoluteUri" NavLinkMatch="NavLinkMatch.All">
+        <MudIcon>home</MudIcon> <span class="miniHover">Frontend</span>
+    </MudNavLink>
 
-    <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin").AbsoluteUri" NavLinkMatch="NavLinkMatch.All">
-        <MatIcon>bar_chart</MatIcon> <span class="miniHover">@L["Dashboard"]</span>
-    </MatNavItem>
+    <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin").AbsoluteUri" NavLinkMatch="NavLinkMatch.All">
+        <MudIcon>bar_chart</MudIcon> <span class="miniHover">@L["Dashboard"]</span>
+    </MudNavLink>
     
-    <MatNavSubMenu>
-        <MatNavSubMenuHeader>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/settings").AbsoluteUri" AllowSelection="false">
-                <MatIcon>settings_applications</MatIcon> <span class="miniHover">@L["Settings"]</span>
-            </MatNavItem>
-        </MatNavSubMenuHeader>
-        <MatNavSubMenuList>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/settings/email").AbsoluteUri">
-                <MatIcon>email</MatIcon> <span class="miniHover">@L["Email"]</span>
-            </MatNavItem>
-        </MatNavSubMenuList>
-    </MatNavSubMenu>
+    <MudNavGroup>
+        <div>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/settings").AbsoluteUri" AllowSelection="false">
+                <MudIcon>settings_applications</MudIcon> <span class="miniHover">@L["Settings"]</span>
+            </MudNavLink>
+         </div>
+         <div>
+             <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/settings/email").AbsoluteUri">
+                 <MudIcon>email</MudIcon> <span class="miniHover">@L["Email"]</span></MudNavLink>
+         </div>
+    </MudNavGroup>
     
-    <MatNavSubMenu>
-        <MatNavSubMenuHeader>
-            <MatNavItem AllowSelection="false">
-                <MatIcon>public</MatIcon> <span class="miniHover">@L["Localization"]</span>
-            </MatNavItem>
-        </MatNavSubMenuHeader>
-        <MatNavSubMenuList>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/translations").AbsoluteUri">
-                <MatIcon>translate</MatIcon> <span class="miniHover">@L["Translations"]</span>
-            </MatNavItem>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/pluralizationrules").AbsoluteUri">
-                <MatIcon>group</MatIcon> <span class="miniHover">@L["Pluralization rules"]</span>
-            </MatNavItem>
-        </MatNavSubMenuList>
-    </MatNavSubMenu>
-    <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/users").AbsoluteUri">
-        <MatIcon>supervisor_account</MatIcon> <span class="miniHover">@L["Users"]</span>
-    </MatNavItem>
-    <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/roles").AbsoluteUri">
-        <MatIcon>supervisor_account</MatIcon> <span class="miniHover">@L["Roles"]</span>
-    </MatNavItem>
+    <MudNavGroup>
+        <div>
+            <MudNavLink AllowSelection="false">
+                <MudIcon>public</MudIcon> <span class="miniHover">@L["Localization"]</span>
+            </MudNavLink>
+        </div>
+        <div>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/translations").AbsoluteUri">
+                <MudIcon>translate</MudIcon> <span class="miniHover">@L["Translations"]</span>
+            </MudNavLink>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/pluralizationrules").AbsoluteUri">
+                <MudIcon>group</MudIcon> <span class="miniHover">@L["Pluralization rules"]</span>
+            </MudNavLink>
+        </div>
+    </MudNavGroup>
+    <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/users").AbsoluteUri">
+        <MudIcon>supervisor_account</MudIcon> <span class="miniHover">@L["Users"]</span>
+    </MudNavLink>
+    <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/roles").AbsoluteUri">
+        <MudIcon>supervisor_account</MudIcon> <span class="miniHover">@L["Roles"]</span>
+    </MudNavLink>
     @if (tenant.Id == SSDCPortal.Constants.Settings.DefaultTenantId)
     {
-        <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/multitenancy").AbsoluteUri">
-            <MatIcon>account_balance</MatIcon> <span class="miniHover">@L["MultiTenancy"]</span>
-        </MatNavItem>
+        <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/multitenancy").AbsoluteUri">
+            <MudIcon>account_balance</MudIcon> <span class="miniHover">@L["MultiTenancy"]</span>
+        </MudNavLink>
     }
-    <MatNavSubMenu>
-        <MatNavSubMenuHeader>
-            <MatNavItem AllowSelection="false">
-                <MatIcon>settings_applications</MatIcon> <span class="miniHover">IdentityServer4</span>
-            </MatNavItem>
-        </MatNavSubMenuHeader>
-        <MatNavSubMenuList>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/clients").AbsoluteUri">
-                <MatIcon>devices</MatIcon> <span class="miniHover">@L["OpenIdClients"]</span>
-            </MatNavItem>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/identityResources").AbsoluteUri">
-                <MatIcon>person_outline</MatIcon> <span class="miniHover">@L["IdentityResources"]</span>
-            </MatNavItem>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/apiResources").AbsoluteUri">
-                <MatIcon>cloud</MatIcon> <span class="miniHover">@L["ApiResources"]</span>
-            </MatNavItem>
-        </MatNavSubMenuList>
-    </MatNavSubMenu>
-    <MatNavSubMenu>
-        <MatNavSubMenuHeader>
-            <MatNavItem AllowSelection="false">
-                <MatIcon>settings_applications</MatIcon> <span class="miniHover">@L["AppAdminNavMonitoring"]</span>
-            </MatNavItem>
-        </MatNavSubMenuHeader>
-        <MatNavSubMenuList>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/apilog").AbsoluteUri">
-                <MatIcon>change_history</MatIcon> <span class="miniHover">@L["AppAdminNavApiAuditLog"]</span>
-            </MatNavItem>
-            <MatNavItem Href="@navigationManager.ToAbsoluteUri("admin/dblog").AbsoluteUri">
-                <MatIcon>notes</MatIcon> <span class="miniHover">@L["AppAdminNavDBLoggingView"]</span>
-            </MatNavItem>
-        </MatNavSubMenuList>
-    </MatNavSubMenu>
+    <MudNavGroup>
+        <div>
+            <MudNavLink AllowSelection="false">
+                <MudIcon>settings_applications</MudIcon> <span class="miniHover">IdentityServer4</span>
+            </MudNavLink>
+        </div>
+        <div>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/clients").AbsoluteUri">
+                <MudIcon>devices</MudIcon> <span class="miniHover">@L["OpenIdClients"]</span>
+            </MudNavLink>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/identityResources").AbsoluteUri">
+                <MudIcon>person_outline</MudIcon> <span class="miniHover">@L["IdentityResources"]</span>
+            </MudNavLink>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/apiResources").AbsoluteUri">
+                <MudIcon>cloud</MudIcon> <span class="miniHover">@L["ApiResources"]</span>
+            </MudNavLink>
+        </div>
+    </MudNavGroup>
+    <MudNavGroup>
+        <div>
+            <MudNavLink AllowSelection="false">
+                <MudIcon>settings_applications</MudIcon> <span class="miniHover">@L["AppAdminNavMonitoring"]</span>
+            </MudNavLink>
+        </div>
+        <div>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/apilog").AbsoluteUri">
+                <MudIcon>change_history</MudIcon> <span class="miniHover">@L["AppAdminNavApiAuditLog"]</span>
+            </MudNavLink>
+            <MudNavLink Href="@navigationManager.ToAbsoluteUri("admin/dblog").AbsoluteUri">
+                <MudIcon>notes</MudIcon> <span class="miniHover">@L["AppAdminNavDBLoggingView"]</span>
+            </MudNavLink>
+        </div>
+    </MudNavGroup>
     @foreach (var component in components)
     {
         @CreateDynamicComponent(component)
         ;
     }
-</MatNavMenu>
+</MudNavMenu>
 
 @code {
     TenantDto tenant = new TenantDto();

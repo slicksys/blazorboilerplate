@@ -4,7 +4,7 @@ using SSDCPortal.Shared.Interfaces;
 using SSDCPortal.Shared.Localizer;
 using Blazored.TextEditor;
 using Karambolo.Common.Localization;
-using MatBlazor;
+using MudBlazor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using ObjectCloner.Extensions;
@@ -60,13 +60,13 @@ namespace SSDCPortal.Theme.Material.Admin.Pages.Admin
             await LoadPluralFormRules();
         }
 
-        protected async Task OnPage(MatPaginatorPageEvent e)
-        {
-            pageSize = e.PageSize;
-            pageIndex = e.PageIndex;
+        //protected async Task OnPage(MatPaginatorPageEvent e)
+        //{
+        //    pageSize = e.PageSize;
+        //    pageIndex = e.PageIndex;
 
-            await LoadKeys();
-        }
+        //    await LoadKeys();
+        //}
         protected async Task LoadKeys(string filter = null)
         {
             localizationRecords = new List<LocalizationRecord>();
@@ -334,7 +334,7 @@ namespace SSDCPortal.Theme.Material.Admin.Pages.Admin
             }
         }
 
-        protected async Task Upload(IMatFileUploadEntry[] files)
+        protected async Task Upload(IMudFileUploadEntry[] files)
         {
             foreach (var file in files)
             {

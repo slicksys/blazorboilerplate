@@ -15,178 +15,197 @@
 }
 else
 {
-    <MatTextField ValueChanged="(string filter) => LoadKeys(filter)" Icon="search" />
-    <MatTable Items="@localizationRecordKeys" Class="mat-elevation-z5" Striped="true" PageSize="@pageSize" ShowPaging="false"
-              AllowSelection="true" SelectionChanged="async (object key) => await LoadLocalizationRecords((LocalizationRecordKey)key)">
-        <MatTableHeader>
-            <th><MatButton Icon="add" Label=@L["NewTranslation"] OnClick="@OpenNewKeyDialogOpen"></MatButton></th>
-            <th>@L["MsgId"]</th>
-            <th>@L["ContextId"]</th>
-        </MatTableHeader>
-        <MatTableRow Context="keyRow">
-            <td>
+    <MudTextField ValueChanged="(string filter) => LoadKeys(filter)" Icon="search" />
+    <MudTable Items="@localizationRecordKeys" Class="mat-elevation-z5"
+              Striped="true"
+              PageSize="@pageSize"
+              ShowPaging="false"
+              AllowSelection="true"
+              SelectionChanged="async (object key) => await LoadLocalizationRecords((LocalizationRecordKey)key)">
+        <HeaderContent>
+            <MudTh><MudButton Icon="add" Label=@L["NewTranslation"] OnClick="@OpenNewKeyDialogOpen"></MudButton></MudTh>
+            <MudTh>@L["MsgId"]</MudTh>
+            <MudTh>@L["ContextId"]</MudTh>
+        </HeaderContent>
+        <RowTemplate Context="keyRow">
+            <MudTd>
                 <div>
-                    <MatIconButton Icon="edit" OnClick="@(() => OpenEditDialog(keyRow))"></MatIconButton>
-                    <MatIconButton Icon="delete" OnClick="@(() => OpenDeleteDialog(keyRow))"></MatIconButton>
+                    <MudIconButton Icon="edit" OnClick="@(() => OpenEditDialog(keyRow))"></MudIconButton>
+                    <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteDialog(keyRow))"></MudIconButton>
                 </div>
-            </td>
-            <td>@keyRow.MsgId</td>
-            <td>@keyRow.ContextId</td>
-        </MatTableRow>
-    </MatTable>
-    <MatPaginator PageSize="@pageSize" Page="async a => await OnPage(a)" Length="@totalItemsCount" Style="background: transparent"></MatPaginator>
+            </MudTd>
+            <MudTd>@keyRow.MsgId</MudTd>
+            <MudTd>@keyRow.ContextId</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager PageSize="@pageSize" Page="async a => await OnPage(a)" Length="@totalItemsCount" Style="background: transparent"></MudTablePager>
+        </PagerContent>
+    </MudTable>
 
-    <MatTable Items="@localizationRecords" Class="mat-elevation-z5" Striped="true" ShowPaging="false" PageSize="50">
-        <MatTableHeader>
-            <th></th>
-            <th>@L["Culture"]</th>
-            <th style="width: 100%;">@L["Translation"]</th>
-            <th></th>
-        </MatTableHeader>
-        <MatTableRow Context="row">
-            <td>
+    <MudTable Items="@localizationRecords" Class="mat-elevation-z5" Striped="true" ShowPaging="false" PageSize="50">
+        <HeaderContent>
+            <MudTh></MudTh>
+            <MudTh>@L["Culture"]</MudTh>
+            <MudTh style="width: 100%;">@L["Translation"]</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate Context="row">
+            <MudTd>
                 <div>
-                    <MatIconButton Icon="delete" OnClick="@(() => DeleteLocalizationRecord(row))" Disabled="@(row.Culture == SSDCPortal.Shared.Localizer.Settings.NeutralCulture)"></MatIconButton>
+                    <MudIconButton Icon="delete" OnClick="@(() => DeleteLocalizationRecord(row))" Disabled="@(row.Culture == SSDCPortal.Shared.Localizer.Settings.NeutralCulture)"></MudIconButton>
                 </div>
-            </td>
-            <td><b>@row.Culture</b></td>
-            <td>
-                <MatTextField @bind-Value="@row.Translation" TextArea="true" FullWidth="true" Required="true" Style="resize: both"></MatTextField>
-            </td>
-            <td>
+            </MudTd>
+            <MudTd><b>@row.Culture</b></MudTd>
+            <MudTd>
+                <MudTextField @bind-Value="@row.Translation" TextArea="true" FullWidth="true" Required="true" Style="resize: both"></MudTextField>
+            </MudTd>
+            <MudTd>
                 <div>
-                    <MatButton Style="margin-bottom: 5px; white-space: nowrap" Raised="true" OnClick="@(() => OpenEditAsHtmlDialog(row))">@L["Edit as HTML"]</MatButton>
-                    <MatButton Outlined="@(row.PluralTranslations.Count == 0)" Raised="@(row.PluralTranslations.Count > 0)" OnClick="@(() => OpenPluralDialog(row))">@L["Plural"]</MatButton>
+                    <MudButton Style="margin-bottom: 5px; white-space: nowrap" Raised="true" OnClick="@(() => OpenEditAsHtmlDialog(row))">@L["Edit as HTML"]</MudButton>
+                    <MudButton Outlined="@(row.PluralTranslations.Count == 0)" Raised="@(row.PluralTranslations.Count > 0)" OnClick="@(() => OpenPluralDialog(row))">@L["Plural"]</MudButton>
                 </div>
-            </td>
-        </MatTableRow>
-    </MatTable>
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
     @if (LocalizationCultures.Count > 0)
     {<EditForm Model="@newLocalizationRecord" OnValidSubmit="@SaveNewLocalizationRecord">
             <FluentValidationValidator />
             <ValidationSummary />
             <fieldset>
                 <div class="form-group">
-                    <MatSelectItem @bind-Value="@newLocalizationRecord.Culture" Items="@LocalizationCultures" Label=@L["Culture"]></MatSelectItem>
-                    <MatTextField @bind-Value="@newLocalizationRecord.Translation" Label=@L["Translation"] FullWidth="true" TextArea="true" Style="resize: both"></MatTextField>
-                    <MatButton Type="submit" Raised="true">@L["Add"]</MatButton>
-                    <MatButton Raised="true" OnClick="@(() => OpenEditAsHtmlDialog(newLocalizationRecord))">@L["Edit as HTML"]</MatButton>
+                    <MudSelectItem @bind-Value="@newLocalizationRecord.Culture" Items="@LocalizationCultures" Label=@L["Culture"]></MudSelectItem>
+                    <MudTextField @bind-Value="@newLocalizationRecord.Translation" Label=@L["Translation"] FullWidth="true" TextArea="true" Style="resize: both"></MudTextField>
+                    <MudButton Type="submit" Raised="true">@L["Add"]</MudButton>
+                    <MudButton Raised="true" OnClick="@(() => OpenEditAsHtmlDialog(newLocalizationRecord))">@L["Edit as HTML"]</MudButton>
                 </div>
             </fieldset>
         </EditForm>}
 
-    <MatButton OnClick="@CancelChanges" Raised="true">@L["Cancel"]</MatButton>
-    <MatButton OnClick="@SaveChanges" Raised="true">@L["Save"]</MatButton>
-    <MatButton OnClick="@ReloadTranslations" Raised="true">@L["ReloadTranslations"]</MatButton>
+    <MudButton OnClick="@CancelChanges" Raised="true">@L["Cancel"]</MudButton>
+    <MudButton OnClick="@SaveChanges" Raised="true">@L["Save"]</MudButton>
+    <MudButton OnClick="@ReloadTranslations" Raised="true">@L["ReloadTranslations"]</MudButton>
     @*Hack. See https://github.com/SamProf/MatBlazor/issues/713*@
     <div>
-        <MatButton Style="margin-top: 5px" OnClick="@(e => { navigationManager.NavigateTo("/api/localization/export", true); })" Raised="true">@L["Export"]</MatButton>
-        @*<MatButton Link="/api/localization/export" Raised="true">@L["Export"]</MatButton>*@
+        <MudButton Style="margin-top: 5px" OnClick="@(e => { navigationManager.NavigateTo("/api/localization/export", true); })">@L["Export"]</MudButton>
+        @*<MudButton Link="/api/localization/export" Raised="true">@L["Export"]</MudButton>*@
+        <InputFile id="fileInput112" OnChange="UploadFiles" hidden multiple accept=".po" />
+        <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.CloudUpload" for="fileInput112">
+            @L["Import PO file"]
+        </MudButton>
 
-        <MatFileUpload OnChange="@Upload" Label="@L["Import PO file"]"></MatFileUpload>
+        @*<MudFileUpload OnChange="@Upload" Label=""></MudFileUpload>*@
     </div>
 
-    <MatDialog @bind-IsOpen="@isEditDialogOpen">
-        <MatDialogTitle>@L["Edit {0}", currentKey]</MatDialogTitle>
-        <MatDialogContent>
+    <MudDialog>
+        @*bind-IsOpen="@isEditDialogOpen" >*@
+        <TitleContent>@L["Edit {0}", currentKey]</TitleContent>
+        <DialogContent>
             <div class="form-group">
-                <MatTextField @bind-Value="@newKey.ContextId" Label=@L["ContextId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                <MudTextField @bind-Value="@newKey.ContextId" Label=@L["ContextId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
             </div>
             <div class="form-group">
-                <MatTextField @bind-Value="@newKey.MsgId" Label=@L["MsgId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                <MudTextField @bind-Value="@newKey.MsgId" Label=@L["MsgId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
             </div>
-        </MatDialogContent>
-        <MatDialogActions>
-            <MatButton OnClick="@(e => { isEditDialogOpen = false; })">@L["Cancel"]</MatButton>
-            <MatButton OnClick="@(()=>EditLocalizationRecordKey())">@L["Save"]</MatButton>
-        </MatDialogActions>
-    </MatDialog>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="@(e => { isEditDialogOpen = false; })">@L["Cancel"]</MudButton>
+            <MudButton OnClick="@(()=>EditLocalizationRecordKey())">@L["Save"]</MudButton>
+        </DialogActions>
+    </MudDialog>
 
-    <MatDialog @bind-IsOpen="@isDeleteDialogOpen">
-        <MatDialogTitle><MatIcon Icon="warning"></MatIcon> @L["Confirm Delete"]</MatDialogTitle>
-        <MatDialogContent>
+    <MudDialog>
+        @*@bind-IsOpen="@isDeleteDialogOpen">*@
+        <TitleContent><MudIcon Icon="warning"></MudIcon> @L["Confirm Delete"]</TitleContent>
+        <DialogContent>
             @L["Are you sure you want to delete {0}?", currentKey]
-        </MatDialogContent>
-        <MatDialogActions>
-            <MatButton OnClick="@(e => { isDeleteDialogOpen = false; })">@L["Cancel"]</MatButton>
-            <MatButton OnClick="@(()=>DeleteLocalizationRecordKey(currentKey))">@L["Delete"]</MatButton>
-        </MatDialogActions>
-    </MatDialog>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="@(e => { isDeleteDialogOpen = false; })">@L["Cancel"]</MudButton>
+            <MudButton OnClick="@(()=>DeleteLocalizationRecordKey(currentKey))">@L["Delete"]</MudButton>
+        </DialogActions>
+    </MudDialog>
 
-    <MatDialog @bind-IsOpen="@isNewKeyDialogOpen">
-        <MatDialogTitle>@L["NewTranslation"]</MatDialogTitle>
-        <MatDialogContent>
+    <MudDialog>
+        @*@bind-IsOpen="@isNewKeyDialogOpen">*@
+        <TitleContent>@L["NewTranslation"]</TitleContent>
+        <DialogContent>
             <EditForm id="newKeyForm" Model="@newLocalizationRecord" OnValidSubmit="@SaveNewKey">
                 <FluentValidationValidator />
                 <ValidationSummary />
                 <fieldset>
                     <div class="form-group">
-                        <MatTextField @bind-Value="@newLocalizationRecord.ContextId" Label=@L["ContextId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                        <MudTextField @bind-Value="@newLocalizationRecord.ContextId" Label=@L["ContextId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                     </div>
                     <div class="form-group">
-                        <MatTextField @bind-Value="@newLocalizationRecord.MsgId" Label=@L["MsgId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MatTextField>
+                        <MudTextField @bind-Value="@newLocalizationRecord.MsgId" Label=@L["MsgId"] Icon="vpn_key" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                     </div>
                     <div class="form-group">
-                        <MatTextField @bind-Value="@newLocalizationRecord.Culture" Label=@L["Culture"] Icon="public" IconTrailing="true" FullWidth="true" Required="true" Disabled="true"></MatTextField>
+                        <MudTextField @bind-Value="@newLocalizationRecord.Culture" Label=@L["Culture"] Icon="public" IconTrailing="true" FullWidth="true" Required="true" Disabled="true"></MudTextField>
                     </div>
                     <div class="form-group">
-                        <MatTextField @bind-Value="@newLocalizationRecord.Translation" Label=@L["Translation"] FullWidth="true" Required="true" TextArea="true" Style="resize: both"></MatTextField>
+                        <MudTextField @bind-Value="@newLocalizationRecord.Translation" Label=@L["Translation"] FullWidth="true" Required="true" TextArea="true" Style="resize: both"></MudTextField>
                     </div>
                 </fieldset>
             </EditForm>
-        </MatDialogContent>
-        <MatDialogActions>
-            <MatButton OnClick="@CancelChanges">@L["Cancel"]</MatButton>
-            <MatButton Type="submit" form="newKeyForm" Raised="true">@L["Save"]</MatButton>
-        </MatDialogActions>
-    </MatDialog>
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="@CancelChanges">@L["Cancel"]</MudButton>
+            <MudButton Type="submit" form="newKeyForm" Raised="true">@L["Save"]</MudButton>
+        </DialogActions>
+    </MudDialog>
 
-    <MatDialog @bind-IsOpen="@isPluralDialogOpen">
-        <MatDialogTitle>@L["Plural"]</MatDialogTitle>
-        <MatDialogContent>
-            <MatTable Items="@currentLocalizationRecord.PluralTranslations" Class="mat-elevation-z5" Striped="true" ShowPaging="false" PageSize="50">
-                <MatTableHeader>
-                    <th></th>
-                    <th>@L["Index"]</th>
-                    <th>@L["Translation"]</th>
-                </MatTableHeader>
-                <MatTableRow Context="row">
-                    <td>
+    <MudDialog>
+        @*@bind-IsOpen="@isPluralDialogOpen">*@
+        <TitleContent>@L["Plural"]</TitleContent>
+        <DialogContent>
+            <MudTable Items="@currentLocalizationRecord.PluralTranslations" Class="mat-elevation-z5" Striped="true" ShowPaging="false" PageSize="50">
+                <HeaderContent>
+                    <MudTh></MudTh>
+                    <MudTh>@L["Index"]</MudTh>
+                    <MudTh>@L["Translation"]</MudTh>
+                </HeaderContent>
+                <RowTemplate Context="row">
+                    <MudTd>
                         <div>
-                            <MatIconButton Icon="delete" OnClick="@(() => DeletePluralTranslation(row))"></MatIconButton>
+                            <MudIconButton Icon="delete" OnClick="@(() => DeletePluralTranslation(row))"></MudIconButton>
                         </div>
-                    </td>
-                    <td>
-                        <MatTextField @bind-Value="@row.Index" TextArea="true" FullWidth="true" Required="true"></MatTextField>
-                    </td>
-                    <td>
-                        <MatTextField @bind-Value="@row.Translation" TextArea="true" FullWidth="true" Required="true" Style="resize: both"></MatTextField>
-                    </td>
-                </MatTableRow>
-            </MatTable>
+                    </MudTd>
+                    <MudTd>
+                        <MudTextField @bind-Value="@row.Index" TextArea="true" FullWidth="true" Required="true"></MudTextField>
+                    </MudTd>
+                    <MudTd>
+                        <MudTextField @bind-Value="@row.Translation" TextArea="true" FullWidth="true" Required="true" Style="resize: both"></MudTextField>
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
             @if (PluralFormRules[currentLocalizationRecord.Culture].Count > currentLocalizationRecord.PluralTranslations.Count)
-            {<EditForm Model="@newPlural" OnValidSubmit="@SaveNewPlural">
+            {
+                <EditForm Model="@newPlural" OnValidSubmit="@SaveNewPlural">
                     <FluentValidationValidator />
                     <ValidationSummary />
                     <fieldset>
                         <div class="form-group">
-                            <MatTextField @bind-Value="@newPlural.Index" Label=@L["Index"] FullWidth="true"></MatTextField>
-                            <MatTextField @bind-Value="@newPlural.Translation" Label=@L["Translation"] FullWidth="true" TextArea="true" Style="resize: both"></MatTextField>
-                            <MatButton Type="submit" Raised="true">@L["Add"]</MatButton>
+                            <MudTextField @bind-Value="@newPlural.Index" Label=@L["Index"] FullWidth="true"></MudTextField>
+                            <MudTextField @bind-Value="@newPlural.Translation" Label=@L["Translation"] FullWidth="true" TextArea="true" Style="resize: both"></MudTextField>
+                            <MudButton Type="submit" Raised="true">@L["Add"]</MudButton>
                         </div>
                     </fieldset>
-                </EditForm>}
-        </MatDialogContent>
-        <MatDialogActions>
-            <MatButton OnClick="@CancelPluralChanges">@L["Cancel"]</MatButton>
-            <MatButton OnClick="@SavePluralChanges" Raised="true">@L["Save"]</MatButton>
-        </MatDialogActions>
-    </MatDialog>
+                </EditForm>
+            }
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="@CancelPluralChanges">@L["Cancel"]</MudButton>
+            <MudButton OnClick="@SavePluralChanges" Raised="true">@L["Save"]</MudButton>
+        </DialogActions>
+    </MudDialog>
 
     @if (currentLocalizationRecord != null)
-    {<MatDialog Id="editashtmldialog" @bind-IsOpen="@isEditAsHtmlDialogOpen">
-            <MatDialogTitle>@L["Edit as HTML"]</MatDialogTitle>
-            <MatDialogContent Style="overflow: visible">
+    {
+        <MudDialog Id="editashtmldialog">
+            @* @bind-IsOpen="@isEditAsHtmlDialogOpen*@
+            <TitleContent>@L["Edit as HTML"]</TitleContent>
+            <DialogContent>
+                <!--  Style="overflow: visible" -->
                 <BlazoredTextEditor @ref="@HtmlEditor">
                     <ToolbarContent>
                         <select class="ql-header">
@@ -215,12 +234,12 @@ else
                     <EditorContent>
                     </EditorContent>
                 </BlazoredTextEditor>
-            </MatDialogContent>
-            <MatDialogActions>
-                <MatButton OnClick="@(e => { isEditAsHtmlDialogOpen = false; })">@L["Cancel"]</MatButton>
-                <MatButton OnClick="@(() => SaveLocalizationRecordAsHTML())">@L["Confirm"]</MatButton>
-            </MatDialogActions>
-        </MatDialog>}
+            </DialogContent>
+            <DialogActions>
+                <MudButton OnClick="@(e => { isEditAsHtmlDialogOpen = false; })">@L["Cancel"]</MudButton>
+                <MudButton OnClick="@(() => SaveLocalizationRecordAsHTML())">@L["Confirm"]</MudButton>
+            </DialogActions>
+        </MudDialog>}
 }
 
 @code {

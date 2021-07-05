@@ -42,15 +42,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MatBlazor" Version="2.8.0" />
-    <PackageReference Include="MudBlazor" Version="5.0.14" />
-    <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.3" />
-    <PackageReference Include="Syncfusion.Blazor.Schedule" Version="19.1.0.69" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="19.2.0.44" />
+    <PackageReference Include="Syncfusion.Blazor.Schedule" Version="19.2.0.44" />
     <PackageReference Include="Toolbelt.Blazor.LoadingBar" Version="12.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\SSDCPortal.Shared\SSDCPortal.Shared.csproj" />
+    <ProjectReference Include="..\MudBlazor.ThemeManager\MudBlazor.ThemeManager\MudBlazor.ThemeManager.csproj" />
+    <ProjectReference Include="..\MudBlazor\src\MudBlazor\MudBlazor.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

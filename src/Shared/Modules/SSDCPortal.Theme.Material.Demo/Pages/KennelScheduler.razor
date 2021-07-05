@@ -26,8 +26,8 @@
                                     <div class="title-container">
                                         <h1 class="title-text">Kennel Reservations</h1>
                                     </div>
-                                    <SfSchedule TValue="ScheduleData.HospitalData" @ref="ScheduleRef" Width="100%" Height="650px" CssClass="schedule-drag-drop" @bind-SelectedDate="@CurrentDate">
-                                        <ScheduleEvents TValue="ScheduleData.HospitalData" OnActionBegin="OnActionBegin"></ScheduleEvents>
+                                    <SfSchedule TValue="ScheduleData.GroomingData" @ref="ScheduleRef" Width="100%" Height="650px" CssClass="schedule-drag-drop" @bind-SelectedDate="@CurrentDate">
+                                        <ScheduleEvents TValue="ScheduleData.GroomingData" OnActionBegin="OnActionBegin"></ScheduleEvents>
                                         <ScheduleGroup EnableCompactView="false" Resources="@Resources"></ScheduleGroup>
                                         <ScheduleResources>
                                             <ScheduleResource TItem="ResourceData" TValue="int" DataSource="@Departments" Field="DepartmentID" Title="Department" Name="Departments" TextField="Text" IdField="Id" ColorField="Color"></ScheduleResource>
@@ -52,15 +52,15 @@
                                     <div class="title-container">
                                         <h2 class="title-text">Waiting List</h2>
                                     </div>
-                                    <SfTreeView TValue="ScheduleData.HospitalData" @ref="TreeViewRef" AllowDragAndDrop="true" CssClass="treeview-external-drag" DropArea=".content-wrapper">
-                                        <TreeViewEvents TValue="ScheduleData.HospitalData" OnNodeDragStop="OnTreeViewDragStop"></TreeViewEvents>
+                                    <SfTreeView TValue="ScheduleData.GroomingData" @ref="TreeViewRef" AllowDragAndDrop="true" CssClass="treeview-external-drag" DropArea=".content-wrapper">
+                                        <TreeViewEvents TValue="ScheduleData.GroomingData" OnNodeDragStop="OnTreeViewDragStop"></TreeViewEvents>
                                         <TreeViewFieldsSettings DataSource="@TreeViewData" Id="Id" Text="Name"></TreeViewFieldsSettings>
-                                        <TreeViewTemplates TValue="ScheduleData.HospitalData">
+                                        <TreeViewTemplates TValue="ScheduleData.GroomingData">
                                             <NodeTemplate>
                                                 <div id="waiting">
                                                     <div id="waitdetails">
-                                                        <div id="waitlist">@((context as ScheduleData.HospitalData).Name)</div>
-                                                        <div id="waitcategory">@((context as ScheduleData.HospitalData).DepartmentName) - @((context as ScheduleData.HospitalData).Description)</div>
+                                                        <div id="waitlist">@((context as ScheduleData.GroomingData).Name)</div>
+                                                        <div id="waitcategory">@((context as ScheduleData.GroomingData).DepartmentName) - @((context as ScheduleData.GroomingData).Description)</div>
                                                     </div>
                                                 </div>
                                             </NodeTemplate>
@@ -149,12 +149,12 @@
     }
 
     private DateTime CurrentDate = new DateTime(2020, 1, 6);
-    SfSchedule<ScheduleData.HospitalData> ScheduleRef;
-    SfTreeView<ScheduleData.HospitalData> TreeViewRef;
-    public List<ScheduleData.HospitalData> DataSource = new ScheduleData().GetHospitalData();
-    public List<ScheduleData.HospitalData> TreeViewData = new ScheduleData().GetWaitingListData();
+    SfSchedule<ScheduleData.GroomingData> ScheduleRef;
+    SfTreeView<ScheduleData.GroomingData> TreeViewRef;
+    public List<ScheduleData.GroomingData> DataSource = new ScheduleData().GetGroomingData();
+    public List<ScheduleData.GroomingData> TreeViewData = new ScheduleData().GetWaitingListData();
     public string[] Resources = new string[] { "Departments", "Consultants" };
-    public ScheduleData.HospitalData DraggedItem { get; set; }
+    public ScheduleData.GroomingData DraggedItem { get; set; }
     private List<ResourceData> Departments { get; set; } = new List<ResourceData> {
     new ResourceData { Text = "GENERAL", Id = 1, Color = "#bbdc00" },
     new ResourceData { Text = "DENTAL", Id = 2, Color = "#9e5fff" }
@@ -184,8 +184,8 @@
             var resourceDetails = ScheduleRef.GetResourceByIndex(cellData.GroupIndex);
             Random rnd = new Random();
             int Id = rnd.Next(1000);
-            ScheduleData.HospitalData TreeData = TreeViewData.Where(data => data.Id.ToString() == args.DraggedNodeData.Id).First();
-            ScheduleData.HospitalData eventData = new ScheduleData.HospitalData
+            ScheduleData.GroomingData TreeData = TreeViewData.Where(data => data.Id.ToString() == args.DraggedNodeData.Id).First();
+            ScheduleData.GroomingData eventData = new ScheduleData.GroomingData
             {
                 Id = Id,
                 Name = TreeData.Name,
@@ -201,7 +201,7 @@
             DraggedItem = TreeData;
         }
     }
-    public void OnActionBegin(ActionEventArgs<ScheduleData.HospitalData> args)
+    public void OnActionBegin(ActionEventArgs<ScheduleData.GroomingData> args)
     {
         if (args.ActionType == ActionType.EventCreate && DraggedItem != null)
         {
@@ -2882,10 +2882,10 @@
             });
             return roomData;
         }
-        public List<HospitalData> GetHospitalData()
+        public List<GroomingData> GetGroomingData()
         {
-            List<HospitalData> hospitalData = new List<HospitalData>();
-            hospitalData.Add(new HospitalData
+            List<GroomingData> hospitalData = new List<GroomingData>();
+            hospitalData.Add(new GroomingData
             {
                 Id = 10,
                 Name = "David",
@@ -2896,7 +2896,7 @@
                 ConsultantID = 1,
                 DepartmentName = "GENERAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 11,
                 Name = "John",
@@ -2907,7 +2907,7 @@
                 ConsultantID = 2,
                 DepartmentName = "DENTAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 12,
                 Name = "Peter",
@@ -2918,7 +2918,7 @@
                 ConsultantID = 3,
                 DepartmentName = "GENERAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 13,
                 Name = "Starc",
@@ -2929,7 +2929,7 @@
                 ConsultantID = 4,
                 DepartmentName = "DENTAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 14,
                 Name = "James",
@@ -2940,7 +2940,7 @@
                 ConsultantID = 5,
                 DepartmentName = "GENERAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 15,
                 Name = "Jercy",
@@ -2951,7 +2951,7 @@
                 ConsultantID = 6,
                 DepartmentName = "DENTAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 16,
                 Name = "Albert",
@@ -2962,7 +2962,7 @@
                 ConsultantID = 7,
                 DepartmentName = "GENERAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 17,
                 Name = "Louis",
@@ -2973,7 +2973,7 @@
                 ConsultantID = 9,
                 DepartmentName = "DENTAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 18,
                 Name = "Williams",
@@ -2984,7 +2984,7 @@
                 ConsultantID = 10,
                 DepartmentName = "DENTAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 19,
                 Name = "David",
@@ -2995,7 +2995,7 @@
                 ConsultantID = 1,
                 DepartmentName = "GENERAL"
             });
-            hospitalData.Add(new HospitalData
+            hospitalData.Add(new GroomingData
             {
                 Id = 20,
                 Name = "John",
@@ -3009,10 +3009,10 @@
             return hospitalData;
         }
 
-        public List<HospitalData> GetWaitingListData()
+        public List<GroomingData> GetWaitingListData()
         {
-            List<HospitalData> waitingData = new List<HospitalData>();
-            waitingData.Add(new HospitalData
+            List<GroomingData> waitingData = new List<GroomingData>();
+            waitingData.Add(new GroomingData
             {
                 Id = 1,
                 Name = "Steven",
@@ -3021,7 +3021,7 @@
                 Description = "Consulting",
                 DepartmentName = "GENERAL"
             });
-            waitingData.Add(new HospitalData
+            waitingData.Add(new GroomingData
             {
                 Id = 2,
                 Name = "Milan",
@@ -3030,7 +3030,7 @@
                 Description = "Bad Breath",
                 DepartmentName = "DENTAL"
             });
-            waitingData.Add(new HospitalData
+            waitingData.Add(new GroomingData
             {
                 Id = 3,
                 Name = "Laura",
@@ -3039,7 +3039,7 @@
                 Description = "Extraction",
                 DepartmentName = "GENERAL"
             });
-            waitingData.Add(new HospitalData
+            waitingData.Add(new GroomingData
             {
                 Id = 4,
                 Name = "Janet",
@@ -3048,7 +3048,7 @@
                 Description = "Gum Disease",
                 DepartmentName = "DENTAL"
             });
-            waitingData.Add(new HospitalData
+            waitingData.Add(new GroomingData
             {
                 Id = 5,
                 Name = "Adams",
@@ -3057,7 +3057,7 @@
                 Description = "Observation",
                 DepartmentName = "GENERAL"
             });
-            waitingData.Add(new HospitalData
+            waitingData.Add(new GroomingData
             {
                 Id = 6,
                 Name = "John",
@@ -7551,7 +7551,7 @@
             public int ProjectId { get; set; }
             public int CategoryId { get; set; }
         }
-        public class HospitalData : AppointmentData
+        public class GroomingData : AppointmentData
         {
             public string Name { get; set; }
             public int DepartmentID { get; set; }

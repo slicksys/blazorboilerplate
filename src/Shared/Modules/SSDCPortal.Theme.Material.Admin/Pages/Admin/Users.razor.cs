@@ -6,7 +6,7 @@ using SSDCPortal.Shared.Models.Account;
 using SSDCPortal.Shared.Providers;
 using Breeze.Sharp;
 using Karambolo.Common.Localization;
-using MatBlazor;
+//using MatBlazor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
@@ -61,13 +61,13 @@ namespace SSDCPortal.Theme.Material.Admin.Pages.Admin
             await LoadRoles();
         }
 
-        protected async Task OnPage(MatPaginatorPageEvent e)
-        {
-            pageSize = e.PageSize;
-            pageIndex = e.PageIndex;
+        //protected async Task OnPage(MatPaginatorPageEvent e)
+        //{
+        //    pageSize = e.PageSize;
+        //    pageIndex = e.PageIndex;
 
-            await LoadUsers();
-        }
+        //    await LoadUsers();
+        //}
         protected async Task LoadUsers()
         {
             try

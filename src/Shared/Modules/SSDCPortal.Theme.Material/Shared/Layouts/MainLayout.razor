@@ -3,6 +3,7 @@
 @inject AppState appState
 @inject IStringLocalizer<Global> L
 
+
 <MudThemeProvider Theme="_themeManager.Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -10,16 +11,16 @@
 <MudLayout>
     <MudAppBar Elevation="4">
         @*<MudHidden Breakpoint="Breakpoint.SmAndDown">
-            <MudIcon Icon="@Icons.Custom.FileFormats.FileImage..MudBlazor" Size="Size.Large" />
-            <LoginDisplay />
-        </MudHidden>
+                <MudIcon Icon="@Icons.Custom.FileFormats.FileImage..MudBlazor" Size="Size.Large" />
+                <LoginDisplay />
+            </MudHidden>
 
 
-        <!-- Show Icon in far left of HEADER -->
-        <MudHidden>
-            <MudAvatar Image="images/ssdc.png" />
-            <LoginDisplay />
-        </MudHidden>
+            <!-- Show Icon in far left of HEADER -->
+            <MudHidden>
+                <MudAvatar Image="images/ssdc.png" />
+                <LoginDisplay />
+            </MudHidden>
 
         *@
 
@@ -41,12 +42,12 @@
         <SelectCulture></SelectCulture>
 
         @*
-        <!-- Old Sample Cuture Select -->
-        <MudMenu Icon="@Icons.Material.Outlined.Alarm" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
-            <MudMenuItem>English</MudMenuItem>
-            <MudMenuItem>Swedish</MudMenuItem>
-            <MudMenuItem>Old Norse</MudMenuItem>
-        </MudMenu>
+            <!-- Old Sample Cuture Select -->
+            <MudMenu Icon="@Icons.Material.Outlined.Alarm" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+                <MudMenuItem>English</MudMenuItem>
+                <MudMenuItem>Swedish</MudMenuItem>
+                <MudMenuItem>Old Norse</MudMenuItem>
+            </MudMenu>
         *@
 
         <MudMenu Icon="@Icons.Material.Outlined.Widgets" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
@@ -115,7 +116,7 @@
     }
 
     private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-    {
+{
         new BreadcrumbItem("Personal", href: "/"),
         new BreadcrumbItem("Dashboard", href: "/"),
     };
