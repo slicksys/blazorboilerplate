@@ -1,5 +1,5 @@
-﻿@inherits TranslationsPage
-@page "/admin/translations"
+﻿@page "/admin/translations"
+@inherits TranslationsPage
 @attribute [Authorize(Policies.IsAdmin)]
 @layout AdminLayout
 
@@ -88,7 +88,7 @@ else
     <div>
         <MudButton Style="margin-top: 5px" OnClick="@(e => { navigationManager.NavigateTo("/api/localization/export", true); })">@L["Export"]</MudButton>
         @*<MudButton Link="/api/localization/export" Raised="true">@L["Export"]</MudButton>*@
-        <InputFile id="fileInput112" OnChange="UploadFiles" hidden multiple accept=".po" />
+        <InputFile id="fileInput112"  />
         <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.CloudUpload" for="fileInput112">
             @L["Import PO file"]
         </MudButton>

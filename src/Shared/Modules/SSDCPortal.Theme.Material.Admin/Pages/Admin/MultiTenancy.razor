@@ -40,7 +40,7 @@ else
                     @TenantRow.Identifier
                     @if (TenantRow.Id != SSDCPortal.Constants.Settings.DefaultTenantId) {
                         <MudIconButton Link="@GetTenantUri(TenantRow)" Target="_blank">
-                            <MudIcon Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                            @*<MudIcon Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />*@
                         </MudIconButton> }
                 </div>
             </MudTd>

@@ -46,9 +46,10 @@ namespace SSDCPortal.Theme.Material
            // });
             
             services.AddMudServices();
-         //   services.AddSyncfusionBlazor();
+            //   services.AddSyncfusionBlazor();
+            services.AddScoped<IViewNotifier, ViewNotifier>();
 
-            
+
         }
 
         public void ConfigureWebAssemblyServices(IServiceCollection services)
@@ -64,7 +65,7 @@ namespace SSDCPortal.Theme.Material
             //    config.VisibleStateDuration = 3000;
             //});
 
-         //   services.AddScoped<IViewNotifier, ViewNotifier>();
+            services.AddScoped<IViewNotifier, ViewNotifier>();
 
             var sp = services.BuildServiceProvider();
             

@@ -39,7 +39,9 @@ else
                 </div>
             </MudTd>
             <MudTd><div style="min-width:130px;">@IdentityResourceRow.Name</div></MudTd>
-            <MudTd><MudSwitch Checked="@IdentityResourceRow.Enabled" ValueChanged="@((item) => UpdateEnabled(IdentityResourceRow))"></MudSwitch></MudTd>
+            <MudTd>
+                @*<MudSwitch Checked="@IdentityResourceRow.Enabled" ValueChanged="@((item) => UpdateEnabled(IdentityResourceRow))"></MudSwitch>*@
+            </MudTd>
             <MudTd><div style="min-width:130px;">@IdentityResourceRow.DisplayName</div></MudTd>
             <MudTd><div style="min-width:130px;">@IdentityResourceRow.Description</div></MudTd>
             <MudTd><MudSwitch Checked="@IdentityResourceRow.Required" Disabled="true"></MudSwitch></MudTd>
@@ -251,7 +253,7 @@ else
         }
         catch (Exception ex)
         {
-           // viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+            // viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
             Snackbar.Add(ex.GetBaseException().Message, Severity.Error, config =>
             {
                 config.ShowCloseIcon = true;
@@ -370,7 +372,7 @@ else
                     config.SnackbarVariant = Variant.Filled;
                     config.ActionColor = Color.Error;
                 });
-                
+
                 return;
             }
 

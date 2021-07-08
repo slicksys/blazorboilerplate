@@ -17,10 +17,7 @@ namespace SSDCPortal.Theme.Material.Admin
     {
         private void Init(IServiceCollection services)
         {
-            services.AddSingleton<IDynamicComponent, NavMenu>();
-            services.AddSingleton<IDynamicComponent, Footer>();
-            services.AddSingleton<IDynamicComponent, DrawerFooter>();
-            services.AddSingleton<IDynamicComponent, TopRightBarSection>();
+          
 
         }
 

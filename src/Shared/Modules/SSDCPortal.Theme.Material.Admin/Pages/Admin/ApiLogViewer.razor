@@ -2,9 +2,11 @@
 
 @attribute [Authorize(Policies.IsAdmin)]
 @layout AdminLayout
-
 @inject IApiClient apiClient
 @inject IStringLocalizer<Global> L
+@inject ISnackbar Snackbar 
+
+
 <h1>Blazor / .NET Core Middleware Audit Log</h1>
 
 @if (apiLogItems == null)

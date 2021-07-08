@@ -31,7 +31,7 @@ else
                 <MudChipSet>
                     @foreach (var permission in @RoleRow.Permissions)
                         {
-                        <MudChip Label="@permission"></MudChip>
+                        <MudChip Text="@permission"></MudChip>
                         }
                 </MudChipSet>
             </MudTd>
@@ -39,7 +39,11 @@ else
     </MudTable>
 }
 
-<MudDialog TitleContent="@labelUpsertDialogTitle" @bind-IsOpen="@isUpsertRoleDialogOpen">
+    @*@bind-IsOpen="@isUpsertRoleDialogOpen">*@
+<MudDialog>
+    <TitleContent>
+        <MudTextField @bind-Value="@labelUpsertDialogTitle" FullWidth="true" Required="true" ></MudTextField>
+    </TitleContent>
     <DialogContent>
         <fieldset>
             <div class="form-group">

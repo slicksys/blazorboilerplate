@@ -2,8 +2,8 @@
 @attribute [Authorize(Policies.IsAdmin)]
 @layout AdminLayout
 @inject HttpClient Http
-@inject IViewNotifier viewNotifier
 @inject IStringLocalizer<Global> L
+@inject IViewNotifier viewNotifier
 
 @using IdentityServer4.Models
 @using IdentityModel
@@ -38,7 +38,7 @@ else
                 </div>
             </MudTd>
             <MudTd><div style="min-width:130px;">@ApiResourceRow.Name</div></MudTd>
-            <MudTd><MudSwitch Checked="@ApiResourceRow.Enabled" ValueChanged="@((item) => UpdateEnabled(ApiResourceRow))"></MudSwitch></MudTd>
+            <MudTd>@*<MudSwitch Checked="@ApiResourceRow.Enabled" ValueChanged="@((item) => UpdateEnabled(ApiResourceRow))"></MudSwitch>*@</MudTd>
             <MudTd><div style="min-width:130px;">@ApiResourceRow.DisplayName</div></MudTd>
             <MudTd><div style="min-width:130px;">@ApiResourceRow.Description</div></MudTd>
             <MudTd>
@@ -61,11 +61,21 @@ else
     </MudTable>
 }
 
-<MudDialog TitleContent="@labelUpsertDialogTitle"> @*@bind-IsOpen="@isUpsertApiResourceDialogOpen"*@
+<MudDialog>
+    <TitleContent>
+        <div class="d-flex">
+            <MudText Class="mt-1"><strong>@labelUpsertDialogTitle.</strong></MudText>
+            <MudBadge Content="8" Color="Color.Primary" Overlap="true" Class="d-flex ml-auto">
+                <MudIcon Icon="@Icons.Material.Filled.RateReview" Color="Color.Default" />
+            </MudBadge>
+        </div>
+    </TitleContent>
+      
+    @*@bind-IsOpen="@isUpsertApiResourceDialogOpen"*@
     <DialogContent>
         <EditForm Model="@currentApiResource">
-            <FluentValidationValidator />
             <ValidationSummary />
+            <FluentValidationValidator />
             <MudTabs>
                 <MudTabPanel Text="Main">
                     <fieldset>
@@ -102,12 +112,12 @@ else
                 <MudTabPanel Text="Secrets">
                     <MudTable Items="@currentApiResource.ApiSecrets" Class="mat-elevation-z5" ShowPaging="false" PageSize="@int.MaxValue">
                         <HeaderContent>
-                            <MudTh style="min-width:190px;"><MudButton Icon="add" Label="New Secret" OnClick="@(() => OpenCreateApiResourceSecretDialogOpen())"></MudButton></MudTh>
+                            <MudTh style="min-width: 190px;"><MudButton Icon="add" Label="New Secret" OnClick="@(() => OpenCreateApiResourceSecretDialogOpen())"></MudButton></MudTh>
                             <MudTh>Expiration</MudTh>
                             <MudTh>Description</MudTh>
                         </HeaderContent>
                         <RowTemplate Context="ApiResourceSecretRow">
-                            <MudTd style="text-align:center;">
+                            <MudTd style="text-align: center;">
                                 <MudIconButton Icon="delete" OnClick="@(() => OpenDeleteApiResourceSecretDialog(ApiResourceSecretRow))"></MudIconButton>
                             </MudTd>
                             <MudTd>@ApiResourceSecretRow.Expiration</MudTd>
@@ -117,7 +127,7 @@ else
                 </MudTabPanel>
                 <MudTabPanel Text="User Claims">
                     <fieldset>
-                        <div class="form-group" style="margin-top:16px;">
+                        <div class="form-group" style="margin-top: 16px;">
                             <div class="form-group">
                                 <MudTextField @bind-Value="@currentApiResource.CustomUserClaimsText" Label="Custom User Claims" TextArea="true" FullWidth="true" Required="false"></MudTextField>
                             </div>
@@ -143,13 +153,13 @@ else
         <MudButton OnClick="@CancelChanges">Cancel</MudButton>
         <MudButton OnClick="@UpsertApiResource">@labelUpsertDialogOkButton</MudButton>
     </DialogActions>
-    </MudDialog>
+</MudDialog>
 
-    <MudDialog @bind-IsOpen="@isDeleteApiResourceDialogOpen" Style="z-index:100" Title>
-        <TitleContent><MudIcon Icon="warning"/> @L["Confirm Delete" ]</TitleContent>
-        <DialogContent>
-            @L["Are you sure you want to delete {0}?", currentApiResource.Name]
-        </DialogContent>
+<MudDialog @bind-IsOpen="@isDeleteApiResourceDialogOpen" Style="z-index:100" Title>
+    <TitleContent><MudIcon Icon="warning" /> @L["Confirm Delete"]</TitleContent>
+    <DialogContent>
+        @L["Are you sure you want to delete {0}?", currentApiResource.Name]
+    </DialogContent>
     <DialogActions>
         <MudButton OnClick="@(e => { isDeleteApiResourceDialogOpen = false; })">@L["Cancel"]</MudButton>
         <MudButton OnClick="@DeleteApiResourceAsync">@L["Delete"]</MudButton>
@@ -157,7 +167,7 @@ else
 </MudDialog>
 
 <MudDialog @bind-IsOpen="@isDeleteApiResourceSecretDialogOpen" Style="z-index:100">
-    <TitleContent><MudIcon Icon="warning"/>@L["Confirm Delete"]</TitleContent>
+    <TitleContent><MudIcon Icon="warning" />@L["Confirm Delete"]</TitleContent>
     <DialogContent>
         @L["Are you sure you want to delete {0}?", currentSecret.GetDisplayValue()]
     </DialogContent>
@@ -222,6 +232,9 @@ else
             if (apiResponse.IsSuccessStatusCode)
             {
                 viewNotifier.Show(apiResponse.Message, ViewNotifierType.Success, L["Operation Successful"]);
+
+
+
                 apiResources = apiResponse.Result;
             }
             else
@@ -236,7 +249,7 @@ else
     #endregion
 
     #region OpenUpsertApiResourceDialog
- 
+
     class Selection
     {
         public bool IsSelected { get; set; } = false;

@@ -18,39 +18,39 @@
     </Authorized>
 
     <NotAuthorized>
-        @if (loginViewModel.EnableLocalLogin)
+        if (loginViewModel.EnableLocalLogin)
         {
             <!-- New Mud Design -->
             <MudCard>
-            <EditForm Model="@loginViewModel" OnValidSubmit="@SubmitLogin">
-                <FluentValidationValidator />
-                <ValidationSummary />
-                <MudText Typo="Typo.h4" GutterBottom="true">Sign In</MudText>
+                <EditForm Model="@loginViewModel" OnValidSubmit="@SubmitLogin">
+                    <FluentValidationValidator />
+                    <ValidationSummary />
+                    <MudText Typo="Typo.h4" GutterBottom="true">Sign In</MudText>
 
-                <MudText>Don't have an account?<MudLink Href="/account/register">Sign Up</MudLink></MudText>
+                    <MudText>Don't have an account?<MudLink Href="/account/register">Sign Up</MudLink></MudText>
 
-                <MudTextField @ref="UserNameInput" @bind-Value="@loginViewModel.UserName" Label=@L["UserName"] T="string" Variant="Variant.Outlined" Class="my-6" autocomplete="username" InputType="InputType.Text" />
+                    <MudTextField @ref="UserNameInput" @bind-Value="@loginViewModel.UserName" Label=@L["UserName"] T="string" Variant="Variant.Outlined" Class="my-6" autocomplete="username" InputType="InputType.Text" />
 
-                @*<AutoFocus Control=@(() => UserNameInput.InputRef) />*@
+                    @*<AutoFocus Control=@(() => UserNameInput.InputRef) />*@
 
-                <MudTextField @bind-Value="@loginViewModel.Password" Label=@L["Password"] Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" autocomplete="Password"> </MudTextField>
+                    <MudTextField @bind-Value="@loginViewModel.Password" Label=@L["Password"] Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" autocomplete="Password"> </MudTextField>
 
-                <div Class="d-flex justify-space-between align-center">
+                    <div Class="d-flex justify-space-between align-center">
 
-                    @if (loginViewModel.AllowRememberLogin)
-                    {
-                        <MudSwitch @bind-Checked="@loginViewModel.RememberMe" Label=@L["Keep me logged in"] Color="Color.Primary" Class="ml-n1 my-3"></MudSwitch>
-                    }
+                        @if (loginViewModel.AllowRememberLogin)
+                        {
+                            <MudSwitch @bind-Checked="@loginViewModel.RememberMe" Label=@L["Keep me logged in"] Color="Color.Primary" Class="ml-n1 my-3"></MudSwitch>
+                        }
 
-                    <MudLink Href="/forgot">@L["Forgot your password?"]</MudLink>
-                </div>
+                        <MudLink Href="/forgot">@L["Forgot your password?"]</MudLink>
+                    </div>
 
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" ButtonType="ButtonType.Submit" FullWidth="true">@L["Submit"]</MudButton>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" ButtonType="ButtonType.Submit" FullWidth="true">@L["Submit"]</MudButton>
 
-            </EditForm>
+                </EditForm>
 
-            <!-- Register Link -->
-            <MudButton class="float-left" OnClick="@Register" Raised="true">@L["Sign up"]</MudButton>
+                <!-- Register Link -->
+                <MudButton class="float-left" OnClick="@Register" Raised="true">@L["Sign up"]</MudButton>
             </MudCard>
             <!-- Forgot Password Code -->
 
@@ -87,12 +87,12 @@
                             <img src="_content/SSDCPortal.Theme.Material/images/logo.svg" style="width:100px;" title="@appState.AppName Home" alt="@appState.AppName" /><br />@appState.AppName
                         </a><br />
                     }
-                   
-                            
-                    
+
+
+
                     <h4>@L["Sign in with"]</h4>
-                    
-                    
+
+
                     <div style="text-align: center">
                         @foreach (var provider in loginViewModel.VisibleExternalProviders)
                         {
@@ -182,7 +182,12 @@
                 }
             }
             else
+            {
                 viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["LoginFailed"]);
+                Console.WriteLine($"Forgot Password: ");
+
+            }
+
         }
     }
 
@@ -232,11 +237,18 @@
                 }
             }
             else
+            {
                 viewNotifier.Show(response.Message, ViewNotifierType.Error, L["LoginFailed"]);
+                Console.WriteLine($"Forgot Password: ");
+
+            }
+
         }
         catch (Exception ex)
         {
             viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["LoginFailed"]);
+            Console.WriteLine($"Forgot Password: ");
+
         }
     }
 
@@ -246,12 +258,16 @@
         {
             await identityAuthenticationStateProvider.ForgotPassword(forgotPasswordViewModel);
             viewNotifier.Show(L["ForgotPasswordEmailSent"], ViewNotifierType.Success);
+            Console.WriteLine($"Forgot Password: ");
+
             forgotPasswordViewModel.Email = string.Empty;
             forgotPasswordToggle = false;
         }
         catch (Exception ex)
         {
+            Console.WriteLine($"serious message: {ex.Message}");
             viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["ResetPasswordFailed"]);
+
         }
     }
 
@@ -263,7 +279,7 @@
             PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
             PasswordInput = InputType.Password;
         }
-    else
+        else
         {
             PasswordVisibility = true;
             PasswordInputIcon = Icons.Material.Filled.Visibility;

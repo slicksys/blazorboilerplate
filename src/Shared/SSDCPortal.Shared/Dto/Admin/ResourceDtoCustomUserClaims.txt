@@ -5,5 +5,5 @@
 //-> IdentityResourceDto.CustomUserClaims.cs
 // Generated helper templates
 // Generated items
-// SSDCPortal.Shared\Dto\Admin\ApiResourceDto.CustomUserClaims.cs
-// SSDCPortal.Shared\Dto\Admin\IdentityResourceDto.CustomUserClaims.cs
+// SSDCPortalpLate\src\Shared\SSDCPortal.Shared\Dto\Admin\ApiResourceDto.CustomUserClaims.cs
+// SSDCPortalpLate\src\Shared\SSDCPortal.Shared\Dto\Admin\IdentityResourceDto.CustomUserClaims.cs

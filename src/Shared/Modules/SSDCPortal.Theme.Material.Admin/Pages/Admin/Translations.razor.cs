@@ -334,8 +334,10 @@ namespace SSDCPortal.Theme.Material.Admin.Pages.Admin
             }
         }
 
-        protected async Task Upload(IMudFileUploadEntry[] files)
+        //protected async Task UploadFile(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs e)
+        protected async Task UploadFile(IMudFileUploadEntry[] files)
         {
+         //   var files = e.GetMultipleFiles();   
             foreach (var file in files)
             {
                 if (Path.GetExtension(file.Name).ToLower() != ".po")

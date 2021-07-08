@@ -2,9 +2,13 @@
 
 <MudItem Class="mt-n3" xs="12" sm="4" md="2">
     <MudSelect Placeholder=@CurrentCulture  
-               @bind-Value="@cultureValue" HelperText="CultureInfo" ToStringFunc="@convertFunc" OffsetY="true"
+               @bind-Value="@cultureValue"
+               HelperText="CultureInfo" 
+               ToStringFunc="@convertFunc" 
+               OffsetY="true"
                OpenIcon="@Icons.Material.Filled.LocalDrink"
-               CloseIcon="@Icons.Material.Filled.Flag" AdornmentColor="Color.Secondary">
+               CloseIcon="@Icons.Material.Filled.Flag" 
+               AdornmentColor="Color.Secondary">
         @foreach (var culture in @SSDCPortal.Shared.Localizer.Settings.SupportedCulturesWithName)
         {
             <MudSelectItem Value="@(CultureInfo.GetCultureInfo(culture.Item2))" />

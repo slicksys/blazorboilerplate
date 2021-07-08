@@ -5,8 +5,12 @@
 @inject IApiClient apiClient
 @inject IViewNotifier viewNotifier
 @inject IStringLocalizer<Global> L
+@inject ISnackbar Snackbar
+
 
 @using System.Linq.Expressions;
+
+<MudSnackbarProvider />
 
 <h1>Db Log Viewer</h1>
 <p>
@@ -22,12 +26,16 @@
 else
 {
     <div class="row" style="margin-left: 0;">
-        <RefreshTimer ElapsedEvent="@(async (_, __) => await LoadData(DebugLevel))" />
+        @*<RefreshTimer ElapsedEvent="@(async (_, __) => await LoadData(DebugLevel))" />*@
     </div>
-    <MudSelect Value="DebugLevel" Items="@DebugLevels"
-                    ValueSelector=@(i => i)
-                    ValueChanged="(string i) => LoadData(i)">
+    <MudSelect @bind-Value="@DebugLevels"
+               HelperText="CultureInfo"
+               OffsetY="true"
+               OpenIcon="@Icons.Material.Filled.LocalDrink"
+               CloseIcon="@Icons.Material.Filled.Flag"
+               AdornmentColor="Color.Secondary">
     </MudSelect>
+
     <MudTable Items="@dbLogItems" Class="mat-elevation-z5" Striped="true" PageSize="@pageSize" ShowPaging="false">
         <HeaderContent>
             <MudTh>Timestamp</MudTh>
@@ -43,68 +51,82 @@ else
             <MudTd><span style="font-size:small">@context.Exception?.ToString()</span></MudTd>
             <MudTd>
                 @if (context.LogProperties?.Any() ?? false)
-                {
+                        {
                     <ul>
                         @foreach (var propertyPair in context.LogProperties)
-                        {
+                                {
                             <li style="font-size:small">@($"{propertyPair.Key}:  {propertyPair.Value}")</li>
-                        }
+                                }
                     </ul>
-                }
+                        }
             </MudTd>
         </RowTemplate>
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
     </MudTable>
-    @*<MudPager PageSize="@pageSize" 
-              Page="@(async a=> await OnPage(a))"
-              Length="@totalItemsCount" 
-              Style="background: transparent"/>*@
+    @*<MudPager PageSize="@pageSize"
+        Page="@(async a=> await OnPage(a))"
+        Length="@totalItemsCount"
+        Style="background: transparent"/>*@
 }
 
 @code {
     List<DbLog> dbLogItems;
     string[] DebugLevels = { string.Empty, "Debug", "Information", "Warning", "Error" };
     string DebugLevel = string.Empty;
-    private int pageSize { get; set; } = 10;
-    private int pageIndex { get; set; } = 0;
-    private int totalItemsCount { get; set; } = 0;
+private int pageSize { get; set; } = 10;
+private int pageIndex { get; set; } = 0;
+private int totalItemsCount { get; set; } = 0;
 
-    protected override async Task OnInitializedAsync()
+protected override async Task OnInitializedAsync()
+{
+    await LoadData();
+}
+
+    
+//async Task OnPage(MudPaginatorPageEvent e)
+//{
+//    pageSize = e.PageSize;
+//    pageIndex = e.PageIndex;
+
+//    await LoadData(DebugLevel);
+//}
+
+protected async Task LoadData(string debugLevel = "")
+{
+    try
     {
-        await LoadData();
+        DebugLevel = debugLevel;
+        Expression<Func<DbLog, bool>> predicate = null;
+
+        if (debugLevel != string.Empty)
+            predicate = (i => i.Level == debugLevel);
+
+        var result = await apiClient.GetLogs(predicate, pageSize, pageIndex * pageSize);
+
+        dbLogItems = new List<DbLog>(result);
+        totalItemsCount = (int)result.InlineCount.Value;
+        //viewNotifier.Show(L["One item found", Plural.From("{0} items found", totalItemsCount)], ViewNotifierType.Success, L["Operation Successful"]);
+        Snackbar.Add("One item found", Severity.Success, config =>
+        {
+            config.ShowCloseIcon = true;
+            config.SnackbarVariant = Variant.Filled;
+            config.ActionColor = Color.Success;
+        });
+    }
+    catch (Exception ex)
+    {
+        // viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
+        Snackbar.Add(ex.GetBaseException().Message, Severity.Error, config =>
+        {
+            config.ShowCloseIcon = true;
+            config.SnackbarVariant = Variant.Filled;
+            config.ActionColor = Color.Error;
+        });
+
     }
 
-    //async Task OnPage(MudPaginatorPageEvent e)
-    //{
-    //    pageSize = e.PageSize;
-    //    pageIndex = e.PageIndex;
-
-    //    await LoadData(DebugLevel);
-    //}
-
-    protected async Task LoadData(string debugLevel = "")
-    {
-        try
-        {
-            DebugLevel = debugLevel;
-            Expression<Func<DbLog, bool>> predicate = null;
-
-            if (debugLevel != string.Empty)
-                predicate = (i => i.Level == debugLevel);
-
-            var result = await apiClient.GetLogs(predicate, pageSize, pageIndex * pageSize);
-
-            dbLogItems = new List<DbLog>(result);
-            totalItemsCount = (int)result.InlineCount.Value;
-            viewNotifier.Show(L["One item found", Plural.From("{0} items found", totalItemsCount)], ViewNotifierType.Success, L["Operation Successful"]);
-        }
-        catch (Exception ex)
-        {
-            viewNotifier.Show(ex.GetBaseException().Message, ViewNotifierType.Error, L["Operation Failed"]);
-        }
-
-        await InvokeAsync(StateHasChanged);
-    }
+    await InvokeAsync(StateHasChanged);
+}
 }

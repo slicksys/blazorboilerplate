@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Utils\SSDCPortal.SourceGenerator\SSDCPortal.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\SSDCPortal.Constants\SSDCPortal.Constants.csproj" />
+    <ProjectReference Include="..\SSDCPortal.Infrastructure.AuthorizationDefinitions\SSDCPortal.Infrastructure.AuthorizationDefinitions.csproj" />
     <ProjectReference Include="..\SSDCPortal.Shared.DataInterfaces\SSDCPortal.Shared.DataInterfaces.csproj" />
   </ItemGroup>
 
