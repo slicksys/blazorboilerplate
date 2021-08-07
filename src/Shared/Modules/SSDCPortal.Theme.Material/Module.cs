@@ -31,7 +31,7 @@ namespace SSDCPortal.Theme.Material
 
         public void ConfigureServices(IServiceCollection services)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDIyNzQ0QDMxMzkyZTMxMmUzMG5HZ25LN1hzSW5ITWlIb1dHNjM5RTlhM3k1S0ErVk9IY2xEd3Y5TzhSLzg9");
+            
             services.AddTransient<ITagHelperComponent, ThemeTagHelperComponent>();
             services.AddTransient<ITagHelperComponent, AppTagHelperComponent>();
 

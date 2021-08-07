@@ -1,0 +1,22 @@
+<svg width="111.34mm" 
+	 height="110.26mm" 
+	 version="1.1" 
+	 viewBox="0 0 420.81 416.74" 
+	 xml:space="preserve" 
+	 xmlns="http://www.w3.org/2000/svg">
+<font id="font43" horiz-adv-x="1000" horiz-origin-x="0" horiz-origin-y="0" vert-adv-y="1024" vert-origin-x="512" vert-origin-y="768">
+<font-face font-family="Xirod" underline-position="-133" underline-thickness="20" units-per-em="1000"/>
+    <missing-glyph horiz-adv-x="609"/>
+    <glyph d="M1004,0l-942,0l0,379C62,438 70,490 87,537C104,583 128,622 161,655C193,687 232,712 279,729C326,746 379,754 439,754l565,0l0,-177l-561,0C312,577 246,510 246,375l0,-196l758,0z" 
+    	   horiz-adv-x="1052" 
+    	   unicode="C"/>
+    <glyph d="M838,577l-768,0l0,177l952,0l0,-379C1022,316 1014,264 997,218C980,171 956,132 924,100C891,67 852,43 805,26C758,9 705,0 645,0l-575,0l0,462l184,0l0,-283l387,0C772,179 838,246 838,379z" 
+    	   horiz-adv-x="1085" 
+    	   unicode="D"/>
+    <glyph d="M985,577l-617,0C291,577 248,539 238,462l751,0l0,-144C989,106 874,0 645,0l-582,0l0,179l621,0C721,179 751,189 772,208C793,227 806,255 812,292l-749,0l0,144C63,648 178,754 407,754l578,0z" 
+    	   horiz-adv-x="1052" 
+    	   unicode="S"/>
+</font>
+<ellipse cx="210.41" cy="208.37" rx="190.41" ry="188.37" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="40"/>
+<text x="49.232304" y="241.16359" font-family="'Xirod'" font-size="100">SDC</text>
+</svg>

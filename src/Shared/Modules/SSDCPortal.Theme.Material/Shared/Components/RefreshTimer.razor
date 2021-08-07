@@ -8,11 +8,7 @@
         <MudSwitch @bind-Checked="@timer.Enabled" Color="Color.Primary" Class="ml-n1 my-3"></MudSwitch>
     </div>
     <div class="refresh-timer-interval-wrapper">
-        <MudNumericField Label="@Text"
-                         @bind-Value="@Interval"
-                         Format="F1" 
-                         TextChanged="UpdateInterval">
-        </MudNumericField>
+        <MudNumericField Label="@Text" @bind-Value="@Interval" Format="F1" TextChanged="UpdateInterval"></MudNumericField>
     </div>
 </div>
 @code {

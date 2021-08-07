@@ -6,7 +6,6 @@
 @inject AuthenticationStateProvider authStateProvider
 @inject IViewNotifier viewNotifier
 @inject AppState appState
-@inject NavigationManager NavigationManager
 @inject IJSRuntime js
 @inject IStringLocalizer<Global> L
 
@@ -18,80 +17,73 @@
     </Authorized>
 
     <NotAuthorized>
-        if (loginViewModel.EnableLocalLogin)
+        @if (loginViewModel.EnableLocalLogin)
         {
-            <!-- New Mud Design -->
-            <MudCard>
-                <EditForm Model="@loginViewModel" OnValidSubmit="@SubmitLogin">
-                    <FluentValidationValidator />
-                    <ValidationSummary />
-                    <MudText Typo="Typo.h4" GutterBottom="true">Sign In</MudText>
+            <EditForm Model="@loginViewModel" OnValidSubmit="@SubmitLogin">
+                <FluentValidationValidator />
+                <ValidationSummary />
 
-                    <MudText>Don't have an account?<MudLink Href="/account/register">Sign Up</MudLink></MudText>
+                <MudText Typo="Typo.h4" GutterBottom="true">Sign In</MudText>
+                <MudTextField T="string" @bind-Value="@loginViewModel.UserName" Label="E-mail" Variant="Variant.Outlined" Class="my-6"></MudTextField>
+                <MudTextField @bind-Value="@loginViewModel.Password" Label="Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" />
 
-                    <MudTextField @ref="UserNameInput" @bind-Value="@loginViewModel.UserName" Label=@L["UserName"] T="string" Variant="Variant.Outlined" Class="my-6" autocomplete="username" InputType="InputType.Text" />
-
-                    @*<AutoFocus Control=@(() => UserNameInput.InputRef) />*@
-
-                    <MudTextField @bind-Value="@loginViewModel.Password" Label=@L["Password"] Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" autocomplete="Password"> </MudTextField>
-
-                    <div Class="d-flex justify-space-between align-center">
-
-                        @if (loginViewModel.AllowRememberLogin)
-                        {
-                            <MudSwitch @bind-Checked="@loginViewModel.RememberMe" Label=@L["Keep me logged in"] Color="Color.Primary" Class="ml-n1 my-3"></MudSwitch>
-                        }
-
-                        <MudLink Href="/forgot">@L["Forgot your password?"]</MudLink>
-                    </div>
-
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" ButtonType="ButtonType.Submit" FullWidth="true">@L["Submit"]</MudButton>
-
-                </EditForm>
-
+                <div Class="d-flex justify-space-between align-center">
+                    @if (loginViewModel.AllowRememberLogin)
+                    {
+                        <MudCheckBox  @bind-Checked="@loginViewModel.RememberMe" T="bool" Label=@L["Keep me logged in."] 
+                                       Color="Color.Primary" Class="ml-n1 my-3"></MudCheckBox>
+                    }
+                </div>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" ButtonType="ButtonType.Submit" FullWidth="true">@L["Submit"]</MudButton>
+                <br />
+                <br />
                 <!-- Register Link -->
-                <MudButton class="float-left" OnClick="@Register" Raised="true">@L["Sign up"]</MudButton>
-            </MudCard>
-            <!-- Forgot Password Code -->
+                <MudText>Don't have an account?</MudText>
+                <MudButton Variant="Variant.Filled" Color="Color.Secondary" Size="Size.Large" OnClick="@Register" FullWidth="true">@L["Sign up"]</MudButton>
+            </EditForm>
+            <div style="display: none">
+                <div Class="d-flex justify-space-between align-center"></div>
 
-            <MudCard>
+                <!-- Forgot Password Code -->
                 <EditForm Model="@forgotPasswordViewModel" OnValidSubmit="@ForgotPassword">
                     <FluentValidationValidator />
                     <ValidationSummary />
                     <div class="form-group">
-                        <MudTextField @bind-Value="@forgotPasswordViewModel.Email" Label=@L["Email"] Icon="mail_outline" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
+
+                        <br />
+                        <br />
+                        <!-- Register Link -->
+                        <MudText>Forgot Password</MudText>
+                        <MudTextField @bind-Value="@forgotPasswordViewModel.Email" Label=@L["Email"] FullWidth="true" Required="true" Variant="Variant.Outlined" Class="my-6"
+                                      Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Mail" />
+
                     </div>
                     <div class="form-group">
-                        <MudButton class="float-right" Type="submit" Raised="true">@L["Submit"]</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" ButtonType="ButtonType.Submit" FullWidth="true">@L["Submit"]</MudButton>
                     </div>
                 </EditForm>
-            </MudCard>
-            <!-- End Forgot Password Code -->
 
-            @if (loginViewModel.VisibleExternalProviders.Any())
-            {
+                <!-- End Forgot Password Code -->
+                <div Class="d-flex justify-space-between align-center">
+                </div>
 
-                <MudCard>
-
+                <span>start loginViewModel.VisibleExternalProviders</span>
+                @if (loginViewModel.VisibleExternalProviders.Any())
+                {
                     <!-- If Local Login is enabled -->
                     @if (!loginViewModel.EnableLocalLogin)
                     {
                         <MudIconButton Icon="home" Class="float-left" Link="/" />
                     }
 
-
-
                     @if (!loginViewModel.EnableLocalLogin)
                     {
                         <a href="/" title="@appState.AppName Home">
-                            <img src="_content/SSDCPortal.Theme.Material/images/logo.svg" style="width:100px;" title="@appState.AppName Home" alt="@appState.AppName" /><br />@appState.AppName
+                            <img src="_content/SSDCPortal.Theme.Material/images/ssdc.svg" style="width:100px;" title="@appState.AppName Home" alt="@appState.AppName" /><br />@appState.AppName
                         </a><br />
                     }
 
-
-
                     <h4>@L["Sign in with"]</h4>
-
 
                     <div style="text-align: center">
                         @foreach (var provider in loginViewModel.VisibleExternalProviders)
@@ -119,18 +111,16 @@
                             }
                         }
                     </div>
-                </MudCard>
-            }
+                }
 
-
-
-            @if (!loginViewModel.EnableLocalLogin && !loginViewModel.VisibleExternalProviders.Any())
-            {
-                <div class="alert alert-warning">
-                    <strong>Invalid login request</strong>
-                    There are no login schemes configured for this client.
-                </div>
-            }
+                @if (!loginViewModel.EnableLocalLogin && !loginViewModel.VisibleExternalProviders.Any())
+                {
+                    <div class="alert alert-warning">
+                        <strong>Invalid login request</strong>
+                        There are no login schemes configured for this client.
+                    </div>
+                }
+            </div>
         }
     </NotAuthorized>
 </AuthorizeView>
@@ -184,8 +174,6 @@
             else
             {
                 viewNotifier.Show(apiResponse.Message, ViewNotifierType.Error, L["LoginFailed"]);
-                Console.WriteLine($"Forgot Password: ");
-
             }
 
         }
@@ -199,10 +187,7 @@
         navigationManager.NavigateTo($"{navigationManager.BaseUri}api/externalauth/challenge/{provider.AuthenticationScheme}/{ReturnUrl}", true);
     }
 
-    void Register()
-    {
-        navigationManager.NavigateTo("/account/register");
-    }
+    void Register() { navigationManager.NavigateTo("/account/register"); }
 
     async Task SubmitLogin()
     {
@@ -239,16 +224,12 @@
             else
             {
                 viewNotifier.Show(response.Message, ViewNotifierType.Error, L["LoginFailed"]);
-                Console.WriteLine($"Forgot Password: ");
-
             }
 
         }
         catch (Exception ex)
         {
             viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["LoginFailed"]);
-            Console.WriteLine($"Forgot Password: ");
-
         }
     }
 
@@ -258,16 +239,12 @@
         {
             await identityAuthenticationStateProvider.ForgotPassword(forgotPasswordViewModel);
             viewNotifier.Show(L["ForgotPasswordEmailSent"], ViewNotifierType.Success);
-            Console.WriteLine($"Forgot Password: ");
-
             forgotPasswordViewModel.Email = string.Empty;
             forgotPasswordToggle = false;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"serious message: {ex.Message}");
             viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["ResetPasswordFailed"]);
-
         }
     }
 
