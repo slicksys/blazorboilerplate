@@ -1,6 +1,5 @@
 @page "/account/login"
 @using InputType = MudBlazor.InputType
-
 @layout LoginLayout
 @inject NavigationManager navigationManager
 @inject AuthenticationStateProvider authStateProvider
@@ -15,7 +14,6 @@
             <label>@L["Loading"]</label>
         </LoadingBackground>
     </Authorized>
-
     <NotAuthorized>
         @if (loginViewModel.EnableLocalLogin)
         {
@@ -128,20 +126,15 @@
 
     [CascadingParameter]
     Task<AuthenticationState> authenticationStateTask { get; set; }
-
     private MudTextField<string> UserNameInput;
-
     bool PasswordVisibility;
     InputType PasswordInput = InputType.Password;
     string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-
-
     string navigateTo = null;
     IdentityAuthenticationStateProvider identityAuthenticationStateProvider;
     bool forgotPasswordToggle = false;
     LoginViewModel loginViewModel { get; set; } = new LoginViewModel();
     ForgotPasswordViewModel forgotPasswordViewModel { get; set; } = new ForgotPasswordViewModel();
-
     string ReturnUrl;
 
     protected override async Task OnInitializedAsync()
@@ -150,19 +143,15 @@
             ReturnUrl = url;
 
         var user = (await authenticationStateTask).User;
-
         if (user.Identity.IsAuthenticated)
             navigationManager.NavigateTo(ReturnUrl ?? "/");
         else
         {
             identityAuthenticationStateProvider = (IdentityAuthenticationStateProvider)authStateProvider;
-
             var apiResponse = await identityAuthenticationStateProvider.BuildLoginViewModel(ReturnUrl);
-
             if (apiResponse.IsSuccessStatusCode)
             {
                 loginViewModel = apiResponse.Result;
-
                 if (loginViewModel.IsExternalLoginOnly)
                 {
                     if (!string.IsNullOrEmpty(ReturnUrl))
@@ -178,7 +167,6 @@
 
         }
     }
-
     void SignInWith(ExternalProvider provider)
     {
         if (!string.IsNullOrEmpty(ReturnUrl))
@@ -195,7 +183,6 @@
         {
             loginViewModel.ReturnUrl = ReturnUrl;
             var response = await identityAuthenticationStateProvider.Login(loginViewModel);
-
             if (response.IsSuccessStatusCode)
             {
                 if (navigationManager.IsWebAssembly())
@@ -225,14 +212,12 @@
             {
                 viewNotifier.Show(response.Message, ViewNotifierType.Error, L["LoginFailed"]);
             }
-
         }
         catch (Exception ex)
         {
             viewNotifier.Show(ex.Message, ViewNotifierType.Error, L["LoginFailed"]);
         }
     }
-
     async Task ForgotPassword()
     {
         try
