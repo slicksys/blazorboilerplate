@@ -1,59 +1,64 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Shared\Components_bak\**" />
-    <Compile Remove="Shared\Layouts_bak\**" />
-    <Content Remove="Shared\Components_bak\**" />
-    <Content Remove="Shared\Layouts_bak\**" />
-    <EmbeddedResource Remove="Shared\Components_bak\**" />
-    <EmbeddedResource Remove="Shared\Layouts_bak\**" />
-    <None Remove="Shared\Components_bak\**" />
-    <None Remove="Shared\Layouts_bak\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Shared\Components_bak\**" />
+		<Compile Remove="Shared\Layouts_bak\**" />
+		<Content Remove="Shared\Components_bak\**" />
+		<Content Remove="Shared\Layouts_bak\**" />
+		<EmbeddedResource Remove="Shared\Components_bak\**" />
+		<EmbeddedResource Remove="Shared\Layouts_bak\**" />
+		<None Remove="Shared\Components_bak\**" />
+		<None Remove="Shared\Layouts_bak\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="ComponentBase.cs" />
-    <Compile Remove="Pages\Account\ConfirmEmail.razor.cs" />
-    <Compile Remove="Pages\Account\Login.razor.cs" />
-    <Compile Remove="Pages\Account\LoginWith2fa.razor.cs" />
-    <Compile Remove="Pages\Account\Profile.razor.cs" />
-    <Compile Remove="Pages\Account\Register.razor.cs" />
-    <Compile Remove="Pages\Account\ResetPassword.razor.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="ComponentBase.cs" />
+		<Compile Remove="Pages\Account\ConfirmEmail.razor.cs" />
+		<Compile Remove="Pages\Account\Login.razor.cs" />
+		<Compile Remove="Pages\Account\LoginWith2fa.razor.cs" />
+		<Compile Remove="Pages\Account\Profile.razor.cs" />
+		<Compile Remove="Pages\Account\Register.razor.cs" />
+		<Compile Remove="Pages\Account\ResetPassword.razor.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-	  <!-- Removed by Chris / Undo if it breaks soemthing -->
-    <Content Remove="C:\Users\Christopher\.nuget\packages\matblazor\2.8.0\contentFiles\any\netstandard2.1\Properties\launchSettings.json" />
-    <Content Remove="Shared\Components\_ValidationScriptsPartial.cshtml" />
-    <Content Remove="Shared\Layouts\NavMenu.razor" />
-  </ItemGroup>
+	<ItemGroup>
+		<!-- Removed by Chris / Undo if it breaks soemthing -->
+		<Content Remove="C:\Users\Christopher\.nuget\packages\matblazor\2.8.0\contentFiles\any\netstandard2.1\Properties\launchSettings.json" />
+		<Content Remove="Shared\Components\_ValidationScriptsPartial.cshtml" />
+		<Content Remove="Shared\Layouts\NavMenu.razor" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Shared\Layouts\MainLayout.razor.bak" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Shared\Layouts\MainLayout.razor.bak" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="Pages\Utility\Faq.razor" />
-    <None Include="Pages\Utility\WasmLoading.razor" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="Pages\Utility\Faq.razor" />
+		<None Include="Pages\Utility\WasmLoading.razor" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Syncfusion.Blazor.Core" Version="19.2.0.44" />
+		<PackageReference Include="Syncfusion.Blazor.Schedule" Version="19.2.0.44" />
+		<!--
+		&gt; PackageReference Include="Syncfusion.Blazor.Core" Version="19.2.0.48" &lt;
+		&gt; PackageReference Include="Syncfusion.Blazor.Schedule" Version="19.2.0.48" &lt;
 
-  <ItemGroup>
-    <PackageReference Include="Syncfusion.Blazor.Core" Version="19.2.0.44" />
-    <PackageReference Include="Syncfusion.Blazor.Schedule" Version="19.2.0.44" />
-    <PackageReference Include="Toolbelt.Blazor.LoadingBar" Version="12.1.0" />
-  </ItemGroup>
+-->
+		<PackageReference Include="Toolbelt.Blazor.LoadingBar" Version="12.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\SSDCPortal.Shared\SSDCPortal.Shared.csproj" />
-    <ProjectReference Include="..\MudBlazor.ThemeManager\MudBlazor.ThemeManager\MudBlazor.ThemeManager.csproj" />
-    <ProjectReference Include="..\MudBlazor\src\MudBlazor\MudBlazor.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\SSDCPortal.Shared\SSDCPortal.Shared.csproj" />
+		<ProjectReference Include="..\MudBlazor.ThemeManager\MudBlazor.ThemeManager\MudBlazor.ThemeManager.csproj" />
+		<ProjectReference Include="..\MudBlazor\src\MudBlazor\MudBlazor.csproj" />
+	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)Server\SSDCPortal.Server\Modules\" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)Server\SSDCPortal.Server\Modules\" />
+	</Target>
 </Project>

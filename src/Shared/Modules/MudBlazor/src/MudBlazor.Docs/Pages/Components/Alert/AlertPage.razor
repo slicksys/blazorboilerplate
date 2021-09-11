@@ -5,12 +5,14 @@
     <DocsPageContent>
         <DocsPageSection>
             <SectionHeader Title="Simple alerts">
-                <Description>There are five severity levels that each set a different icon and a color.</Description>
+                <Description>
+                    There are five severity levels that each set a different icon and a color.
+                </Description>
             </SectionHeader>
             <SectionContent Outlined="true" FullWidth="true">
                 <AlertSimpleExample />
             </SectionContent>
-            <SectionSource Code="AlertSimpleExample" GitHubFolderName="Alert"  />
+            <SectionSource Code="AlertSimpleExample" GitHubFolderName="Alert" />
         </DocsPageSection>
         <DocsPageSection>
             <SectionHeader Title="Variants">
@@ -22,14 +24,14 @@
             <SectionContent Outlined="true" FullWidth="true">
                 <AlertOutlinedExample />
             </SectionContent>
-            <SectionSource Code="AlertOutlinedExample" GitHubFolderName="Alert"  />
-            <SectionHeader>
+            <SectionSource Code="AlertOutlinedExample" GitHubFolderName="Alert" />
+            <SectionHeader Class="mt-12">
                 <SubTitle>Filled</SubTitle>
             </SectionHeader>
             <SectionContent Outlined="true" FullWidth="true">
                 <AlertFilledExample />
             </SectionContent>
-            <SectionSource Code="AlertFilledExample" GitHubFolderName="Alert"  />
+            <SectionSource Code="AlertFilledExample" GitHubFolderName="Alert" />
         </DocsPageSection>
         <DocsPageSection>
             <SectionHeader Title="Dense">
@@ -38,23 +40,23 @@
             <SectionContent Outlined="true" FullWidth="true">
                 <AlertDenseExample />
             </SectionContent>
-            <SectionSource Code="AlertDenseExample" ShowCode="false" GitHubFolderName="Alert"  />
+            <SectionSource Code="AlertDenseExample" ShowCode="false" GitHubFolderName="Alert" />
         </DocsPageSection>
         <DocsPageSection>
             <SectionHeader Title="No Icons">
                 <Description>You can disable the alert icons with the bool <CodeInline>NoIcon</CodeInline> set to true.</Description>
             </SectionHeader>
             <SectionContent Outlined="true" FullWidth="true">
-                <AlertNoIconExample/>
+                <AlertNoIconExample />
             </SectionContent>
-            <SectionSource Code="AlertNoIconExample" ShowCode="false" GitHubFolderName="Alert"  />
+            <SectionSource Code="AlertNoIconExample" ShowCode="false" GitHubFolderName="Alert" />
         </DocsPageSection>
         <DocsPageSection>
             <SectionHeader Title="Rounded and Square">
                 <Description>By default, the alert is set to rounded corners by your theme's default value. If you need a square Alert but don't want to change the theme, you can set the <CodeInline>Square</CodeInline> property to true.</Description>
             </SectionHeader>
             <SectionContent Outlined="true" FullWidth="true">
-                <AlertSquareExample/>
+                <AlertSquareExample />
             </SectionContent>
             <SectionSource Code="AlertSquareExample" ShowCode="false" GitHubFolderName="Alert" />
         </DocsPageSection>
@@ -65,7 +67,30 @@
             <SectionContent Outlined="true" FullWidth="true">
                 <AlertElevationExample />
             </SectionContent>
-            <SectionSource Code="AlertElevationExample" ShowCode="true" GitHubFolderName="Alert"  />
+            <SectionSource Code="AlertElevationExample" ShowCode="true" GitHubFolderName="Alert" />
+        </DocsPageSection>
+        <DocsPageSection>
+            <SectionHeader Title="Content Alignment">
+                <Description>
+                    Set the <CodeInline>ContentAlignment</CodeInline> property to define the content alignment.
+                </Description>
+            </SectionHeader>
+            <SectionContent Outlined="true" FullWidth="true">
+                <AlertAlignmentExample />
+            </SectionContent>
+            <SectionSource Code="AlertAlignmentExample" GitHubFolderName="Alert" />
+        </DocsPageSection>
+        <DocsPageSection>
+            <SectionHeader Title="Close Icon and Event">
+                <Description>
+                    Set the <CodeInline>ShowCloseIcon</CodeInline> property to <CodeInline>True</CodeInline> to display a Close icon.
+                    <CodeInline>CloseIconClicked</CodeInline> provides the EventCallback when clicking on the Close icon of the alert
+                </Description>
+            </SectionHeader>
+            <SectionContent Outlined="true" FullWidth="true">
+                <AlertCloseExample />
+            </SectionContent>
+            <SectionSource Code="AlertCloseExample" GitHubFolderName="Alert" />
         </DocsPageSection>
         <DocsPageSection>
             <SectionHeader Title="Snackbar Alerts">

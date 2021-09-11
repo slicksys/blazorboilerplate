@@ -17,14 +17,18 @@
     <Authorized>
         <ForumMessageCreateForm Send="Send" />
 
-        <MatList SingleSelection="true" TwoLine="true">
+        <MudList SingleSelection="true" TwoLine="true">
             @if (Messages == null || Messages.Count == 0)
             {
-                <MatListItem>
-                    <MatListItemText>
+                <MudListItem>
+
+                    
+
                         @L["Loading"]
-                    </MatListItemText>
-                </MatListItem>
+
+                    
+
+                </MudListItem>
             }
             else
             {
@@ -33,6 +37,6 @@
                     <ForumMessage Delete="Delete" Message="@message" />
                 }
             }
-        </MatList>
+        </MudList>
     </Authorized>
 </AuthorizeView>

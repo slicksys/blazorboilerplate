@@ -24,9 +24,6 @@ namespace SSDCPortal.Theme.Material.TagHelpers
                 <link href=""~/Site.css"" rel=""stylesheet"" />
                 <link href=""https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"" rel=""stylesheet"">
                 <link href=""https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"" rel=""stylesheet"" />
-                
-                <link href=""_content/MatBlazor/dist/matBlazor.css"" rel=""stylesheet"" />
-                
                 <link href=""_content/MudBlazor/MudBlazor.min.css?v=5.0.5"" rel=""stylesheet"" />
                 <link href=""_content/MudBlazor.ThemeManager/MudBlazorThemeManager.css"" rel=""stylesheet"" />
                 <link href=""_content/Syncfusion.Blazor.Themes/Material-dark.css"" rel=""stylesheet"" />");

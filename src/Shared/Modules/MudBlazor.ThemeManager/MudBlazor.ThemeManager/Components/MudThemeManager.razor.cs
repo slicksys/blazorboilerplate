@@ -8,13 +8,14 @@ namespace MudBlazor.ThemeManager
     {
         public static MudTheme _currentTheme { get; set; }
         public static MudTheme _customTheme { get; set; }
-        public static MudTheme _defaultTheme { get; set; } = new MudTheme();
 
         public string ThemePresets { get; set; } = "Not Implemented";
 
         [Parameter] public bool Open { get; set; }
         [Parameter] public EventCallback<bool> OpenChanged { get; set; }
         [Parameter] public ThemeManagerTheme Theme { get; set; }
+
+        [Parameter] public ColorPickerView ColorPickerView { get; set; } = ColorPickerView.Spectrum;
         [Parameter] public EventCallback<ThemeManagerTheme> ThemeChanged { get; set; }
 
         async Task UpdateOpenValue()
@@ -106,8 +107,7 @@ namespace MudBlazor.ThemeManager
 
             UpdateThemeChanged();
         }
-
-        void UpdatePalette(ThemeUpdatedValue value)
+        public async Task UpdatePalette(ThemeUpdatedValue value)
         {
             var newPalette = _customTheme.Palette;
 

@@ -21,6 +21,14 @@
     <meta name="description" content="Blazor Boilerplate & Starter Kit - A real world Example ">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./index.js"></script>
+    
+    
+
     @if (mainConfiguration.Value.Runtime == Shared.Dto.Db.BlazorRuntime.Server)
     {
         <title>SSDCPortal Scheduler (Server)</title>
@@ -38,11 +46,8 @@
         if (HttpContext.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName] == null)
             HttpContext.Response.Cookies.Append(
                CookieRequestCultureProvider.DefaultCookieName,
-               CookieRequestCultureProvider.MakeCookieValue(
-                 new RequestCulture(
-                     CultureInfo.CurrentCulture,
-                     CultureInfo.CurrentUICulture)),
-                 new Microsoft.AspNetCore.Http.CookieOptions() { Expires = DateTimeOffset.Now.AddDays(30) });
+               CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(CultureInfo.CurrentCulture, CultureInfo.CurrentUICulture)),
+                new Microsoft.AspNetCore.Http.CookieOptions() { Expires = DateTimeOffset.Now.AddDays(30) });
     }
 
     @if (mainConfiguration.Value.Runtime == Shared.Dto.Db.BlazorRuntime.Server)
@@ -78,9 +83,21 @@
     {
         <script src="_framework/blazor.webassembly.js"></script>
     }
+
     <!-- load remaining JS after blazor boot loads -->
-    <script src="js/interop.js"></script>
-    <!-- https://docs.microsoft.com/en-us/aspnet/core/blazor/progressive-web-app -->
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
+        <script src="js/interop.js"></script>
+        <!-- https://docs.microsoft.com/en-us/aspnet/core/blazor/progressive-web-app -->
+        <script>navigator.serviceWorker.register('service-worker.js');</script>
+
+        <script type="text/javascript" language="javascript">
+            window.addEventListener("load", (event) => {
+                var mapCon = document.getElementById("map_container");
+                var frm = mapCon.getElementsByTagName("iframe")[0];
+                if (frm != undefined)
+                    frm.style.height = "272px";
+            });
+        </script>
+
+
 </body>
 </html>

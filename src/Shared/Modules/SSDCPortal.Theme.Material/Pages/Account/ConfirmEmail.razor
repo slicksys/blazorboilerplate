@@ -1,4 +1,4 @@
-﻿@page "/account/confirmemail"
+@page "/account/confirmemail"
 @page "/account/confirmemail/{UserId}"
 @using SSDCPortal.Shared.Models.Account
 
@@ -28,7 +28,7 @@
                     <MudTextField @bind-Value="@confirmEmailViewModel.Token" Label="Token" Icon="lock_outline" IconTrailing="true" FullWidth="true" Required="true"></MudTextField>
                 </div>
                 <div class="form-group d-flex justify-content-end">
-                    <MatButton Type="submit" Raised="true" Disabled="@disableConfirmButton">@L["Send Confirmation"]</MatButton>
+                    <MudButton Type="submit" Raised="true" Disabled="@disableConfirmButton">@L["Send Confirmation"]</MudButton>
                 </div>
             </fieldset>
         </EditForm>

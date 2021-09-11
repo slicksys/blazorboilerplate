@@ -2,21 +2,18 @@
 @using Microsoft.AspNetCore.Components.Forms
 
 <EditForm Model="@messageDto" OnValidSubmit="@DeleteMessage">
-    <MatListItem>
-        <MatListItemText Class="@messageDto.CSS" Style="width: 100%;">
-            <MatListItemPrimaryText>
+    <MudListItem>
+        <MudText Class="@messageDto.CSS" Style="width: 100%;">
+            MudListItemPrimaryText
                 @messageDto.UserName
-            </MatListItemPrimaryText>
-            <MatListItemSecondaryText>
+            /MudListItemPrimaryText
+            MudListItemSecondaryText
                 @messageDto.Text
-            </MatListItemSecondaryText>
-        </MatListItemText>
-        <MatIconButton Icon="delete"
-                       Type="submit"
-                       Style="float: right;">
-        </MatIconButton>
-    </MatListItem>
-    <MatListDivider></MatListDivider>
+            /MudListItemSecondaryText
+        </MudText>
+        <MudIconButton Icon="delete"     Type="submit" Style="float: right;"></MudIconButton>
+    </MudListItem>
+    <MudDivider></MudDivider>
 </EditForm>
 
 @code

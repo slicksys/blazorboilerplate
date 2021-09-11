@@ -1,7 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager navigationManager
 @inject AppState appState
-@inject IStringLocalizer<Global> L
 @inject ISnackbar Snackbar
 @attribute [Authorize(Policies.IsAdmin)]
 
@@ -75,6 +74,7 @@
                 <MudToolBarSpacer />
 
                 <!-- A couple of links buttons -->
+                <MudButton Variant="Variant.Text" Link="/admin" Style="color:#ADD642;">Admin Layout</MudButton>
                 <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#594AE2;">SSDC</MudButton>
                 <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#424242;" Class="mr-3">Line Of Business Software</MudButton>
 

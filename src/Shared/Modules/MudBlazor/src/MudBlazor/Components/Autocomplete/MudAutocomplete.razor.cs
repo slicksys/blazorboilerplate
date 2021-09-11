@@ -26,10 +26,14 @@ namespace MudBlazor
         [Parameter] public string Label { get; set; }
 
         /// <summary>
+        /// User class names for the popover, separated by space
+        /// </summary>
+        [Parameter] public string PopoverClass { get; set; }
+
+        /// <summary>
         /// The short hint displayed in the input before the user enters a value.
         /// </summary>
         [Parameter] public string Placeholder { get; set; }
-
 
         /// <summary>
         /// Sets the direction the Autocomplete menu should open.
@@ -55,7 +59,7 @@ namespace MudBlazor
             get { return _dense; }
             set
             {
-                // Ensure that when dense is appplied we set the margin on the input controls
+                // Ensure that when dense is applied we set the margin on the input controls
                 _dense = value;
                 Margin = _dense ? Margin.Dense : Margin.None;
             }
@@ -181,6 +185,15 @@ namespace MudBlazor
         /// </summary>
         [Parameter] public bool SelectValueOnTab { get; set; } = false;
 
+        /// <summary>
+        /// Show clear button.
+        /// </summary>
+        [Parameter] public bool Clearable { get; set; } = false;
+
+        /// <summary>
+        /// Button click event for clear button. Called after text and value has been cleared.
+        /// </summary>
+        [Parameter] public EventCallback<MouseEventArgs> OnClearButtonClick { get; set; }
 
         private string _currentIcon;
 
@@ -197,10 +210,12 @@ namespace MudBlazor
             await SetValueAsync(value);
             if (_items != null)
                 _selectedListItemIndex = Array.IndexOf(_items, value);
-            await SetTextAsync(GetItemString(value), false);
+            var optionText = GetItemString(value);
+            await SetTextAsync(optionText, false);
             _timer?.Dispose();
             IsOpen = false;
             BeginValidate();
+            _elementReference?.SetText(optionText);
             StateHasChanged();
         }
 
@@ -212,7 +227,7 @@ namespace MudBlazor
             if (IsOpen)
             {
                 await _elementReference.SelectAsync();
-                OnSearch();
+                await OnSearchAsync();
             }
             else
             {
@@ -251,14 +266,18 @@ namespace MudBlazor
             if (ResetValueOnEmptyText && string.IsNullOrWhiteSpace(Text))
                 await SetValueAsync(default(T), updateText);
             if (DebounceInterval <= 0)
-                OnSearch();
+                await OnSearchAsync();
             else
                 _timer = new Timer(OnTimerComplete, null, DebounceInterval, Timeout.Infinite);
         }
 
-        private void OnTimerComplete(object stateInfo) => InvokeAsync(OnSearch);
+        private void OnTimerComplete(object stateInfo) => InvokeAsync(OnSearchAsync);
 
-        private async void OnSearch()
+        /// <remarks>
+        /// This async method needs to return a task and be awaited in order for
+        /// unit tests that trigger this method to work correctly.
+        /// </remarks>
+        private async Task OnSearchAsync()
         {
             if (MinCharacters > 0 && (string.IsNullOrWhiteSpace(Text) || Text.Length < MinCharacters))
             {
@@ -283,12 +302,23 @@ namespace MudBlazor
             if (_items?.Length == 0)
             {
                 await CoerceValueToText();
-                IsOpen = false;
                 StateHasChanged();
                 return;
             }
 
             IsOpen = true;
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// Clears the autocomplete's text
+        /// </summary>
+        public async Task Clear()
+        {
+            await SetTextAsync(string.Empty, updateValue: false);
+            await CoerceValueToText();
+            IsOpen = false;
+            _timer?.Dispose();
             StateHasChanged();
         }
 
@@ -407,31 +437,31 @@ namespace MudBlazor
             //base.OnBlurred(args);
         }
 
-        private async Task CoerceTextToValue()
+        private Task CoerceTextToValue()
         {
             if (CoerceText == false)
-                return;
+                return Task.CompletedTask;
             if (Value == null)
             {
                 _timer?.Dispose();
-                await SetTextAsync(null);
-                return;
+                return SetTextAsync(null);
             }
             var actualvalueStr = GetItemString(Value);
-            if (!object.Equals(actualvalueStr, Text))
+            if (!Equals(actualvalueStr, Text))
             {
                 _timer?.Dispose();
-                await SetTextAsync(actualvalueStr);
+                return SetTextAsync(actualvalueStr);
             }
+            return Task.CompletedTask;
         }
 
-        private async Task CoerceValueToText()
+        private Task CoerceValueToText()
         {
             if (CoerceValue == false)
-                return;
+                return Task.CompletedTask;
             _timer?.Dispose();
             var value = Converter.Get(Text);
-            await SetValueAsync(value, updateText: false);
+            return SetValueAsync(value, updateText: false);
         }
 
         protected override void Dispose(bool disposing)
