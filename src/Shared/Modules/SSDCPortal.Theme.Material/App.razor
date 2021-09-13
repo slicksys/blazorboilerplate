@@ -3,6 +3,7 @@
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)">
             <Authorizing>
                 <AuthorizingInProgress />
+                <h1>Authorizing</h1>
             </Authorizing>
             <NotAuthorized>
                 @if (!context.User.Identity.IsAuthenticated)

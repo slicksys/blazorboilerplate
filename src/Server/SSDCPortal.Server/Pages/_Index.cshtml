@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @namespace SSDCPortal.Server.Pages
 @using SSDCPortal.Infrastructure.Server
 @using SSDCPortal.Shared.Models
@@ -21,14 +21,12 @@
     <meta name="description" content="Blazor Boilerplate & Starter Kit - A real world Example ">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
-
-
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src="./index.js"></script>
     
     
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"" rel=""stylesheet"" />
+    <link href="./MudBlazor.min.css" rel="stylesheet"/>
+    <link href="./MudBlazorThemeManager.css" rel="stylesheet"/>
+    
     @if (mainConfiguration.Value.Runtime == Shared.Dto.Db.BlazorRuntime.Server)
     {
         <title>SSDCPortal Scheduler (Server)</title>
@@ -83,20 +81,23 @@
     {
         <script src="_framework/blazor.webassembly.js"></script>
     }
+    
+    <script src="./MudBlazor.min.js"></script>
+
 
     <!-- load remaining JS after blazor boot loads -->
         <script src="js/interop.js"></script>
         <!-- https://docs.microsoft.com/en-us/aspnet/core/blazor/progressive-web-app -->
         <script>navigator.serviceWorker.register('service-worker.js');</script>
 
-        <script type="text/javascript" language="javascript">
+        @*<script type="text/javascript" language="javascript">
             window.addEventListener("load", (event) => {
                 var mapCon = document.getElementById("map_container");
                 var frm = mapCon.getElementsByTagName("iframe")[0];
                 if (frm != undefined)
                     frm.style.height = "272px";
             });
-        </script>
+        </script>*@
 
 
 </body>

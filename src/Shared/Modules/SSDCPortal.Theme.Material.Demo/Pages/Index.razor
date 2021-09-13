@@ -3,43 +3,89 @@
 
 <h1><img src="_content/SSDCPortal.Theme.Material/images/logo-title.png" alt="Loading" title="SSDCPortal" style="max-width: 100%;" /></h1>
 
-<p>Welcome to the Slicksys Development Salon Scheduler.</p>
-<p>
-    <strong>SlickSys Development Corporation (SSDC)</strong> is growing salon management system.
-    Our goal is to be an <strong>enterprise level solution</strong> that will scale from an individual getting their business off to a start
-    to large scale multi-tenent corporate scenarios. Our solution uses Microsofts Blazor technology with .Net Core 5.0.
-    This is only the begining. Eventually the functionality will extend to a full service mature POS system, payment system along with a full
-    scale general accounting ledger, as well as a client loyalty and engagement platform.
-</p>
-<p>
-    In addition, we will are striving to make getting hairstyle and dog grooming gigs as easy as downloading an app and singing in. Earn extra money
-    with partime cliens, start a business, or improve your existing business with our solution.
-</p>
-<p>
-    <a href="https://slicksysdev.com/" target="_blank"> Project Developer </a>
-</p>
-<p>
-    <a href="/swagger/index.html" target="_blank"> Swagger API Documentation</a>
-</p>
-<p>
-    This project can run client side / Webassembly Blazor or Server Side Blazor. Just set the desidered runtime in admin section.
-    The ASP.NET Core app serves the Blazor app to clients.
-    The WebAssembly / client-side Blazor app can interact with the server over the network using web API calls.
-    I / Enkode is more interested in this hosted model the most to keep the load on the server low.
-    For more about pros and cons of Blazor Server vs Blazor WebAssembly read <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-3.1" target="_blank">ASP.NET Core Blazor hosting models</a>
-    or watch Daniel Roth on <a href="https://www.youtube.com/watch?v=XoizucRjxgU" target="_blank">BlazorDay 2020</a>.
-</p>
-<p>
-    The repo is moving along... it takes time to build as I am often contributing to <a href="https://github.com/SamProf/MatBlazor" target="_blank">MatBlazor</a> as well to obtain UI changes that are needed for the theme.
-    With more support each project can grow faster. Please contribute, or at minimum star the repositories on Github
-</p>
-<p>
-    <DonateButton /> - Help support this repo / code and hosting costs.
-    Other devs are charging $30 - $1500 to download their code with similar functionality.
-</p>
-<p>
-    <MudButton Link="https://github.com/enkodellc/blazorboilerplate"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;  Github Repository / Contribute</MudButton>- Contribute to this repo to help it grow!
-</p>
+
+
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+       
+        
+        <MudItem xs="12" sm="6">
+            <MudGrid>
+                <MudItem xs="12">
+                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 100%">
+                <h3>Welcome to the Slicksys Development Salon Scheduler.</h3>
+                <p>
+                    <strong>SlickSys Development Corporation (SSDC)</strong> is growing salon management system.
+                    Our goal is to be an <strong>enterprise level solution</strong> that will scale from an individual getting their business off to a start
+                    to large scale multi-tenent corporate scenarios. Our solution uses Microsofts Blazor technology with .Net Core 5.0.
+                    This is only the begining. Eventually the functionality will extend to a full service mature POS system, payment system along with a full
+                    scale general accounting ledger, as well as a client loyalty and engagement platform.
+                </p>
+                <p>
+                    In addition, we will are striving to make getting hairstyle and dog grooming gigs as easy as downloading an app and singing in. Earn extra money
+                    with partime cliens, start a business, or improve your existing business with our solution.
+                </p>
+                <p>
+                    <a href="https://slicksysdev.com/" target="_blank"> Project Developer </a>
+                </p>
+                <p>
+                    <a href="/swagger/index.html" target="_blank"> Swagger API Documentation</a>
+                </p>
+                <p>
+                    This project can run client side / Webassembly Blazor or Server Side Blazor. Just set the desidered runtime in admin section.
+                    The ASP.NET Core app serves the Blazor app to clients.
+                    The WebAssembly / client-side Blazor app can interact with the server over the network using web API calls.
+                    I / Enkode is more interested in this hosted model the most to keep the load on the server low.
+                    For more about pros and cons of Blazor Server vs Blazor WebAssembly read <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/hosting-models?view=aspnetcore-3.1" target="_blank">ASP.NET Core Blazor hosting models</a>
+                    or watch Daniel Roth on <a href="https://www.youtube.com/watch?v=XoizucRjxgU" target="_blank">BlazorDay 2020</a>.
+                </p>
+                <p>
+                    The repo is moving along... it takes time to build as I am often contributing to <a href="https://github.com/SamProf/MatBlazor" target="_blank">MatBlazor</a> as well to obtain UI changes that are needed for the theme.
+                    With more support each project can grow faster. Please contribute, or at minimum star the repositories on Github
+                </p>
+                <p>
+                    <DonateButton /> - Help support this repo / code and hosting costs.
+                    Other devs are charging $30 - $1500 to download their code with similar functionality.
+                </p>
+                <p>
+                    <MudButton Link="https://github.com/enkodellc/blazorboilerplate"><i class="fa fa-github" aria-hidden="true"></i>&nbsp;  Github Repository / Contribute</MudButton>- Contribute to this repo to help it grow!
+                </p>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="12" md="4">
+            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
+
+
+
 <hr />
 <h2>Blazor Boilerplate Highlights:</h2>
 <p>
