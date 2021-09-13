@@ -53,8 +53,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\..\MudBlazor\src\MudBlazor\MudBlazor.csproj" />
 		<ProjectReference Include="..\..\SSDCPortal.Shared\SSDCPortal.Shared.csproj" />
-		<ProjectReference Include="..\MudBlazor\src\MudBlazor\MudBlazor.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="MudBlazor.ThemeManager">
+	    <HintPath>..\..\..\..\..\MudThemeManager\MudBlazor.ThemeManager\bin\Debug\net5.0\MudBlazor.ThemeManager.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

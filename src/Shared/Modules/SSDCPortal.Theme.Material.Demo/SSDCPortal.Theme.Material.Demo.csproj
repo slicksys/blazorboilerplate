@@ -24,6 +24,12 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MudBlazor.ThemeManager">
+      <HintPath>..\..\..\..\..\MudThemeManager\MudBlazor.ThemeManager\bin\Debug\net5.0\MudBlazor.ThemeManager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)Server\SSDCPortal.Server\Modules\" />
   </Target>
