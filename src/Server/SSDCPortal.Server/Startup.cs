@@ -51,6 +51,7 @@ using NSwag.AspNetCore;
 using NSwag.Generation.Processors.Security;
 using Serilog;
 using System;
+using MudBlazor.Services;
 
 using System.Collections.Generic;
 using System.IO;
@@ -84,7 +85,9 @@ namespace SSDCPortal.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-          
+            
+            services.AddMudServices();
+
             services.AddSingleton<ILocalizationProvider, StorageLocalizationProvider>();
             services.AddTextLocalization(options =>
             {

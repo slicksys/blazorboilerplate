@@ -28,6 +28,7 @@ namespace SSDCPortal.Theme.Material.Demo
 
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddMudServices();
             services.AddSyncfusionBlazor();
             Init(services);
         }

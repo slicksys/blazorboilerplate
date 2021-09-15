@@ -64,7 +64,8 @@ namespace SSDCPortal.Theme.Material
             //    config.MaximumOpacity = 95;
             //    config.VisibleStateDuration = 3000;
             //});
-
+            
+            services.AddMudServices();
             services.AddScoped<IViewNotifier, ViewNotifier>();
 
             var sp = services.BuildServiceProvider();
