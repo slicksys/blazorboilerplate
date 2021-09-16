@@ -23,6 +23,7 @@ namespace SSDCPortal.Theme.Material.TagHelpers
                 <link href=""https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"" rel=""stylesheet"" />
                 <link href=""_content/MudBlazor/MudBlazor.min.css"" rel=""stylesheet""/>
                 <link href=""_content/MudBlazor.ThemeManager/MudBlazorThemeManager.css"" rel=""stylesheet""/>
+                <link href=""./MudBlazorThemeManager.css"" rel=""stylesheet""/>
                 <link href=""https://cdn.quilljs.com/1.3.6/quill.snow.css"" rel=""stylesheet""/>
                 <link href=""https://cdn.quilljs.com/1.3.6/quill.bubble.css"" rel=""stylesheet""/>
                 <link href=""_content/Syncfusion.Blazor.Themes/Material-dark.css"" rel=""stylesheet"" />");
@@ -31,7 +32,7 @@ namespace SSDCPortal.Theme.Material.TagHelpers
             else if (string.Equals(context.TagName, "body", StringComparison.OrdinalIgnoreCase))
             {
                 output.PostContent.AppendHtml(@$"
-                <script src=""_content/MudBlazor/MudBlazor.min.js""></script>
+                <!-- script src=""_content/MudBlazor/MudBlazor.min.js""></script  -->
                 <script src=""https://cdn.quilljs.com/1.3.6/quill.js""></script>
                 <script src=""_content/Blazored.TextEditor/quill-blot-formatter.min.js""></script>
                 <script src=""_content/Blazored.TextEditor/Blazored-BlazorQuill.js""></script>");

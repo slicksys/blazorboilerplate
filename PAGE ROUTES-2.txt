@@ -1,0 +1,148 @@
+Boilerplate Project Locations:
+
+1. E:\Projects\myworkingdir\Server\BlazorBoilerplate.Server\Factories
+2. E:\Projects\blazorboilerplate\src\Server\BlazorBoilerplate.Server\Factories
+3. D:\GitDevelopment\SSDCPortal\src\Server\SSDCPortal.Server\Factories\AopServicesFactory.cs
+4. D:\GitDevelopment\SSDCPortalpLate\src\Server\SSDCPortal.Server\Factories\AopServicesFactory.cs
+5. D:\Users\Christopher\Documents\SSDCPortalpLate\src\Server\SSDCPortal.Server\Factories\AopServicesFactory.cs
+
+Material Theme Stuff
+Real Rersume Data
+file:///D:/MaterialsTheme/MaterialsTheme-2.0.2/material-style-gulp/dist/home-cv.html#smooth-scroll-top
+
+Real Logo 
+C:\inetpub\Dnn.Platform-development\Build\Branded\CE\Website\Images\Branding
+
+Contains slicksys info
+file:///D:/MaterialsTheme/MaterialsTheme-2.0.2VS/material-style-gulp/dist/index.html 
+
+
+***************************************************************
+Demo Pages
+---------------------------------
+Demo\Pages>dir *.razor /s /b
+Demo\Pages\Appointments.razor
+Demo\Pages\Dashboard.razor
+Demo\Pages\DragNDrop.razor
+Demo\Pages\Faq.razor
+Demo\Pages\Index.razor
+Demo\Pages\KennelScheduler.razor
+Demo\Pages\Scheduler.razor
+Demo\Pages\TestEmail.razor
+Demo\Pages\TestEmailView.razor
+Demo\Pages\TodoList.razor
+Demo\Pages\_Imports.razor
+Demo\Pages\Forum\Forum.razor
+Demo\Pages\Forum\ForumMessage.razor
+Demo\Pages\Forum\ForumMessageCreateForm.razor
+
+***************************************************************
+Admin Pages
+---------------------------------
+Admin\Pages\Admin
+Admin\Pages\Admin\ApiLogViewer.razor
+Admin\Pages\Admin\ApiResources.razor
+Admin\Pages\Admin\Clients.razor
+Admin\Pages\Admin\DbLogViewer.razor
+Admin\Pages\Admin\IdentityResources.razor
+Admin\Pages\Admin\Index.razor
+Admin\Pages\Admin\MultiTenancy.razor
+Admin\Pages\Admin\PluralizationRules.razor
+Admin\Pages\Admin\PluralizationRules.razor.cs
+Admin\Pages\Admin\Roles.razor
+Admin\Pages\Admin\Roles.razor.cs
+Admin\Pages\Admin\Settings
+Admin\Pages\Admin\Translations.razor
+Admin\Pages\Admin\Translations.razor.cs
+Admin\Pages\Admin\Users.razor
+Admin\Pages\Admin\Users.razor.cs
+---------------------------------
+Admin\Pages\Admin\Settings\Email.razor
+Admin\Pages\Admin\Settings\Index.razor
+Admin\Pages\Admin\Settings\SettingsBase.cs
+
+
+***************************************************************
+Root Pages
+---------------------------------
+Material\Pages\Account\ConfirmEmail.razor
+Material\Pages\Account\Forgot.razor
+Material\Pages\Account\Login.razor
+Material\Pages\Account\LoginWith2fa.razor
+Material\Pages\Account\MyAccount.razor
+Material\Pages\Account\Profile.razor
+Material\Pages\Account\Register.razor
+Material\Pages\Account\ResetPassword.razor
+---------------------------------
+Material\Pages\ExternalAuth\Confirm.razor
+Material\Pages\ExternalAuth\Error.razor
+Material\Pages\ExternalAuth\Success.razor
+---------------------------------
+Material\Pages\IdentityServer\Error.razor
+---------------------------------
+Material\Pages\Utility\Faq.razor
+Material\Pages\Utility\WasmLoading.razor
+
+Components
+---------------------------------
+\Shared\Components
+AuthorizingInProgress.razor
+AutoFocus.razor
+Breadcrumbs.razor
+DrawerFooter.razor
+DynamicComponentContainer.razor
+Footer.razor
+LoadingBackground.razor
+Login.razor
+NavMenu.razor
+PageNotFound.razor
+RedirectToLogin.razor
+RefreshTimer.razor
+SelectCulture.razor
+TopRightBarSection.razor
+UserNotAuthorized.razor
+UserProfile.razor
+
+Shared\Layouts
+---------------------------------
+LoginLayout.razor
+MainLayout - Copy(2).razor
+MainLayout - Copy.razor
+MainLayout.razor
+
+***************************************************************
+MudBlazor Template
+------------------------------------
+Pages\Applications\Chat
+Chat.razor
+ChatChannels.razor
+ChatUsers.razor
+User.razor
+UserMessage.razor
+
+Pages\Applications\Email
+------------------------------------
+Email.razor
+EmailNavList.razor
+Inbox.razor
+
+Pages\Pages\Authentication
+------------------------------------
+Forgot.razor
+Login.razor
+Register.razor
+Reset.razor
+
+Pages\Pages\Utility
+------------------------------------
+Faq.razor
+WasmLoading.razor
+
+Pages\Personal
+------------------------------------
+Account.razor
+Dashboard.razor
+
+
+*************************************************************** 
+

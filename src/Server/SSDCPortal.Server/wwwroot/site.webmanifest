@@ -3,11 +3,11 @@
   "short_name": "SSDCPortal",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#A3F700",
-  "theme_color": "#0500FF",
+  "background_color": "Black",
+  "theme_color": "#E9FF00",
   "icons": [
     {
-      "src": "icon-512.png",
+      "src": "ssdclogo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

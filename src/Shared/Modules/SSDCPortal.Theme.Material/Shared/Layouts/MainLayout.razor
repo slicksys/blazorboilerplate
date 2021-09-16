@@ -1,18 +1,19 @@
 ﻿@inherits LayoutComponentBase
 @inject AppState appState
 
-<MudThemeProvider Theme="_themeManager.Theme" />
 
+<MudThemeProvider Theme="_themeManager.Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
+
     <MudAppBar Elevation="_themeManager.AppBarElevation">
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
-            <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Size="Size.Large" />
+            <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Size="Size.Large"/>
         </MudHidden>
         <MudHidden Breakpoint="Breakpoint.MdAndUp">
-            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())"/>
         </MudHidden>
         <MudHidden Breakpoint="Breakpoint.Xs">
             <MudText Typo="Typo.h6" Class="ml-4">Admin Dashboard</MudText>
@@ -20,17 +21,17 @@
         <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
             <MudText Typo="Typo.subtitle2">Admin Dashboard</MudText>
         </MudHidden>
-        <MudAppBarSpacer />
+        <MudAppBarSpacer/>
         <div class="px-2">
-            
+
             <MudTooltip Text="Toggle light/dark theme">
-                <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="@((e) => DarkMode())" />
+                <MudIconButton Icon="@Icons.Material.Filled.Brightness4" Color="Color.Inherit" OnClick="@((e) => DarkMode())"/>
             </MudTooltip>
-            
-            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/slicksys/MudBlazor/" Target="_blank" />
+
+            <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/slicksys/MudBlazor/" Target="_blank"/>
         </div>
 
-        <MudAppBarSpacer />
+        <MudAppBarSpacer/>
         <!--Select Language/Culture -->
         <SelectCulture></SelectCulture>
         <!--BreadCrumbs/Horiz Menu Items -->
@@ -42,30 +43,30 @@
         <!--  -->
         <MudMenu Direction="Direction.Left" OffsetX="true" Dense="true" Class="mt-1 ml-4">
             <ActivatorContent>
-                <MudAvatar Image="images/ssdc.png" />
+                <MudAvatar Image="images/ssdc.png"/>
             </ActivatorContent>
             <ChildContent>
-                <PersonCard Class="mt-n2" />
-                <MudDivider Class="mb-2" />
-                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" Href="/account/myaccount" />
-                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/server/logout" />
+                <PersonCard Class="mt-n2"/>
+                <MudDivider Class="mb-2"/>
+                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" Href="/account/myaccount"/>
+                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/server/logout"/>
             </ChildContent>
         </MudMenu>
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="_themeManager.DrawerElevation" ClipMode="_themeManager.DrawerClipMode">
-        <NavMenu />
+        <NavMenu/>
     </MudDrawer>
     <MudMainContent>
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
             <MudToolBar DisableGutters="false">
-                <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3"/>
                 <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
-                <MudToolBarSpacer />
+                <MudToolBarSpacer/>
 
 
-                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#594AE2;">Main Layout</MudButton>
-                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#594AE2;">SSDC</MudButton>
-                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color:#424242;" Class="mr-3">Line Of Business Software</MudButton>
+                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color: #594AE2;">Main Layout</MudButton>
+                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color: #594AE2;">SSDC</MudButton>
+                <MudButton Variant="Variant.Text" Link="https://slicksysdev.com/" Style="color: #424242;" Class="mr-3">Line Of Business Software</MudButton>
             </MudToolBar>
         </MudHidden>
         <MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
@@ -73,13 +74,14 @@
             @Body
         </MudContainer>
     </MudMainContent>
+
+    <MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))"/>
+    <MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme"/>
+
 </MudLayout>
 
-<MudThemeManagerButton OnClick="@((e) => OpenThemeManager(true))" />
-<MudThemeManager Open="_themeManagerOpen" OpenChanged="OpenThemeManager" Theme="_themeManager" ThemeChanged="UpdateTheme" />
-
-
 @code {
+
     bool _navMenuOpened = true;
     bool _navMinified = false;
     public string bbDrawerClass = string.Empty;
