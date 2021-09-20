@@ -31,22 +31,11 @@ namespace SSDCPortal.Theme.Material
 
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddLoadingBar();
             services.AddTransient<ITagHelperComponent, ThemeTagHelperComponent>();
             services.AddTransient<ITagHelperComponent, AppTagHelperComponent>();
-
-           // services.AddMatToaster(config =>
-           // {
-           //     config.Position = MatToastPosition.BottomRight;
-           //     config.PreventDuplicates = true;
-           //     config.NewestOnTop = true;
-           //     config.ShowCloseButton = true;
-           //     config.MaximumOpacity = 95;
-           //     config.VisibleStateDuration = 3000;
-           // });
-            
-            services.AddMudServices();
-            //   services.AddSyncfusionBlazor();
+            services.AddMudServices(); 
+          //services.AddSyncfusionBlazor();
             services.AddScoped<IViewNotifier, ViewNotifier>();
 
 
@@ -55,21 +44,9 @@ namespace SSDCPortal.Theme.Material
         public void ConfigureWebAssemblyServices(IServiceCollection services)
         {
             services.AddLoadingBar();
-            //services.AddMatToaster(config =>
-            //{
-            //    config.Position = MatToastPosition.BottomRight;
-            //    config.PreventDuplicates = true;
-            //    config.NewestOnTop = true;
-            //    config.ShowCloseButton = true;
-            //    config.MaximumOpacity = 95;
-            //    config.VisibleStateDuration = 3000;
-            //});
-            
             services.AddMudServices();
             services.AddScoped<IViewNotifier, ViewNotifier>();
-
             var sp = services.BuildServiceProvider();
-            
             sp.GetRequiredService<HttpClient>().EnableIntercept(sp);
         }
 

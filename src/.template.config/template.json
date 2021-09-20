@@ -1,13 +1,13 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "Keith Fimreite",
-  "classifications": [ "Web", "Blazor", "WebAssembly", "WebApi", "IdentityServer4" ], 
-  "name": "Blazor Boilerplate & Starter Kit",
+  "author": "Christopher Lane",
+  "classifications": [ "WebApi", "Blazor", "IdentityServer4", "WebAssembly","Web"], 
+  "name": "SSDCPortal",
   "defaultName": "SSDCPortal",
-  "description": "Blazor Boilerplate SPA Admin Template for Blazor Server and Client",
+  "description": "SSDCPortal is a LOB solution for service oriented companies.",
   "identity": "SSDCPortal.CSharp",
   "groupIdentity": "SSDCPortal",
-  "shortName": "blazorboilerplate",
+  "shortName": "ssdcportal",
   "tags": {
     "language": "C#",
     "type":"project"

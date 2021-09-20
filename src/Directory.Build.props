@@ -1,13 +1,13 @@
 <Project>
  <PropertyGroup>
     <Version>2.1.0</Version>
-    <Authors>Keith Fimreite, Giovanni Quarella</Authors>
-    <Company>EnkodeLLC</Company>
-    <Description>Blazor Boilerplate is starter kit / SPA Admin Template for Blazor</Description>
-    <WebPage>https://blazorboilerplate.com/</WebPage>
-    <PackageProjectUrl>https://blazorboilerplate.com/</PackageProjectUrl>
+    <Authors>SSDC Engineers and Programmers</Authors>
+    <Company>SlickSys Development Corp.</Company>
+    <Description>SSDCPortal is a Web/SPA based line of business solution for service oriented companies.</Description>
+    <WebPage>https://slicksysdev.com/</WebPage>
+    <PackageProjectUrl>https://slicksys.com/</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/enkodellc/blazorboilerplate</RepositoryUrl>
+    <RepositoryUrl>https://github.com/slicksys/ssdcportal</RepositoryUrl>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
  </PropertyGroup>
 </Project>

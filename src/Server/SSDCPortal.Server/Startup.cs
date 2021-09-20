@@ -678,7 +678,7 @@ namespace SSDCPortal.Server
                 endpoints.MapControllers();
 
                 endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Index");
+                endpoints.MapFallbackToPage("/_Host");
 
                 // new SignalR endpoint routing setup
                 endpoints.MapHub<Hubs.ChatHub>("/chathub");

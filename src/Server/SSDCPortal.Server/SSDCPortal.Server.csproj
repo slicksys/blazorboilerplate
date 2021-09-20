@@ -8,6 +8,13 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerComposeProjectPath>$(SolutionDir)/Utils/Docker/docker-compose.dcproj</DockerComposeProjectPath>
 		<UserSecretsId>dccf98cd-91ea-4e92-b852-ad056fc2b6bf</UserSecretsId>
+		<!--<PackageProjectUrl>https://slicksysdev.com/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/slicksys/SSDCPortal</RepositoryUrl>
+		<Description>Business Managment and Scheduling Solution</Description>
+		<Company>Slicksys Development Corp.</Company>
+		<Authors>C. Lane</Authors>
+		<Version>1.0.0</Version>
+		<OutputType>Exe</OutputType>-->
 	</PropertyGroup>
 
 	<ItemGroup>

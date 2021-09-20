@@ -20,20 +20,28 @@
       },
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
     },
-    "SSDCPortal.Server": {
-      "commandName": "IISExpress",
+    "DefaultBlazor.Server": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:53416/",
-      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
+      }
     },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "httpPort": 53415
+      // "DefaultBlazor.Server": {
+      //  "commandName": "Project",
+      //  "dotnetRunMessages": "true",
+      //  "launchBrowser": true,
+      //  "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      //  "environmentVariables": {
+      //    "ASPNETCORE_ENVIRONMENT": "Development"
+      //  },
+      "Docker": {
+        "commandName": "Docker",
+        "launchBrowser": true,
+        "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+        "httpPort": 53415
+      }
     }
   }
-}

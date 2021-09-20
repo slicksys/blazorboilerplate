@@ -37,6 +37,7 @@ namespace SSDCPortal.Server
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
             {
+                webBuilder.UseStaticWebAssets();
                 webBuilder.UseConfiguration(new ConfigurationBuilder()
                     .AddCommandLine(args)
                     .Build());
