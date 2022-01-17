@@ -1,9 +1,10 @@
-﻿using SourceGenerators;
+﻿using BlazorBoilerplate.Shared.Interfaces;
+using SourceGenerators;
 using System;
 
 namespace BlazorBoilerplate.Shared.Models
 {
-    public partial class ToDoFilter : QueryParameters
+    public partial class ToDoFilter : QueryParameters, IDateTimeFilter
     {
         [AutoNotify]
         private DateTime? _from;
@@ -19,5 +20,8 @@ namespace BlazorBoilerplate.Shared.Models
 
         [AutoNotify]
         private bool? _isCompleted;
+
+        [AutoNotify]
+        private string _query;
     }
 }

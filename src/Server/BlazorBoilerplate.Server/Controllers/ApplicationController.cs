@@ -5,15 +5,11 @@ using BlazorBoilerplate.Storage;
 using Breeze.AspNetCore;
 using Breeze.Persistence;
 using Breeze.Persistence.EFCore;
-using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlazorBoilerplate.Server.Controllers
 {
@@ -23,7 +19,7 @@ namespace BlazorBoilerplate.Server.Controllers
     public class ApplicationController : Controller
     {
         private const string AuthSchemes =
-            "Identity.Application" + "," + IdentityServerAuthenticationDefaults.AuthenticationScheme; //Cookie + Token authentication
+            "Identity.Application" + "," + JwtBearerDefaults.AuthenticationScheme; //Cookie + Token authentication
 
         private readonly ApplicationPersistenceManager persistenceManager;
         public ApplicationController(ApplicationPersistenceManager persistenceManager)
@@ -76,7 +72,8 @@ namespace BlazorBoilerplate.Server.Controllers
                 (filter.From == null || i.CreatedOn >= filter.From) && (filter.To == null || i.CreatedOn <= filter.To) &&
                 (filter.CreatedById == null || i.CreatedById == filter.CreatedById) &&
                 (filter.ModifiedById == null || i.ModifiedById == filter.ModifiedById) &&
-                (filter.IsCompleted == null || i.IsCompleted == filter.IsCompleted))
+                (filter.IsCompleted == null || i.IsCompleted == filter.IsCompleted) &&
+                (filter.Query == null || i.Title.ToLower().Contains(filter.Query.ToLower())))
                 .OrderByDescending(i => i.CreatedOn);
         }
 

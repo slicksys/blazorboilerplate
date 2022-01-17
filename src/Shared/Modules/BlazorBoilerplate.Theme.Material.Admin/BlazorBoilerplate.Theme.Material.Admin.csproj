@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazored.TextEditor" Version="1.0.3" />
+    <PackageReference Include="Blazored.TextEditor" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +15,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)Server\BlazorBoilerplate.Server\Modules\" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)Server\BlazorBoilerplate.Server\Themes\MatBlazor\" />
   </Target>
 </Project>
